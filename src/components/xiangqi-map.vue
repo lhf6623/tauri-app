@@ -62,11 +62,11 @@ console.log(`🚀 ~ x`, x);
     }
 
     &::after {
-      @include pseudo(100%, 1px);
+      @include pseudo(100%, 2px);
       background-color: black;
     }
     &::before {
-      @include pseudo(1px, 100%);
+      @include pseudo(2px, 100%);
       background-color: black;
     }
 
@@ -76,10 +76,10 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::after {
           right: 0;
-          width: calc(50% + 1px);
+          width: calc(50% + 2px);
         }
         &::before {
-          width: 3px;
+          width: 4px;
         }
       }
     }
@@ -88,11 +88,11 @@ console.log(`🚀 ~ x`, x);
     @each $key in $w_right {
       &:nth-child(#{$key}) {
         &::after {
-          left: 0;
+          left: 0px;
           width: calc(50% + 2px);
         }
         &::before {
-          width: 3px;
+          width: 4px;
         }
       }
     }
@@ -102,11 +102,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::before {
           bottom: 0;
-          height: 50%;
+          height: calc(50% + 2px);
         }
         &::after {
-          top: calc(50% - 2px);
-          height: 3px;
+          height: 4px;
+          top: calc(50% - 3px);
         }
       }
     }
@@ -119,8 +119,8 @@ console.log(`🚀 ~ x`, x);
           height: calc(50% + 2px);
         }
         &::after {
-          bottom: calc(50% - 2px);
-          height: 3px;
+          height: 4px;
+          top: 50%;
         }
       }
     }
@@ -149,11 +149,12 @@ console.log(`🚀 ~ x`, x);
       display: inline;
       position: absolute;
       background-color: black;
-      height: 1px;
-      width: 57px;
+      height: 2px;
+      width: 56.5px;
       left: 12px;
-      bottom: -0.5px;
+      bottom: -1px;
       transform: rotate(#{$rotate});
+      border-radius: 5px;
     }
     /* 斜线 \ */
     $slash: 4, 14, 67, 77;
@@ -180,8 +181,8 @@ console.log(`🚀 ~ x`, x);
     }
     @mixin lattice-line-pseudo($position1, $position2) {
       @include pseudo(7px, 7px);
-      border-#{$position1}: 1px solid black;
-      border-#{$position2}: 1px solid black;
+      border-#{$position1}: 2px solid black;
+      border-#{$position2}: 2px solid black;
       #{$position1}: 3px;
       #{$position2}: 3px;
     }
