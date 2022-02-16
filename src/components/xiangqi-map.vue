@@ -8,12 +8,12 @@
           <!-- 斜线 -->
           <i class="lattice-line"></i>
           <!-- 棋子 -->
-          <XiangqiPiece v-if="i % 2" />
+          <XiangqiPiece v-if="i % 2" :data="{ text: '象', type: 'isRed' }" />
         </li>
       </ul>
       <NumberList :list="numbers_cn" />
     </div>
-    <RecordList v-if="false" />
+    <RecordList />
   </div>
 </template>
 <!-- 棋盘：格子40×40mm，（所有线）线粗1mm，
@@ -128,7 +128,7 @@ $lineColor: grey;
       &:nth-child(#{$key}) {
         &::before {
           top: 0;
-          height: calc(50% + 1px);
+          height: calc(50% + 2px);
         }
         &::after {
           height: 2px;
