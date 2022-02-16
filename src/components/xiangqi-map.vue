@@ -76,10 +76,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::after {
           right: 0;
-          width: calc(50% + 2px);
+          width: calc(50% + 3px);
         }
         &::before {
           width: 4px;
+          right: calc(50% - 1px);
         }
       }
     }
@@ -89,10 +90,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::after {
           left: 0px;
-          width: calc(50% + 2px);
+          width: calc(50% + 3px);
         }
         &::before {
           width: 4px;
+          left: calc(50% - 1px);
         }
       }
     }
@@ -106,7 +108,7 @@ console.log(`🚀 ~ x`, x);
         }
         &::after {
           height: 4px;
-          top: calc(50% - 3px);
+          bottom: calc(50% - 1px);
         }
       }
     }
@@ -120,7 +122,7 @@ console.log(`🚀 ~ x`, x);
         }
         &::after {
           height: 4px;
-          top: 50%;
+          top: calc(50% - 1px);
         }
       }
     }
