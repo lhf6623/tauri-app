@@ -1,13 +1,19 @@
 <template>
   <div class="xiangqi-box">
-    <!-- 10 * 9 -->
-    <div class="checkerboard">
-      <div v-for="i in 90" class="lattice">
-        {{ "&nbsp;" || i }}
-        <!-- 斜线 -->
-        <div class="lattice-line"></div>
-      </div>
+    <div class="main-box">
+      <NumberList :list="numbers" />
+      <ul class="checkerboard">
+        <li v-for="i in 90" class="lattice">
+          {{ "&nbsp;" || i }}
+          <!-- 斜线 -->
+          <i class="lattice-line"></i>
+          <!-- 棋子 -->
+          <XiangqiPiece v-if="i % 2" />
+        </li>
+      </ul>
+      <NumberList :list="numbers_cn" />
     </div>
+    <RecordList v-if="false" />
   </div>
 </template>
 <!-- 棋盘：格子40×40mm，（所有线）线粗1mm，
@@ -16,27 +22,33 @@
 长：410至430mm，宽：370至390mm。 -->
 
 <script setup lang="ts">
-import dayjs from "dayjs";
-import { ref } from "vue";
-console.log(dayjs().format("YYYY-MM-DD"));
-
-// let x = (40 * 8) + (1 * 7) + (3* 2)
-let x = 40 * 8 + 1 * 7 + 3 * 2;
-console.log(`🚀 ~ x`, x);
+import NumberList from "./number-list.vue";
+import RecordList from "./record-list.vue";
+import XiangqiPiece from "./xiangqi-piece.vue";
+import { numbers, numbers_cn } from "./data";
 </script>
 
 <style lang="scss" scoped>
+$lineColor: grey;
 .xiangqi-box {
   position: relative;
-  height: 430px;
-  width: 390px;
+  height: 474px;
+  /* 390 + 170 */
+  width: 564px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
   cursor: pointer;
   user-select: none;
   background-color: aquamarine;
+}
+
+.main-box {
+  height: 442px;
+  width: 362px;
+  border: 1px solid $lineColor;
 }
 
 .checkerboard {
@@ -49,8 +61,6 @@ console.log(`🚀 ~ x`, x);
     width: 40px;
     height: 40px;
     display: inline-flex;
-    text-align: center;
-    line-height: 42px;
     align-items: center;
     justify-content: center;
 
@@ -62,12 +72,12 @@ console.log(`🚀 ~ x`, x);
     }
 
     &::after {
-      @include pseudo(100%, 2px);
-      background-color: black;
+      @include pseudo(100%, 1px);
+      background-color: $lineColor;
     }
     &::before {
-      @include pseudo(2px, 100%);
-      background-color: black;
+      @include pseudo(1px, 100%);
+      background-color: $lineColor;
     }
 
     /* 横 左 */
@@ -76,11 +86,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::after {
           right: 0;
-          width: calc(50% + 3px);
+          width: calc(50% + 1px);
         }
         &::before {
-          width: 4px;
-          right: calc(50% - 1px);
+          width: 2px;
+          right: calc(50% - 0px);
         }
       }
     }
@@ -90,11 +100,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::after {
           left: 0px;
-          width: calc(50% + 3px);
+          width: calc(50% + 1px);
         }
         &::before {
-          width: 4px;
-          left: calc(50% - 1px);
+          width: 2px;
+          left: calc(50% - 0px);
         }
       }
     }
@@ -104,10 +114,10 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::before {
           bottom: 0;
-          height: calc(50% + 2px);
+          height: calc(50% + 1px);
         }
         &::after {
-          height: 4px;
+          height: 2px;
           bottom: calc(50% - 1px);
         }
       }
@@ -118,11 +128,11 @@ console.log(`🚀 ~ x`, x);
       &:nth-child(#{$key}) {
         &::before {
           top: 0;
-          height: calc(50% + 2px);
+          height: calc(50% + 1px);
         }
         &::after {
-          height: 4px;
-          top: calc(50% - 1px);
+          height: 2px;
+          top: calc(50% - 0px);
         }
       }
     }
@@ -150,8 +160,8 @@ console.log(`🚀 ~ x`, x);
     @mixin lattice-line-rotate($rotate) {
       display: inline;
       position: absolute;
-      background-color: black;
-      height: 2px;
+      background-color: $lineColor;
+      height: 1px;
       width: 56.5px;
       left: 12px;
       bottom: -1px;
@@ -183,8 +193,8 @@ console.log(`🚀 ~ x`, x);
     }
     @mixin lattice-line-pseudo($position1, $position2) {
       @include pseudo(7px, 7px);
-      border-#{$position1}: 2px solid black;
-      border-#{$position2}: 2px solid black;
+      border-#{$position1}: 1px solid $lineColor;
+      border-#{$position2}: 1px solid $lineColor;
       #{$position1}: 3px;
       #{$position2}: 3px;
     }

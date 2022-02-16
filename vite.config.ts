@@ -13,7 +13,7 @@ export default defineConfig({
 
   resolve: {
     alias: [
-      // /@/xxxx => src/xxxx
+      // @/xxxx => src/xxxx
       {
         find: /@\//,
         replacement: pathResolve("src") + "/",
