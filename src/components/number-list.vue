@@ -1,14 +1,18 @@
 <template>
-  <ul class="number-list">
-    <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+  <ul class="number-list" :class="`${data.type}`">
+    <li v-for="(item, index) in data?.list" :key="index">{{ item }}</li>
   </ul>
 </template>
 
 <script setup lang="tsx">
+import { PropType } from "vue";
 const props = defineProps({
-  list: {
-    type: Array,
-    default: () => [],
+  data: {
+    type: Object as PropType<{
+      list: Array<string | number>;
+      type: "isRed" | "isBlack";
+    }>,
+    default: () => ({}),
   },
 });
 </script>
@@ -30,5 +34,11 @@ const props = defineProps({
     text-align: center;
     line-height: 20px;
   }
+}
+.isRed {
+  color: red;
+}
+.isBlack {
+  color: black;
 }
 </style>

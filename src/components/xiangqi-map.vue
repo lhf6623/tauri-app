@@ -1,17 +1,34 @@
 <template>
   <div class="xiangqi-box">
     <div class="main-box">
-      <NumberList :list="numbers" />
+      <NumberList
+        :data="{
+          list: numbers,
+          type: 'isBlack',
+        }"
+      />
       <ul class="checkerboard">
         <li v-for="i in 90" class="lattice">
           {{ "&nbsp;" || i }}
           <!-- 斜线 -->
           <i class="lattice-line"></i>
           <!-- 棋子 -->
-          <XiangqiPiece v-if="i % 2" :data="{ text: '象', type: 'isRed' }" />
+          <XiangqiPiece
+            v-if="i % 2"
+            :data="{
+              text: '帅',
+              type: i % 3 == 0 ? 'isRed' : 'isBlack',
+              index: i,
+            }"
+          />
         </li>
       </ul>
-      <NumberList :list="numbers_cn" />
+      <NumberList
+        :data="{
+          list: numbers_cn,
+          type: 'isRed',
+        }"
+      />
     </div>
     <RecordList />
   </div>

@@ -6,7 +6,11 @@
 import { PropType } from "vue";
 const props = defineProps({
   data: {
-    type: Object as PropType<{ text: string; type: "isRed" | "isBlack" }>,
+    type: Object as PropType<{
+      text: string;
+      type: "isRed" | "isBlack";
+      index: number;
+    }>,
     default: () => ({}),
   },
 });
@@ -16,14 +20,14 @@ const props = defineProps({
 .xiangqi-piece {
   position: absolute;
   z-index: 1;
-  height: 38px;
-  width: 38px;
+  height: 36px;
+  width: 36px;
   background-color: white;
   box-shadow: 0px 0px 2px 2px rgb(189, 187, 187);
   border-radius: 20px;
-  top: 1px;
-  left: 1px;
-  line-height: 38px;
+  top: 2px;
+  left: 2px;
+  line-height: 36px;
   text-align: center;
   font-size: 20px;
   font-weight: 700;
@@ -41,11 +45,17 @@ const props = defineProps({
   }
 }
 
-.isRed::after {
-  border: 1px solid red;
+.isRed {
+  color: red;
+  &::after {
+    border: 1px solid red;
+  }
 }
 
-.isBlack::after {
-  border: 1px solid black;
+.isBlack {
+  color: black;
+  &::after {
+    border: 1px solid black;
+  }
 }
 </style>
