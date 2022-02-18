@@ -1,0 +1,23 @@
+.number-list {
+  height: calc($h * 0.5);
+  width: calc($w * 9);
+  position: relative;
+  display: flex;
+  background-color: $mapColor;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "楷体", "楷体_GB2312";
+
+  li {
+    width: $w;
+    height: calc($h * 0.5);
+    text-align: center;
+    line-height: calc($h * 0.5);
+  }
+}
+.isRed {
+  color: $isRed;
+}
+.isBlack {
+  color: $isBlack;
+}

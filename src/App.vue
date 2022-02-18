@@ -2,5 +2,5 @@
   <XiangqiMap />
 </template>
 <script setup lang="ts">
-import XiangqiMap from "@/components/xiangqi-map.vue";
+import XiangqiMap from "@/components/Xiangqi/index.vue";
 </script>

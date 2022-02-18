@@ -1,0 +1,78 @@
+.xiangqi-piece {
+  position: absolute;
+  z-index: 10;
+  width: calc($w - 4px);
+  height: calc($h - 4px);
+  top: 2px;
+  left: 2px;
+  background-color: white;
+  box-shadow: 0px 0px 2px 2px rgb(189, 187, 187);
+  border-radius: $h;
+  line-height: calc($h - 4px);
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: SimSun;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 88%;
+    height: 88%;
+    top: 6%;
+    left: 6%;
+    border-radius: 50%;
+    z-index: 10;
+  }
+}
+@mixin circle($color) {
+  color: $color;
+  &::after {
+    border: 1px solid $color;
+  }
+}
+.isRed {
+  @include circle($isRed);
+}
+.isBlack {
+  @include circle($isBlack);
+}
+
+@mixin corner($position1, $position2) {
+  @include pseudo(7px, 7px);
+  #{$position1}: 0;
+  #{$position2}: 0;
+  border-#{$position1}: 1px solid black;
+  border-#{$position2}: 1px solid black;
+  animation: warn 900ms linear 2s infinite;
+}
+.active {
+  position: absolute;
+  z-index: 5;
+  width: $w;
+  height: $h;
+  top: 0;
+  left: 0;
+
+  & > li:nth-child(1) {
+    @include corner(top, left);
+  }
+  & > li:nth-child(2) {
+    @include corner(top, right);
+  }
+  & > li:nth-child(3) {
+    @include corner(bottom, left);
+  }
+  & > li:nth-child(4) {
+    @include corner(bottom, right);
+  }
+}
+@keyframes warn {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
