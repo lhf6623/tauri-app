@@ -28,12 +28,15 @@ onMounted(() => {
   });
 });
 
-const handleActive = (index: number, item: PieceType): void => {
+const handleActive = (index: number, item: PieceType | null): void => {
+  if (active.value !== null && item === null) {
+    let _piece = piece.value[active.value] as PieceType;
+    piece.value[index] = { ..._piece, index };
+    piece.value[active.value] = null;
+    active.value = null;
+  }
   if (item) {
     active.value = index;
-  }
-  if (active === null) {
-    piece.value[index] = null;
   }
 };
 </script>
