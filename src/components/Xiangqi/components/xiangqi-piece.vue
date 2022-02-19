@@ -17,12 +17,12 @@ import { PropType, computed } from "vue";
 import { isEmpty } from "lodash-es";
 const props = defineProps({
   data: {
-    type: Object as PropType<PieceType>,
+    type: Object as PropType<PieceType | null>,
     default: () => ({}),
   },
   active: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 const pieceIsEmpty = computed(() => {

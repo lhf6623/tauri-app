@@ -44,7 +44,7 @@
   #{$position2}: 0;
   border-#{$position1}: 1px solid black;
   border-#{$position2}: 1px solid black;
-  animation: warn 900ms linear 2s infinite;
+  animation: warn 900ms linear 0.4s infinite;
 }
 .active {
   position: absolute;
@@ -71,8 +71,10 @@
   0% {
     opacity: 1;
   }
-
-  100% {
+  30% {
     opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
