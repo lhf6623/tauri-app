@@ -15,6 +15,7 @@
   flex-direction: row;
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
   background-color: $mainColor;
 }
 .main-box {

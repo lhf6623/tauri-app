@@ -204,3 +204,24 @@ export const piece_init_list: PieceType[] = [
     type: "isRed",
   },
 ];
+
+const COL = 9;
+const ROW = 10;
+function indexToXY(index: number) {
+  return {
+    x: index % COL,
+    y: (index / COL) | 0,
+  };
+}
+export const run_rule: RunRule = {
+  /**
+   * 车走直线 自己一方的不能走，对方的只能吃一颗遇到的棋子
+   */
+  che: (map, piece) => {
+    let { index } = piece;
+    console.log(`🚀 ~ index`, index);
+    console.log(indexToXY(index));
+    /*  */
+    return [];
+  },
+};

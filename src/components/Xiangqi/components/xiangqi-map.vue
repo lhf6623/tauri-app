@@ -1,7 +1,7 @@
 <template>
   <ul class="checkerboard">
     <li
-      v-for="(item, index) in piece"
+      v-for="(item, index) in mapList"
       class="lattice"
       @click="handleActive(index, item)"
     >
@@ -16,27 +16,30 @@
 <script setup lang="tsx">
 import XiangqiPiece from "./xiangqi-piece.vue";
 import { ref, onMounted } from "vue";
-import { piece_init_list } from "../data";
+import { piece_init_list, run_rule } from "../data";
 
 const active = ref<number | null>(null);
-const piece = ref<Array<PieceType | null>>(Array(90).fill(null));
+const mapList = ref<Array<PieceType | null>>(Array(90).fill(null));
 
 onMounted(() => {
   piece_init_list.forEach((item) => {
     let { index } = item;
-    piece.value[index] = { ...item };
+    mapList.value[index] = { ...item };
   });
 });
 
 const handleActive = (index: number, item: PieceType | null): void => {
   if (active.value !== null && item === null) {
-    let _piece = piece.value[active.value] as PieceType;
-    piece.value[index] = { ..._piece, index };
-    piece.value[active.value] = null;
+    let _piece = mapList.value[active.value] as PieceType;
+    mapList.value[index] = { ..._piece, index };
+    mapList.value[active.value] = null;
     active.value = null;
   }
-  if (item) {
+  if (!!item) {
     active.value = index;
+    let { code, type } = item;
+    let run_lattice = run_rule[code]?.(mapList.value, item);
+    console.log(`🚀 ~ run_lattice`, run_lattice);
   }
 };
 </script>
