@@ -5,21 +5,37 @@
 长：410至430mm，宽：370至390mm。 */
 .xiangqi-box {
   position: relative;
-  /* 394 + 170 */
-  width: calc($w * 9 + 4px + 30px + 170px);
-  height: calc($h * 11 + 4px + 30px);
-  overflow: hidden;
+  width: calc($w * 9 + 6px + 106px + 10px);
+  height: calc($h * 11 + 4px + 22px + 10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   background-color: $mainColor;
+  font-family: 宋体, 新宋体, "MS Song", SimSun, NSimSun;
 }
-.main-box {
+footer {
+  width: calc(100% - 10px);
+  height: 22px;
+  margin-top: 2px;
+}
+section {
+  display: flex;
+  flex-direction: row;
+  width: calc($w * 9 + 6px + 106px);
+  justify-content: space-between;
+}
+
+.map-box {
+  border: 1px solid $lineColor;
   width: calc($w * 9 + 2px);
   height: calc($h * 11 + 2px);
+}
+.records-box {
   border: 1px solid $lineColor;
+  width: 108px;
+  height: calc($h * 11 + 2px);
 }

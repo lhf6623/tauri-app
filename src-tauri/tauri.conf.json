@@ -55,8 +55,8 @@
     "windows": [
       {
         "title": "中国象棋",
-        "width": 564,
-        "height": 474,
+        "width": 482,
+        "height": 476,
         "resizable": false,
         "fullscreen": false
       }
