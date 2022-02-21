@@ -1,8 +1,8 @@
 $mainColor: #9cf;
 $mapColor: #eed3b3;
 $lineColor: grey;
-$w: 40px;
-$h: 40px;
+$w: 25px;
+$h: 25px;
 $isRed: red;
 $isBlack: black;
 
@@ -52,8 +52,8 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
   position: absolute;
   background-color: $lineColor;
   height: 1px;
-  width: 56.5px;
-  left: 12px;
+  width: calc($h * 1.4);
+  left: calc($w * 0.3);
   bottom: -1px;
   transform: rotate(#{$rotate});
   border-radius: 5px;

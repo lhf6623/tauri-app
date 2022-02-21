@@ -17,12 +17,12 @@ footer {
 }
 input {
   height: 100%;
-  box-sizing: border-box;
-  border: 1px solid $lineColor;
+  line-height: 18px;
   background-color: white;
   padding: 0 6px;
   border-radius: 2px;
   font-size: 12px;
-  margin-right: 1px;
+  margin-right: 2px;
+  box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.2);
 }
 </style>
