@@ -18,6 +18,10 @@ import { Numbers, Records, Maps, ActionBar } from "./components";
 import { numbers, numbers_cn } from "./data";
 const tips = ref(false);
 provide("tips", tips);
+provide("changeTips", (e: MouseEvent) => {
+  let el = e.target as HTMLInputElement;
+  tips.value = el.checked;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -30,9 +34,6 @@ provide("tips", tips);
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
   background-color: $mainColor;
   font-size: calc($w * 0.5);
   font-family: 宋体, 新宋体, "MS Song", SimSun, NSimSun;

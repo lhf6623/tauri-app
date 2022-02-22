@@ -18,7 +18,7 @@
 
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, watch, inject } from "vue";
 import { piece_init_list, run_rule, NULL_VALUE, COL, ROW } from "../data";
 
 const active = ref<number[]>([]);
@@ -30,6 +30,15 @@ onMounted(() => {
     mapList.value[index] = { ...item };
   });
 });
+
+const tips = inject("tips");
+watch(
+  () => tips,
+  () => {
+    console.log(tips);
+  },
+  { deep: true }
+);
 
 const handleActive = (index: number, item: PieceType | null): void => {
   /* if (active.value !== null && item === NULL_VALUE) {
@@ -57,6 +66,9 @@ const handleActive = (index: number, item: PieceType | null): void => {
   position: relative;
   width: calc($w * 9);
   height: calc($h * 10);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
 /* 楚河汉界 */
 .limit {
