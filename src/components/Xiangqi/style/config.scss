@@ -38,8 +38,8 @@ $position_l_t: 20, 26, 28, 30, 32, 34, 55, 57, 59, 61, 65, 71;
 /* 右上 */
 $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
 
-/* 线条伪类 */
-@mixin pseudo($w, $h) {
+/* 伪类 */
+@mixin pseudo-class($w, $h) {
   position: absolute;
   content: "";
   width: $w;
@@ -71,7 +71,7 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
 
 /* 点位线条 */
 @mixin lattice-line-pseudo($position1, $position2) {
-  @include pseudo(7px, 7px);
+  @include pseudo-class(7px, 7px);
   border-#{$position1}: 1px solid $lineColor;
   border-#{$position2}: 1px solid $lineColor;
   #{$position1}: 3px;

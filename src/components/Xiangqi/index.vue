@@ -13,8 +13,11 @@
 </template>
 
 <script setup lang="ts">
+import { provide, ref } from "vue";
 import { Numbers, Records, Maps, ActionBar } from "./components";
 import { numbers, numbers_cn } from "./data";
+const tips = ref(false);
+provide("tips", tips);
 </script>
 
 <style lang="scss" scoped>

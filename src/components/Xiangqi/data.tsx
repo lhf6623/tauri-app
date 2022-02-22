@@ -1,3 +1,4 @@
+import { inRange, ceil } from "lodash-es";
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export const numbers_cn: string[] = [
   "九",
@@ -205,23 +206,123 @@ export const piece_init_list: PieceType[] = [
   },
 ];
 
-const COL = 9;
-const ROW = 10;
-function indexToXY(index: number) {
+export const COL: number = 9;
+export const ROW: number = 10;
+export const NULL_VALUE: null = null;
+function indexToXY(index: number): { x: number; y: number } {
   return {
     x: index % COL,
     y: (index / COL) | 0,
   };
 }
+/* 直线 上，左，下，右 [x, y] che pao */
+let straight_run_rule: number[][] = [
+  [0, -1],
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+];
+/* MA移动规则 八个位子 上[上左][上右]，左[左上][左下]，下[下左][下右]，右[右上][右下]  [x, y] 对应 straight_run_rule*/
+const run_rule_ma: number[][] = [
+  [-1, -2],
+  [1, -2],
+  [-2, -1],
+  [-2, 1],
+  [-1, 2],
+  [1, 2],
+  [2, -1],
+  [2, 1],
+];
+// 将帅 可移动位置
+const JIANG = [
+  3, 4, 5, 12, 13, 14, 21, 22, 23, 66, 67, 68, 75, 76, 77, 84, 85, 86,
+];
+/**
+ * 在地图上
+ */
+function isInMap(x: number, y: number): boolean {
+  return inRange(x, 0, COL) && inRange(y, 0, ROW);
+}
+/**
+ * 判断所在位置是否可以走步
+ */
+function isPass(map: (PieceType | null)[], i: number, type: Type): boolean {
+  return map[i] === NULL_VALUE || map[i]?.type !== type;
+}
 export const run_rule: RunRule = {
-  /**
-   * 车走直线 自己一方的不能走，对方的只能吃一颗遇到的棋子
-   */
-  che: (map, piece) => {
-    let { index } = piece;
-    console.log(`🚀 ~ index`, index);
-    console.log(indexToXY(index));
-    /*  */
-    return [];
+  che: (map, { index: pieceIndex, type: pieceType }) => {
+    let result: number[] = [];
+    const { x, y } = indexToXY(pieceIndex);
+    straight_run_rule.forEach(([col, row]) => {
+      for (let i = 1; ; i++) {
+        const _x = x + i * col;
+        const _y = y + i * row;
+        const _index = _y * COL + _x;
+        if (!isInMap(_x, _y) || map[_index]?.type === pieceType) break;
+        result.push(_index);
+        if (map[_index] !== NULL_VALUE) break;
+      }
+    });
+    return result;
+  },
+  pao(map, { type, index }) {
+    let result: number[] = [];
+    const { x, y } = indexToXY(index);
+    straight_run_rule.forEach(([col, row]) => {
+      let obstacle = 0; // 障碍物，长度等于两个停止循环
+      for (let i = 1; ; i++) {
+        const _x = x + i * col;
+        const _y = y + i * row;
+        const _index = _y * COL + _x;
+        if (!isInMap(_x, _y)) break;
+        if (obstacle === 0 && map[_index] === NULL_VALUE) {
+          result.push(_index);
+        } else if (map[_index] !== NULL_VALUE) {
+          obstacle += 1;
+          if (obstacle === 2 && map[_index]?.type !== type) {
+            result.push(_index);
+            break;
+          }
+        }
+      }
+    });
+    return result;
+  },
+  jiang(map, { type, index }) {
+    let result: number[] = [];
+    const { x, y } = indexToXY(index);
+    straight_run_rule.forEach(([col, row]) => {
+      const _x = x + col;
+      const _y = y + row;
+      const _index = _y * COL + _x;
+      if (
+        isInMap(_x, _y) &&
+        JIANG.includes(_index) &&
+        isPass(map, _index, type)
+      ) {
+        result.push(_index);
+      }
+    });
+    return result;
+  },
+  ma(map, { type, index }) {
+    let result: number[] = [];
+    const { x, y } = indexToXY(index);
+    run_rule_ma.forEach(([col, row], i) => {
+      const _x = x + col;
+      const _y = y + row;
+      const _index = _y * COL + _x;
+      // 马脚
+      const [bX, bY] = straight_run_rule[ceil((i + 1) / 2) - 1];
+      const bIndex = (y + bY) * COL + (x + bX);
+      if (
+        isInMap(_x, _y) &&
+        map[bIndex] === NULL_VALUE &&
+        isPass(map, _index, type)
+      ) {
+        result.push(_index);
+      }
+    });
+    return result;
   },
 };

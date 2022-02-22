@@ -1,0 +1,64 @@
+<template>
+  <ul class="active" :class="color">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</template>
+
+<script setup lang="ts">
+import { PropType } from "vue";
+const props = defineProps({
+  color: {
+    type: String as PropType<"red" | "black">,
+    default: "",
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+@import "../../style/config.scss";
+@mixin corner($position1, $position2) {
+  @include pseudo-class(7px, 7px);
+  #{$position1}: 1px;
+  #{$position2}: 1px;
+  border-#{$position1}: 1px solid v-bind("props.color");
+
+  border-#{$position2}: 1px solid v-bind("props.color");
+
+  animation: warn 1s linear 0.4s infinite;
+}
+.active {
+  position: absolute;
+  z-index: 5;
+  width: $w;
+  height: $h;
+  top: 1px;
+  left: 1px;
+
+  & > li:nth-child(1) {
+    @include corner(top, left);
+  }
+  & > li:nth-child(2) {
+    @include corner(top, right);
+  }
+  & > li:nth-child(3) {
+    @include corner(bottom, left);
+  }
+  & > li:nth-child(4) {
+    @include corner(bottom, right);
+  }
+}
+@keyframes warn {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>

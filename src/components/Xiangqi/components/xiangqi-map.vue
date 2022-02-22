@@ -9,7 +9,7 @@
         <!-- 斜线 -->
         <i class="lattice-line"></i>
         <!-- 棋子 -->
-        <XiangqiPiece :data="item" :active="active == index" />
+        <XiangqiPiece :data="item" :active="active" :index="index" />
       </li>
     </ul>
     <div class="limit">楚河汉界</div>
@@ -17,12 +17,12 @@
 </template>
 
 <script setup lang="tsx">
-import XiangqiPiece from "./xiangqi-piece.vue";
-import { ref, onMounted } from "vue";
-import { piece_init_list, run_rule } from "../data";
+import XiangqiPiece from "./piece/index.vue";
+import { ref, onMounted, computed } from "vue";
+import { piece_init_list, run_rule, NULL_VALUE, COL, ROW } from "../data";
 
-const active = ref<number | null>(null);
-const mapList = ref<Array<PieceType | null>>(Array(90).fill(null));
+const active = ref<number[]>([]);
+const mapList = ref<Array<PieceType | null>>(Array(COL * ROW).fill(NULL_VALUE));
 
 onMounted(() => {
   piece_init_list.forEach((item) => {
@@ -32,17 +32,21 @@ onMounted(() => {
 });
 
 const handleActive = (index: number, item: PieceType | null): void => {
-  if (active.value !== null && item === null) {
+  /* if (active.value !== null && item === NULL_VALUE) {
     let _piece = mapList.value[active.value] as PieceType;
     mapList.value[index] = { ..._piece, index };
-    mapList.value[active.value] = null;
+    mapList.value[active.value] = NULL_VALUE;
     active.value = null;
-  }
-  if (!!item) {
-    active.value = index;
+  } */
+  if (item !== NULL_VALUE) {
     let { code, type } = item;
     let run_lattice = run_rule[code]?.(mapList.value, item);
     console.log(`🚀 ~ run_lattice`, run_lattice);
+    if (run_lattice) {
+      active.value = [index, ...run_lattice];
+    } else {
+      active.value = [];
+    }
   }
 };
 </script>
@@ -91,13 +95,16 @@ const handleActive = (index: number, item: PieceType | null): void => {
     align-items: center;
     justify-content: center;
 
+    /* 横 */
     &::after {
-      @include pseudo(100%, 1px);
+      @include pseudo-class(100%, 1px);
       background-color: $lineColor;
+      box-shadow: 0px 1px 2px 0px #fff;
     }
     &::before {
-      @include pseudo(1px, 100%);
+      @include pseudo-class(1px, 100%);
       background-color: $lineColor;
+      box-shadow: 1px 0px 2px 0px #fff;
     }
 
     /* 横 左 */
