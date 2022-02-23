@@ -15,12 +15,11 @@
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { Numbers, Records, Maps, ActionBar } from "./components";
-import { numbers, numbers_cn } from "./data";
-const tips = ref(false);
+import { numbers, numbers_cn } from "./config-data";
+const tips = ref(true);
 provide("tips", tips);
-provide("changeTips", (e: MouseEvent) => {
-  let el = e.target as HTMLInputElement;
-  tips.value = el.checked;
+provide("changeTips", (tipsValue: boolean) => {
+  tips.value = tipsValue;
 });
 </script>
 
@@ -29,7 +28,7 @@ provide("changeTips", (e: MouseEvent) => {
 .xiangqi-box {
   position: relative;
   width: calc($w * 9 + 4px + 106px + 10px);
-  height: calc($h * 11 + 4px + 18px + 10px);
+  height: calc($h * 11 + 4px + 22px + 10px);
   display: flex;
   align-items: center;
   justify-content: center;

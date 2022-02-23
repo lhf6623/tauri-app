@@ -18,8 +18,9 @@
 
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
-import { ref, onMounted, watch, inject } from "vue";
-import { piece_init_list, run_rule, NULL_VALUE, COL, ROW } from "../data";
+import { ref, onMounted, watch, inject, Ref } from "vue";
+import { piece_init_list, NULL_VALUE, COL, ROW } from "../config-data";
+import { run_rule } from "../config-data/run-rule";
 
 const active = ref<number[]>([]);
 const mapList = ref<Array<PieceType | null>>(Array(COL * ROW).fill(NULL_VALUE));
@@ -31,11 +32,18 @@ onMounted(() => {
   });
 });
 
-const tips = inject("tips");
+const tips = inject<Ref<boolean>>("tips", ref(false));
 watch(
   () => tips,
   () => {
-    console.log(tips);
+    console.log(tips.value);
+    if (active.value.length) {
+      let item = mapList.value[active.value[0]];
+      if (item !== NULL_VALUE) {
+        let activeList = run_rule[item?.code]?.(mapList.value, item) || [];
+        active.value = tips.value ? [item.index, ...activeList] : [item.index];
+      }
+    }
   },
   { deep: true }
 );
@@ -52,7 +60,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     let run_lattice = run_rule[code]?.(mapList.value, item);
     console.log(`🚀 ~ run_lattice`, run_lattice);
     if (run_lattice) {
-      active.value = [index, ...run_lattice];
+      active.value = tips.value ? [index, ...run_lattice] : [index];
     } else {
       active.value = [];
     }

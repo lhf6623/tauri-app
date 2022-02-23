@@ -1,78 +1,50 @@
 <template>
   <footer>
-    <input type="button" value="开始" />
-    <input type="button" value="后退" />
-    <input type="button" value="前进" />
-    <input type="button" value="终局" />
-    <div class="tips-box">
-      <label for="tips-box">提示</label>
-      <input
-        id="tips-box"
-        :checked="tips"
-        type="checkbox"
-        @click="changeTips"
-      />
-    </div>
+    <NButton size="tiny" type="info" ghost>开始</NButton>
+    <NButton size="tiny" type="info" ghost>后退</NButton>
+    <NButton size="tiny" type="info" ghost>前进</NButton>
+    <NSwitch
+      size="small"
+      type="info"
+      :rail-style="railStyle"
+      v-model:value="tips"
+      :on-update:value="changeTips"
+      class="absolute right-0"
+    >
+      <template #checked>提示</template>
+      <template #unchecked>提示</template>
+    </NSwitch>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { inject } from "vue";
-const tips = inject<boolean>("tips");
-const changeTips = inject<((payload: MouseEvent) => void) | undefined>(
-  "changeTips"
-);
+import { inject, CSSProperties, ref, Ref } from "vue";
+import { NButton, NSwitch } from "naive-ui";
+
+const railStyle = ({ checked }: { checked: boolean }) => {
+  const style: CSSProperties = {};
+  if (checked) {
+    style.background = "#2080f0";
+  } else {
+    style.background = "#d03050";
+  }
+  return style;
+};
+
+const tips = inject<Ref<boolean>>("tips", ref(false));
+const changeTips = inject<(value: boolean) => void>("changeTips");
 </script>
 
 <style lang="scss" scoped>
 @import "../style/config.scss";
 
-@mixin inputBox {
-  border: none;
-  outline: none;
-  box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.2);
-  height: 100%;
-  line-height: 18px;
-  border-radius: 2px;
-  font-size: 12px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-}
 footer {
   position: relative;
   display: flex;
+  align-items: center;
 
-  .tips-box {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    right: 0;
-
-    input[type="checkbox"] {
-      @include inputBox;
-    }
-
-    label {
-      height: 100%;
-      line-height: 16px;
-      margin-right: 2px;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+  button {
+    margin-right: 2px;
   }
-}
-
-input[type="button"] {
-  @include inputBox;
-  padding: 0 8px;
-  margin-right: 2px;
-  background-color: white;
-}
-input:focus {
-  --tw-ring-color: none;
-  box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0);
 }
 </style>

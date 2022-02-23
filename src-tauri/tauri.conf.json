@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "象棋",
+    "productName": "tauri-app",
     "version": "0.1.0"
   },
   "build": {
@@ -56,13 +56,13 @@
       {
         "title": "中国象棋",
         "width": 345,
-        "height": 307,
-        "resizable": false,
+        "height": 311,
+        "resizable": true,
         "fullscreen": false
       }
     ],
     "security": {
-      "csp": "default-src 'self'"
+      "csp": null
     }
   }
 }
