@@ -57,7 +57,7 @@
         "title": "中国象棋",
         "width": 345,
         "height": 311,
-        "resizable": true,
+        "resizable": false,
         "fullscreen": false
       }
     ],

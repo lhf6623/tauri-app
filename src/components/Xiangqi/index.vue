@@ -13,14 +13,28 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, ref, watch, onMounted } from "vue";
 import { Numbers, Records, Maps, ActionBar } from "./components";
-import { numbers, numbers_cn } from "./config-data";
-const tips = ref(true);
+import { numbers, numbers_cn, XIANGQI_LOCA_KEY } from "./config-data";
+const tips = ref(false);
 provide("tips", tips);
 provide("changeTips", (tipsValue: boolean) => {
   tips.value = tipsValue;
 });
+onMounted(() => {
+  let _tips = JSON.parse(localStorage.getItem(XIANGQI_LOCA_KEY) || "") || {};
+  tips.value = _tips.value;
+});
+watch(
+  () => tips,
+  () => {
+    localStorage.setItem(
+      XIANGQI_LOCA_KEY,
+      JSON.stringify({ value: tips.value })
+    );
+  },
+  { deep: true }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +53,7 @@ provide("changeTips", (tipsValue: boolean) => {
 }
 footer {
   width: calc(100% - 10px);
-  height: 18px;
+  height: 22px;
   margin-top: 4px;
 }
 section {

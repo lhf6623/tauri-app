@@ -36,7 +36,6 @@ const tips = inject<Ref<boolean>>("tips", ref(false));
 watch(
   () => tips,
   () => {
-    console.log(tips.value);
     if (active.value.length) {
       let item = mapList.value[active.value[0]];
       if (item !== NULL_VALUE) {

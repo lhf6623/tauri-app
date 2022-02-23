@@ -1,35 +1,29 @@
 <template>
   <footer>
-    <NButton size="tiny" type="info" ghost>开始</NButton>
-    <NButton size="tiny" type="info" ghost>后退</NButton>
-    <NButton size="tiny" type="info" ghost>前进</NButton>
-    <NSwitch
-      size="small"
-      type="info"
-      :rail-style="railStyle"
-      v-model:value="tips"
-      :on-update:value="changeTips"
-      class="absolute right-0"
-    >
-      <template #checked>提示</template>
-      <template #unchecked>提示</template>
-    </NSwitch>
+    <div>
+      <NButton size="tiny" type="info" ghost>开始</NButton>
+      <NButton size="tiny" type="info" ghost>后退</NButton>
+      <NButton size="tiny" type="info" ghost>前进</NButton>
+    </div>
+    <div>
+      <NTooltip trigger="hover">
+        <template #trigger>
+          <NSwitch
+            size="small"
+            type="info"
+            v-model:value="tips"
+            :on-update:value="changeTips"
+          />
+        </template>
+        棋子可移动的格子提示
+      </NTooltip>
+    </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { inject, CSSProperties, ref, Ref } from "vue";
-import { NButton, NSwitch } from "naive-ui";
-
-const railStyle = ({ checked }: { checked: boolean }) => {
-  const style: CSSProperties = {};
-  if (checked) {
-    style.background = "#2080f0";
-  } else {
-    style.background = "#d03050";
-  }
-  return style;
-};
+import { inject, ref, Ref } from "vue";
+import { NButton, NSwitch, NTooltip } from "naive-ui";
 
 const tips = inject<Ref<boolean>>("tips", ref(false));
 const changeTips = inject<(value: boolean) => void>("changeTips");
@@ -42,9 +36,14 @@ footer {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   button {
     margin-right: 2px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 </style>

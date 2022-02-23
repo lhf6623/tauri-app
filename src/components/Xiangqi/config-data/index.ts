@@ -3,6 +3,7 @@ export const ROW: number = 10;
 export const NULL_VALUE: null = null;
 export const BLACK = "isBlack";
 export const RED = "isRed";
+export const XIANGQI_LOCA_KEY = "xiangqi_key";
 
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export const numbers_cn: string[] = [
