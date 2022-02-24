@@ -7,8 +7,8 @@ import {
   xiangJiaoRule,
   shiRule,
   shiSeat,
-} from "./run-rule-config";
-import { COL, ROW, NULL_VALUE, BLACK, RED } from "./index";
+} from "./run-rule-data";
+import { COL, ROW, NULL, BLACK, RED } from "./index";
 
 function indexToXY(index: number): { x: number; y: number } {
   return {
@@ -30,7 +30,7 @@ function isPass(
   i: number,
   pieceType: Type
 ): boolean {
-  return map[i] === NULL_VALUE || map[i]?.type !== pieceType;
+  return map[i] === NULL || map[i]?.type !== pieceType;
 }
 
 export const run_rule: RunRule = {
@@ -44,7 +44,7 @@ export const run_rule: RunRule = {
         const _index = _y * COL + _x;
         if (!isInMap(_x, _y) || map[_index]?.type === pieceType) break;
         result.push(_index);
-        if (map[_index] !== NULL_VALUE) break;
+        if (map[_index] !== NULL) break;
       }
     });
     return result;
@@ -59,9 +59,9 @@ export const run_rule: RunRule = {
         const _y = y + i * row;
         const _index = _y * COL + _x;
         if (!isInMap(_x, _y)) break;
-        if (obstacle === 0 && map[_index] === NULL_VALUE) {
+        if (obstacle === 0 && map[_index] === NULL) {
           result.push(_index);
-        } else if (map[_index] !== NULL_VALUE) {
+        } else if (map[_index] !== NULL) {
           obstacle += 1;
           if (obstacle === 2 && map[_index]?.type !== type) {
             result.push(_index);
@@ -101,7 +101,7 @@ export const run_rule: RunRule = {
       const bIndex = (y + bY) * COL + (x + bX);
       if (
         isInMap(_x, _y) &&
-        map[bIndex] === NULL_VALUE &&
+        map[bIndex] === NULL &&
         isPass(map, _index, type)
       ) {
         result.push(_index);
@@ -125,7 +125,7 @@ export const run_rule: RunRule = {
       if (
         isInMap(_col, _row) &&
         span === _span &&
-        map[bIndex] === NULL_VALUE &&
+        map[bIndex] === NULL &&
         isPass(map, _index, type)
       ) {
         result.push(_index);
@@ -161,7 +161,7 @@ export const run_rule: RunRule = {
       const _row = y + row;
       const _index = _row * COL + _col;
       if (!isInMap(_col, _row) || !isPass(map, _index, type)) continue;
-      // 到底线了
+      // 小兵没过河之前不允许左右移动，不能后退，到底线时只能左右移动
       if (row === 0) {
         // 左右
         if (

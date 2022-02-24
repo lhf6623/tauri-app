@@ -2,31 +2,31 @@
   <footer>
     <div>
       <NButton size="tiny" type="info" ghost>开始</NButton>
-      <NButton size="tiny" type="info" ghost>后退</NButton>
+      <NButton size="tiny" type="info" ghost @click="handleReset">
+        重新开始
+      </NButton>
       <NButton size="tiny" type="info" ghost>前进</NButton>
     </div>
-    <div>
-      <NTooltip trigger="hover">
-        <template #trigger>
-          <NSwitch
-            size="small"
-            type="info"
-            v-model:value="tips"
-            :on-update:value="changeTips"
-          />
-        </template>
-        棋子可移动的格子提示
-      </NTooltip>
-    </div>
+    <NSwitch
+      size="small"
+      type="info"
+      v-model:value="store.tips"
+      :on-update:value="changeTips"
+    />
   </footer>
 </template>
 
 <script setup lang="ts">
 import { inject, ref, Ref } from "vue";
-import { NButton, NSwitch, NTooltip } from "naive-ui";
+import { NButton, NSwitch } from "naive-ui";
 
-const tips = inject<Ref<boolean>>("tips", ref(false));
+const store = inject<Ref<StoreType>>("store", ref({}));
 const changeTips = inject<(value: boolean) => void>("changeTips");
+const changeReset = inject<(value: boolean) => void>("changeReset");
+
+function handleReset() {
+  changeReset?.(!store.value.reset);
+}
 </script>
 
 <style lang="scss" scoped>

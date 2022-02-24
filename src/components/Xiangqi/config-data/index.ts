@@ -1,6 +1,6 @@
 export const COL: number = 9;
 export const ROW: number = 10;
-export const NULL_VALUE: null = null;
+export const NULL: null = null;
 export const BLACK = "isBlack";
 export const RED = "isRed";
 export const XIANGQI_LOCA_KEY = "xiangqi_key";
@@ -17,7 +17,7 @@ export const numbers_cn: string[] = [
   "二",
   "一",
 ];
-export const piece_init_list: PieceType[] = [
+export const piece_list: PieceType[] = [
   {
     index: 0,
     text: "車",

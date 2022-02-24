@@ -1,5 +1,5 @@
 <template>
-  <ul class="active" :class="color">
+  <ul class="active">
     <li></li>
     <li></li>
     <li></li>

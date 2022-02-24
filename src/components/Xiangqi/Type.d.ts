@@ -21,3 +21,10 @@ type RunRule = {
     piece: PieceType
   ) => number[];
 };
+
+type StoreType = {
+  tips?: boolean;
+  reset?: boolean;
+};
+
+type StoreKeyType = keyof StoreType;

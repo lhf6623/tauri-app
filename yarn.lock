@@ -164,9 +164,9 @@
   integrity sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==
 
 "@types/node@^17.0.19":
-  version "17.0.19"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-17.0.19.tgz#726171367f404bfbe8512ba608a09ebad810c7e6"
-  integrity sha512-PfeQhvcMR4cPFVuYfBN4ifG7p9c+Dlh3yUZR6k+5yQK7wX3gDgVxBly4/WkBRs9x4dmcy1TVl08SY67wwtEvmA==
+  version "17.0.21"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
+  integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
 "@types/node@~14.14.31":
   version "14.14.45"
@@ -341,6 +341,21 @@
   version "3.2.31"
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.2.31.tgz#c90de7126d833dcd3a4c7534d534be2fb41faa4e"
   integrity sha512-ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==
+
+"@vueuse/core@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-7.6.2.tgz#1b9aa92048991189fac31577ff439296efa5fb4a"
+  integrity sha512-bjAbXJVJO6aElMaZtDz2B70C0L6jFk/jGVqJxWZS5huffxA6dW5DN6tQQJwzOnx9B9rDhePHJIFKsix0qZIH2Q==
+  dependencies:
+    "@vueuse/shared" "7.6.2"
+    vue-demi "*"
+
+"@vueuse/shared@7.6.2":
+  version "7.6.2"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-7.6.2.tgz#6d83bdb003cd8a56dc779fe501e73a4cb755b802"
+  integrity sha512-ThDld4Mx501tahRuHV6qJGkwCr17GknZrOzlD02Na9qJcH7Pq0quNTLx5cNDou7b1CKNvE3BXi2w/hz9KuPNTQ==
+  dependencies:
+    vue-demi "*"
 
 "@windicss/config@1.7.1":
   version "1.7.1"
@@ -963,9 +978,9 @@ ms@2.1.2:
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
 naive-ui@^2.25.3:
-  version "2.25.3"
-  resolved "https://registry.npmmirror.com/naive-ui/-/naive-ui-2.25.3.tgz#4ece4dd9504bc4c625cdb84f563f6748bcac912a"
-  integrity sha512-gSMJbA7MZMxlewRffkGRhlC2aMcGo2YaXZl+EyNAlPlD3oa3thqNnWEq8Dr8BtxUwd1wJskft56nfV+H11e/dw==
+  version "2.25.5"
+  resolved "https://registry.npmmirror.com/naive-ui/-/naive-ui-2.25.5.tgz#964699e50d975a5031b56fe0dd93e99ef6b3bf77"
+  integrity sha512-COT+8+xgYIliHWLl3vwtqmnoXGp3tbobUiRHC0KBOBOvqnLHw5gZKYDQhShbbblL6/gXqQR2L7LDorgSucE6Jg==
   dependencies:
     "@css-render/plugin-bem" "^0.15.8"
     "@css-render/vue3-ssr" "^0.15.8"
@@ -1449,6 +1464,11 @@ vscode-vue-languageservice@0.31.4:
     vscode-languageserver-textdocument "^1.0.3"
     vscode-pug-languageservice "0.31.4"
     vscode-typescript-languageservice "0.31.4"
+
+vue-demi@*:
+  version "0.12.1"
+  resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
 
 vue-tsc@^0.31.4:
   version "0.31.4"

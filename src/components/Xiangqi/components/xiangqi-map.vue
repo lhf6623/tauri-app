@@ -9,7 +9,7 @@
         <!-- 斜线 -->
         <i class="lattice-line"></i>
         <!-- 棋子 -->
-        <XiangqiPiece :data="item" :active="active" :index="index" />
+        <XiangqiPiece :data="item" :active="tipsActive" :index="index" />
       </li>
     </ul>
     <div class="limit">楚河汉界</div>
@@ -18,51 +18,72 @@
 
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
-import { ref, onMounted, watch, inject, Ref } from "vue";
-import { piece_init_list, NULL_VALUE, COL, ROW } from "../config-data";
+import { ref, onMounted, inject, Ref, computed } from "vue";
+import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
 import { run_rule } from "../config-data/run-rule";
+import { isEmpty, delay } from "lodash-es";
 
+const store = inject<Ref<StoreType>>("store", ref({}));
+/**
+ * 第一个为选中的棋子，后面的是能运动的格子
+ */
 const active = ref<number[]>([]);
-const mapList = ref<Array<PieceType | null>>(Array(COL * ROW).fill(NULL_VALUE));
+const nextPiece = ref<Type>(RED);
+const mapList = ref<Array<PieceType | null>>(Array(COL * ROW).fill(NULL));
 
 onMounted(() => {
-  piece_init_list.forEach((item) => {
+  piece_list.forEach((item) => {
     let { index } = item;
     mapList.value[index] = { ...item };
   });
 });
 
-const tips = inject<Ref<boolean>>("tips", ref(false));
-watch(
-  () => tips,
-  () => {
-    if (active.value.length) {
-      let item = mapList.value[active.value[0]];
-      if (item !== NULL_VALUE) {
-        let activeList = run_rule[item?.code]?.(mapList.value, item) || [];
-        active.value = tips.value ? [item.index, ...activeList] : [item.index];
-      }
-    }
-  },
-  { deep: true }
-);
+const tipsActive = computed(() => {
+  if (isEmpty(active.value)) return [];
+  let [index] = active.value;
+  return store.value.tips ? active.value : [index];
+});
 
-const handleActive = (index: number, item: PieceType | null): void => {
-  /* if (active.value !== null && item === NULL_VALUE) {
-    let _piece = mapList.value[active.value] as PieceType;
-    mapList.value[index] = { ..._piece, index };
-    mapList.value[active.value] = NULL_VALUE;
-    active.value = null;
-  } */
-  if (item !== NULL_VALUE) {
-    let { code, type } = item;
-    let run_lattice = run_rule[code]?.(mapList.value, item);
-    console.log(`🚀 ~ run_lattice`, run_lattice);
-    if (run_lattice) {
-      active.value = tips.value ? [index, ...run_lattice] : [index];
+async function setActive(piece: PieceType | null | undefined) {
+  active.value = [];
+  delay(() => {
+    if (piece) {
+      let { code, index } = piece;
+      let run_lattice = run_rule[code]?.(mapList.value, piece) || [];
+      active.value = [index, ...run_lattice];
     } else {
       active.value = [];
     }
+  }, 0);
+}
+
+const handleActive = (index: number, item: PieceType | null): void => {
+  // 走棋
+  if (!isEmpty(active.value)) {
+    let [pieceIndex] = active.value;
+    let _piece = mapList.value[pieceIndex] as PieceType;
+
+    // 空地
+    if (item === NULL && !active.value.includes(index)) return;
+
+    if (item) {
+      // 同一阵营的更新选中棋子
+      if (_piece.type === item.type) {
+        setActive(item);
+        return;
+      }
+      if (!active.value.includes(index)) return;
+    }
+    mapList.value[index] = { ..._piece, index };
+    mapList.value[pieceIndex] = NULL;
+    setActive(null);
+    nextPiece.value = nextPiece.value === RED ? BLACK : RED;
+    return;
+  }
+
+  // 选中棋子
+  if (item !== NULL && isEmpty(active.value) && nextPiece.value === item.type) {
+    setActive(item);
   }
 };
 </script>

@@ -13,24 +13,34 @@
 </template>
 
 <script setup lang="ts">
+import { type } from "os";
 import { provide, ref, watch, onMounted } from "vue";
 import { Numbers, Records, Maps, ActionBar } from "./components";
 import { numbers, numbers_cn, XIANGQI_LOCA_KEY } from "./config-data";
-const tips = ref(false);
-provide("tips", tips);
+const store = ref<StoreType>({
+  tips: false,
+  reset: false,
+});
+
+provide("store", store);
 provide("changeTips", (tipsValue: boolean) => {
-  tips.value = tipsValue;
+  store.value.tips = tipsValue;
+});
+provide("changeReset", (resetValue: boolean) => {
+  console.log(`🚀 ~ resetValue`, resetValue);
+  store.value.reset = resetValue;
 });
 onMounted(() => {
-  let _tips = JSON.parse(localStorage.getItem(XIANGQI_LOCA_KEY) || "") || {};
-  tips.value = _tips.value;
+  let _store = JSON.parse(localStorage.getItem(XIANGQI_LOCA_KEY) || "") || {};
+  store.value = _store.value;
 });
+
 watch(
-  () => tips,
+  () => store,
   () => {
     localStorage.setItem(
       XIANGQI_LOCA_KEY,
-      JSON.stringify({ value: tips.value })
+      JSON.stringify({ value: store.value })
     );
   },
   { deep: true }
