@@ -1,36 +1,49 @@
 <template>
-  <div class="xiangqi-box">
-    <section>
-      <div class="map-box">
-        <Numbers :list="numbers" />
-        <Maps />
-        <Numbers :list="numbers_cn" />
-      </div>
-      <Records class="records-box" v-if="true" />
-    </section>
-    <ActionBar />
-  </div>
+  <NConfigProvider :theme="theme">
+    <div class="xiangqi-box">
+      <section>
+        <div class="map-box">
+          <Numbers :list="numbers" />
+          <Maps />
+          <Numbers :list="numbers_cn" />
+        </div>
+        <Records class="records-box" v-if="true" />
+      </section>
+      <ControlBar />
+    </div>
+  </NConfigProvider>
 </template>
 
 <script setup lang="ts">
-import { type } from "os";
-import { provide, ref, watch, onMounted } from "vue";
-import { Numbers, Records, Maps, ActionBar } from "./components";
+import { provide, ref, watch, onMounted, computed } from "vue";
+import { NConfigProvider, darkTheme } from "naive-ui";
+import type { GlobalTheme } from "naive-ui";
+
+import { Numbers, Records, Maps, ControlBar } from "./components";
 import { numbers, numbers_cn, XIANGQI_LOCA_KEY } from "./config-data";
+import { useEventBus } from "@vueuse/core";
+import { ShowTipsKey } from "./vueuse/event-bus-key";
+import { isDark } from "./vueuse/dark";
+
 const store = ref<StoreType>({
   tips: false,
-  reset: false,
+  isDark: false,
+});
+
+const theme = computed<GlobalTheme | null>(() => {
+  console.log(isDark.value);
+  return isDark.value ? darkTheme : null;
+});
+
+const bus = useEventBus(ShowTipsKey);
+bus.on((tipsValue) => {
+  store.value.tips = tipsValue;
 });
 
 provide("store", store);
-provide("changeTips", (tipsValue: boolean) => {
-  store.value.tips = tipsValue;
-});
-provide("changeReset", (resetValue: boolean) => {
-  console.log(`🚀 ~ resetValue`, resetValue);
-  store.value.reset = resetValue;
-});
+
 onMounted(() => {
+  console.log(theme.value);
   let _store = JSON.parse(localStorage.getItem(XIANGQI_LOCA_KEY) || "") || {};
   store.value = _store.value;
 });

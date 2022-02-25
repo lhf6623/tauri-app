@@ -22,20 +22,33 @@ import { ref, onMounted, inject, Ref, computed } from "vue";
 import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
 import { run_rule } from "../config-data/run-rule";
 import { isEmpty, delay } from "lodash-es";
+import { useEventBus } from "@vueuse/core";
+import { ResetMatchKey } from "../vueuse/event-bus-key";
 
 const store = inject<Ref<StoreType>>("store", ref({}));
+
+const resetMatcBus = useEventBus(ResetMatchKey);
+
 /**
  * 第一个为选中的棋子，后面的是能运动的格子
  */
 const active = ref<number[]>([]);
 const nextPiece = ref<Type>(RED);
-const mapList = ref<Array<PieceType | null>>(Array(COL * ROW).fill(NULL));
+const mapList = ref<Array<PieceType | null>>([]);
 
-onMounted(() => {
+function initMapList() {
+  mapList.value = Array(COL * ROW).fill(NULL);
   piece_list.forEach((item) => {
     let { index } = item;
     mapList.value[index] = { ...item };
   });
+  nextPiece.value = RED;
+  active.value = [];
+}
+resetMatcBus.on(initMapList);
+
+onMounted(() => {
+  initMapList();
 });
 
 const tipsActive = computed(() => {

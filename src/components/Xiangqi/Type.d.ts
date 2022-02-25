@@ -24,7 +24,7 @@ type RunRule = {
 
 type StoreType = {
   tips?: boolean;
-  reset?: boolean;
+  isDark?: boolean;
 };
 
 type StoreKeyType = keyof StoreType;
