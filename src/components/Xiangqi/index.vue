@@ -9,55 +9,21 @@
         </div>
         <Records class="records-box" v-if="true" />
       </section>
-      <ControlBar />
+      <Control />
     </div>
   </NConfigProvider>
 </template>
 
 <script setup lang="ts">
-import { provide, ref, watch, onMounted, computed } from "vue";
-import { NConfigProvider, darkTheme } from "naive-ui";
-import type { GlobalTheme } from "naive-ui";
-
-import { Numbers, Records, Maps, ControlBar } from "./components";
-import { numbers, numbers_cn, XIANGQI_LOCA_KEY } from "./config-data";
-import { useEventBus } from "@vueuse/core";
-import { ShowTipsKey } from "./vueuse/event-bus-key";
+import { computed } from "vue";
+import { NConfigProvider, darkTheme, GlobalTheme } from "naive-ui";
+import { Numbers, Records, Maps, Control } from "./components";
+import { numbers, numbers_cn } from "./config-data";
 import { isDark } from "./vueuse/dark";
 
-const store = ref<StoreType>({
-  tips: false,
-  isDark: false,
-});
-
 const theme = computed<GlobalTheme | null>(() => {
-  console.log(isDark.value);
   return isDark.value ? darkTheme : null;
 });
-
-const bus = useEventBus(ShowTipsKey);
-bus.on((tipsValue) => {
-  store.value.tips = tipsValue;
-});
-
-provide("store", store);
-
-onMounted(() => {
-  console.log(theme.value);
-  let _store = JSON.parse(localStorage.getItem(XIANGQI_LOCA_KEY) || "") || {};
-  store.value = _store.value;
-});
-
-watch(
-  () => store,
-  () => {
-    localStorage.setItem(
-      XIANGQI_LOCA_KEY,
-      JSON.stringify({ value: store.value })
-    );
-  },
-  { deep: true }
-);
 </script>
 
 <style lang="scss" scoped>

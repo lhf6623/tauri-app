@@ -7,17 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, Ref } from "vue";
 import { NButton, NIcon } from "naive-ui";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
-import { useEventBus } from "@vueuse/core";
-import { ShowTipsKey } from "../../vueuse/event-bus-key";
+import { useGlobalState } from "../../vueuse/store";
 
-const store = inject<Ref<StoreType>>("store", ref({ tips: false }));
-
-const tipsBus = useEventBus(ShowTipsKey);
+const store = useGlobalState();
 
 function handleChangeTips() {
-  tipsBus.emit(!store.value.tips);
+  store.value.tips = !store.value.tips;
 }
 </script>

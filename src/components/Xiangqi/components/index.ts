@@ -7,5 +7,5 @@ export {
   NumberList as Numbers,
   RecordList as Records,
   XiangqiMap as Maps,
-  ControlBar,
+  ControlBar as Control,
 };

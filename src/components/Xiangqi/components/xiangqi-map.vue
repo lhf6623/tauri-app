@@ -18,16 +18,17 @@
 
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
-import { ref, onMounted, inject, Ref, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
 import { run_rule } from "../config-data/run-rule";
 import { isEmpty, delay } from "lodash-es";
 import { useEventBus } from "@vueuse/core";
 import { ResetMatchKey } from "../vueuse/event-bus-key";
+import { useGlobalState } from "../vueuse/store";
 
-const store = inject<Ref<StoreType>>("store", ref({}));
+const store = useGlobalState();
 
-const resetMatcBus = useEventBus(ResetMatchKey);
+const handleReset = useEventBus(ResetMatchKey);
 
 /**
  * 第一个为选中的棋子，后面的是能运动的格子
@@ -45,7 +46,7 @@ function initMapList() {
   nextPiece.value = RED;
   active.value = [];
 }
-resetMatcBus.on(initMapList);
+handleReset.on(initMapList);
 
 onMounted(() => {
   initMapList();
