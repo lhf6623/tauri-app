@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="xiangqi-piece" :class="`${data?.type}`">
-      <span>{{ data?.text }}</span>
+      {{ data?.text }}
     </div>
     <Active v-show="active.includes(index)" :color="color"></Active>
   </div>
@@ -42,9 +42,8 @@ const color = computed(() => {
   left: 2px;
   border-radius: $h;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: calc($h - 2px);
+  text-align: center;
 }
 .isRed {
   background-color: $isRed;

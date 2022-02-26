@@ -1,6 +1,7 @@
 <template>
-  <NConfigProvider :theme="theme">
-    <div class="xiangqi-box">
+  <NConfigProvider :theme="theme" abstract>
+    <NGlobalStyle />
+    <NEl class="xiangqi-box">
       <section>
         <div class="map-box">
           <Numbers :list="numbers" />
@@ -10,13 +11,19 @@
         <Records class="records-box" v-if="true" />
       </section>
       <Control />
-    </div>
+    </NEl>
   </NConfigProvider>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { NConfigProvider, darkTheme, GlobalTheme } from "naive-ui";
+import {
+  NConfigProvider,
+  darkTheme,
+  GlobalTheme,
+  NEl,
+  NGlobalStyle,
+} from "naive-ui";
 import { Numbers, Records, Maps, Control } from "./components";
 import { numbers, numbers_cn } from "./config-data";
 import { isDark } from "./vueuse/dark";

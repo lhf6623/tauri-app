@@ -2,7 +2,7 @@
   <footer>
     <div class="footer-bus">
       <NButton size="tiny" type="info" ghost @click="resetMatchBus.emit">
-        重新开始
+        <span style="color: black">重新开始</span>
       </NButton>
     </div>
     <div class="footer-bus">

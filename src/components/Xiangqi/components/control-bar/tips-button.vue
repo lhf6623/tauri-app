@@ -1,5 +1,11 @@
 <template>
-  <NButton size="tiny" type="info" quaternary @click="handleChangeTips">
+  <NButton
+    size="tiny"
+    type="info"
+    quaternary
+    @click="handleChangeTips"
+    aria-label="棋子可移动格子提示按钮"
+  >
     <template #icon>
       <NIcon :component="store.tips ? AlertCircleSharp : AlertCircleOutline" />
     </template>
