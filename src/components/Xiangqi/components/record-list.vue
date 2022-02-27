@@ -1,15 +1,18 @@
 <template>
   <div class="record-list">
     <header>棋谱序列</header>
-    <ul>
-      <li v-for="(item, index) in list" :key="index">{{ item }}</li>
-    </ul>
+    <NScrollbar>
+      <span class="record-text" v-for="(item, index) in list" :key="index">{{
+        item
+      }}</span>
+    </NScrollbar>
     <footer></footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { NScrollbar } from "naive-ui";
 
 const list = ref([
   "跑二平五",
@@ -54,24 +57,22 @@ const list = ref([
 <style lang="scss" scoped>
 @import "../style/config.scss";
 .record-list {
-  background-color: white;
+  background-color: var(--base-color);
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
 
   header,
   footer {
-    background-color: #9df;
+    background-color: var(--x-title-bg-color);
     padding: 0 6px;
     height: 18px;
+    flex-shrink: 0;
   }
 
-  ul {
-    overflow-y: auto;
-    height: calc(100% - 36px);
-    width: calc(100%);
-
-    li {
-      text-align: center;
-    }
+  .record-text {
+    display: block;
+    text-align: center;
   }
 }
 </style>

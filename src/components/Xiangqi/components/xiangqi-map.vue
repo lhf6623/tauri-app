@@ -106,8 +106,8 @@ const handleActive = (index: number, item: PieceType | null): void => {
 @import "../style/config.scss";
 .checkerboard {
   position: relative;
-  width: calc($w * 9);
-  height: calc($h * 10);
+  width: calc(var(--x-width) * 9);
+  height: calc(var(--x-height) * 10);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
@@ -115,18 +115,18 @@ const handleActive = (index: number, item: PieceType | null): void => {
 /* 楚河汉界 */
 .limit {
   position: absolute;
-  height: $h;
+  height: var(--x-height);
   width: 100%;
-  top: calc(50% - $h / 2);
+  top: calc(50% - var(--x-height) / 2);
   z-index: 10;
   text-align: center;
-  line-height: $h;
-  text-indent: $w * 1.3;
-  letter-spacing: $w * 1.3;
+  line-height: var(--x-height);
+  text-indent: calc(var(--x-width) * 1.3);
+  letter-spacing: calc(var(--x-width) * 1.3);
 }
 .map-layout {
   position: relative;
-  background-color: $mapColor;
+  background-color: var(--x-plate-color);
   width: 100%;
   height: 100%;
   display: flex;
@@ -135,16 +135,16 @@ const handleActive = (index: number, item: PieceType | null): void => {
   &::after {
     position: absolute;
     content: "";
-    width: calc(100% - $w * 0.6);
-    left: $w * 0.3;
-    height: calc(100% - $h * 0.6);
-    top: $h * 0.3;
-    border: 2px solid $lineColor;
+    width: calc(100% - var(--x-width) * 0.6);
+    left: calc(var(--x-width) * 0.3);
+    height: calc(100% - var(--x-height) * 0.6);
+    top: calc(var(--x-height) * 0.3);
+    border: 2px solid var(--x-line-color);
   }
   .lattice {
     position: relative;
-    width: $w;
-    height: $h;
+    width: var(--x-width);
+    height: var(--x-height);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -152,13 +152,11 @@ const handleActive = (index: number, item: PieceType | null): void => {
     /* 横 */
     &::after {
       @include pseudo-class(100%, 1px);
-      background-color: $lineColor;
-      box-shadow: 0px 1px 2px 0px #fff;
+      background-color: var(--x-line-color);
     }
     &::before {
       @include pseudo-class(1px, 100%);
-      background-color: $lineColor;
-      box-shadow: 1px 0px 2px 0px #fff;
+      background-color: var(--x-line-color);
     }
 
     /* 横 左 */

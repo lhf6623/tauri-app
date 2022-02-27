@@ -8,8 +8,13 @@
 </template>
 
 <script setup lang="tsx">
-import { PropType, computed } from "vue";
+import { PropType, computed, Ref } from "vue";
 import Active from "./active.vue";
+import { useThemeVars } from "naive-ui";
+const themeVars = useThemeVars() as unknown as Ref<
+  ThemeOverridesType["common"]
+>;
+
 const props = defineProps({
   data: {
     type: Object as PropType<PieceType | null>,
@@ -27,7 +32,8 @@ const props = defineProps({
 
 const color = computed(() => {
   const isRed = props.active.findIndex((item) => item === props.index) === 0;
-  return isRed ? "red" : "black";
+  const { xActiveColor, xActiveEmptyColor } = themeVars.value;
+  return isRed ? xActiveColor : xActiveEmptyColor;
 });
 </script>
 
@@ -36,21 +42,21 @@ const color = computed(() => {
 .xiangqi-piece {
   position: absolute;
   z-index: 100;
-  width: calc($w - 2px);
-  height: calc($h - 2px);
+  width: calc(var(--x-width) - 2px);
+  height: calc(var(--x-height) - 2px);
   top: 2px;
   left: 2px;
-  border-radius: $h;
+  border-radius: var(--x-height);
   font-weight: 700;
-  line-height: calc($h - 2px);
+  line-height: calc(var(--x-height) - 2px);
   text-align: center;
 }
 .isRed {
-  background-color: $isRed;
-  color: white;
+  background-color: var(--x-red-bg-color);
+  color: var(--x-red-text-color);
 }
 .isBlack {
-  background-color: $isBlack;
-  color: white;
+  background-color: var(--x-black-bg-color);
+  color: var(--x-black-text-color);
 }
 </style>

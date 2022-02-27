@@ -1,8 +1,8 @@
 <template>
   <footer>
     <div class="footer-bus">
-      <NButton size="tiny" type="info" ghost @click="resetMatchBus.emit">
-        <span style="color: black">重新开始</span>
+      <NButton size="tiny" type="info" @click="resetMatchBus.emit">
+        重新开始
       </NButton>
     </div>
     <div class="footer-bus">

@@ -8,10 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
 const props = defineProps({
   color: {
-    type: String as PropType<"red" | "black">,
+    type: String,
     default: "",
   },
 });
@@ -32,8 +31,8 @@ const props = defineProps({
 .active {
   position: absolute;
   z-index: 5;
-  width: $w;
-  height: $h;
+  width: var(--x-width);
+  height: var(--x-height);
   top: 1px;
   left: 1px;
 

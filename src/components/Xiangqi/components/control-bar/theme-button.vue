@@ -2,12 +2,13 @@
   <NButton
     size="tiny"
     type="info"
+    circle
     quaternary
     @click="toggleDark()"
     aria-label="改变主题按钮"
   >
     <template #icon>
-      <NIcon :component="isDark ? SunnySharp : Moon" />
+      <NIcon :component="isDark ? Moon : SunnySharp" />
     </template>
   </NButton>
 </template>

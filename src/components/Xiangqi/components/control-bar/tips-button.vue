@@ -2,6 +2,7 @@
   <NButton
     size="tiny"
     type="info"
+    circle
     quaternary
     @click="handleChangeTips"
     aria-label="棋子可移动格子提示按钮"
