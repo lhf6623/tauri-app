@@ -5,9 +5,7 @@
         重新开始
       </NButton>
     </div>
-    <div class="footer-bus">
-      <Settings />
-    </div>
+    <Settings />
   </footer>
 </template>
 

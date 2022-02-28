@@ -8,15 +8,50 @@
       </NButton>
     </template>
     <NSpace justify="space-around" size="large">
-      <ThemeButton />
-      <TipsButton />
+      <SettingButtonVue
+        :icon-component="themeIcon"
+        aria-label="改变主题按钮"
+        @click="handleToggleDark"
+      />
+      <SettingButtonVue
+        :icon-component="tipsIcon"
+        aria-label="棋子可移动格子提示按钮"
+        @click="handleChangeTips"
+      />
     </NSpace>
   </NPopover>
 </template>
 
 <script setup lang="ts">
-import { NButton, NIcon, NPopover, NText, NSpace } from "naive-ui";
-import { Settings } from "@vicons/ionicons5";
-import ThemeButton from "./theme-button.vue";
-import TipsButton from "./tips-button.vue";
+import { computed } from "vue";
+import { NButton, NIcon, NPopover, NSpace } from "naive-ui";
+import SettingButtonVue from "./setting-button.vue";
+
+import {
+  Settings,
+  SunnySharp,
+  Moon,
+  AlertCircleSharp,
+  AlertCircleOutline,
+} from "@vicons/ionicons5";
+import { useToggle } from "@vueuse/core";
+
+import { isDark } from "@/components/Xiangqi/vueuse/dark";
+
+import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
+
+const handleToggleDark = useToggle(isDark);
+const themeIcon = computed(() => {
+  return isDark ? Moon : SunnySharp;
+});
+
+const store = useGlobalState();
+
+function handleChangeTips() {
+  store.value.tips = !store.value.tips;
+}
+
+const tipsIcon = computed(() => {
+  return store.value.tips ? AlertCircleSharp : AlertCircleOutline;
+});
 </script>

@@ -21,10 +21,7 @@ import { NConfigProvider, darkTheme, NEl, NGlobalStyle } from "naive-ui";
 import type { GlobalTheme, CustomThemeCommonVars } from "naive-ui";
 import { Numbers, Records, Maps, Control } from "./components";
 import { numbers, numbers_cn } from "./config-data";
-import {
-  lightThemeOverrides,
-  darkThemeOverrides,
-} from "./components/control-bar/settings/style";
+import { lightThemeOverrides, darkThemeOverrides } from "./config-data/style";
 import { isDark } from "./vueuse/dark";
 
 const theme = computed<GlobalTheme | null>(() => {
