@@ -18,6 +18,6 @@ import { NButton, NIcon } from "naive-ui";
 import { SunnySharp, Moon } from "@vicons/ionicons5";
 import { useToggle } from "@vueuse/core";
 
-import { isDark } from "../../vueuse/dark";
+import { isDark } from "@/components/Xiangqi/vueuse/dark";
 const toggleDark = useToggle(isDark);
 </script>

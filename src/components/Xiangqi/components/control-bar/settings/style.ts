@@ -13,6 +13,7 @@ export const lightThemeOverrides: ThemeOverridesType = {
     xMapShadowColor: "rgba(0, 0, 0, 0.3)",
     xActiveColor: "red",
     xActiveEmptyColor: "black",
+    xRecordBgColor: "#c0ddf9",
   },
 };
 
@@ -31,5 +32,6 @@ export const darkThemeOverrides: ThemeOverridesType = {
     xMapShadowColor: "rgba(255, 255, 255, 0.3)",
     xActiveColor: "red",
     xActiveEmptyColor: "white",
+    xRecordBgColor: "rgb(16, 16, 20)",
   },
 };

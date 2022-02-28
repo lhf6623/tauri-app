@@ -57,7 +57,7 @@ const list = ref([
 <style lang="scss" scoped>
 @import "../style/config.scss";
 .record-list {
-  background-color: var(--base-color);
+  background-color: var(--x-record-bg-color);
   font-size: 12px;
   display: flex;
   flex-direction: column;

@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { NButton, NIcon } from "naive-ui";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
-import { useGlobalState } from "../../vueuse/store";
+import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
 
 const store = useGlobalState();
 

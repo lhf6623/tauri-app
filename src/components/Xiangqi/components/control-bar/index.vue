@@ -6,18 +6,16 @@
       </NButton>
     </div>
     <div class="footer-bus">
-      <ThemeButton />
-      <TipsButton />
+      <Settings />
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
 import { NButton } from "naive-ui";
-import ThemeButton from "../control-bar/theme-button.vue";
-import TipsButton from "../control-bar/tips-button.vue";
 import { useEventBus } from "@vueuse/core";
 import { ResetMatchKey } from "../../vueuse/event-bus-key";
+import Settings from "./settings/index.vue";
 
 const resetMatchBus = useEventBus(ResetMatchKey);
 </script>

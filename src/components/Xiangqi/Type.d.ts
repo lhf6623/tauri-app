@@ -44,5 +44,6 @@ type ThemeOverridesType = {
     xMapShadowColor: string;
     xActiveColor: string;
     xActiveEmptyColor: string;
+    xRecordBgColor: string;
   };
 };
