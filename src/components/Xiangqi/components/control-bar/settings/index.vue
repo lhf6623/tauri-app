@@ -1,5 +1,8 @@
 <template>
   <NPopover :show-arrow="false" title="设置" trigger="click">
+    <template #header>
+      <NText strong depth="1">设置</NText>
+    </template>
     <template #trigger>
       <NButton size="tiny" type="info" circle quaternary aria-label="设置">
         <template #icon>
@@ -24,7 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { NButton, NIcon, NPopover, NSpace } from "naive-ui";
+import { NButton, NIcon, NPopover, NSpace, NText } from "naive-ui";
 import SettingButtonVue from "./setting-button.vue";
 
 import {

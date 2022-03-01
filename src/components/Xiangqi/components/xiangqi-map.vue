@@ -21,10 +21,11 @@ import XiangqiPiece from "./piece/index.vue";
 import { ref, onMounted, computed } from "vue";
 import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
 import { run_rule } from "../config-data/run-rule";
-import { isEmpty, delay } from "lodash-es";
+import { isEmpty, delay, cloneDeep } from "lodash-es";
 import { useEventBus } from "@vueuse/core";
 import { ResetMatchKey } from "../vueuse/event-bus-key";
 import { useGlobalState } from "../vueuse/store";
+import { makingChess } from "../config-data/making-chess";
 
 const store = useGlobalState();
 
@@ -70,14 +71,18 @@ async function setActive(piece: PieceType | null | undefined) {
     }
   }, 0);
 }
-
+/**
+ *
+ * @param index 选中格子的索引
+ * @param item 选中格子的数据 棋子 | 空地
+ */
 const handleActive = (index: number, item: PieceType | null): void => {
+  let [pieceIndex] = active.value;
   // 走棋
-  if (!isEmpty(active.value)) {
-    let [pieceIndex] = active.value;
+  if (active.value.length) {
     let _piece = mapList.value[pieceIndex] as PieceType;
 
-    // 空地
+    // 空地, 不在棋子可行走范围内
     if (item === NULL && !active.value.includes(index)) return;
 
     if (item) {
@@ -86,12 +91,18 @@ const handleActive = (index: number, item: PieceType | null): void => {
         setActive(item);
         return;
       }
+      // 不在棋子可行走范围内
       if (!active.value.includes(index)) return;
     }
+    const _mapList = cloneDeep(mapList.value);
+
     mapList.value[index] = { ..._piece, index };
     mapList.value[pieceIndex] = NULL;
     setActive(null);
     nextPiece.value = nextPiece.value === RED ? BLACK : RED;
+
+    let chessManual = makingChess(_mapList, pieceIndex, index);
+    console.log(`🚀 ~ chessManual`, chessManual);
     return;
   }
 

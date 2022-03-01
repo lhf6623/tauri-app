@@ -10,7 +10,7 @@ import {
 } from "./run-rule-data";
 import { COL, ROW, NULL, BLACK, RED } from "./index";
 
-function indexToXY(index: number): { x: number; y: number } {
+export function indexToXY(index: number): { x: number; y: number } {
   return {
     x: index % COL,
     y: (index / COL) | 0,
