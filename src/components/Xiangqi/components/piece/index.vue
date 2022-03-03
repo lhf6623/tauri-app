@@ -3,17 +3,13 @@
     <div class="xiangqi-piece" :class="`${data?.type}`">
       {{ data?.text }}
     </div>
-    <Active v-show="active.includes(index)" :color="color"></Active>
+    <Active v-show="active.includes(index)" :color="activeColor"></Active>
   </div>
 </template>
 
 <script setup lang="tsx">
-import { PropType, computed, Ref } from "vue";
+import { PropType, computed } from "vue";
 import Active from "./active.vue";
-import { useThemeVars } from "naive-ui";
-const themeVars = useThemeVars() as unknown as Ref<
-  ThemeOverridesType["common"]
->;
 
 const props = defineProps({
   data: {
@@ -30,10 +26,9 @@ const props = defineProps({
   },
 });
 
-const color = computed(() => {
+const activeColor = computed(() => {
   const isRed = props.active.findIndex((item) => item === props.index) === 0;
-  const { xActiveColor, xActiveEmptyColor } = themeVars.value;
-  return isRed ? xActiveColor : xActiveEmptyColor;
+  return isRed ? "red" : "black";
 });
 </script>
 
@@ -42,21 +37,21 @@ const color = computed(() => {
 .xiangqi-piece {
   position: absolute;
   z-index: 100;
-  width: calc(var(--x-width) - 2px);
-  height: calc(var(--x-height) - 2px);
-  top: 2px;
-  left: 2px;
-  border-radius: var(--x-height);
+  width: $w - 2px;
+  height: $h - 2px;
+  top: 1px;
+  left: 1px;
+  border-radius: $h;
   font-weight: 700;
-  line-height: calc(var(--x-height) - 2px);
+  line-height: $h - 2px;
   text-align: center;
 }
 .isRed {
-  background-color: var(--x-red-bg-color);
-  color: var(--x-red-text-color);
+  background-color: red;
+  color: white;
 }
 .isBlack {
-  background-color: var(--x-black-bg-color);
-  color: var(--x-black-text-color);
+  background-color: black;
+  color: white;
 }
 </style>

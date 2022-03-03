@@ -57,14 +57,14 @@ const list = ref([
 <style lang="scss" scoped>
 @import "../style/config.scss";
 .record-list {
-  background-color: var(--x-record-bg-color);
   font-size: 12px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 
   header,
   footer {
-    background-color: var(--x-title-bg-color);
+    background-color: #9df;
     padding: 0 6px;
     height: 18px;
     flex-shrink: 0;

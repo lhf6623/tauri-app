@@ -23,27 +23,7 @@ type RunRule = {
 };
 
 type StoreType = {
-  tips?: boolean;
-  isDark?: boolean;
+  tips: boolean;
 };
 
 type StoreKeyType = keyof StoreType;
-
-type ThemeOverridesType = {
-  common: {
-    xWidth: string;
-    xHeight: string;
-    xRedTextColor: string;
-    xRedBgColor: string;
-    xBlackBgColor: string;
-    xBlackTextColor: string;
-    xBgColor: string;
-    xPlateColor: string;
-    xLineColor: string;
-    xTitleBgColor: string;
-    xMapShadowColor: string;
-    xActiveColor: string;
-    xActiveEmptyColor: string;
-    xRecordBgColor: string;
-  };
-};

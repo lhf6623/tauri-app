@@ -31,10 +31,10 @@ const props = defineProps({
 .active {
   position: absolute;
   z-index: 5;
-  width: var(--x-width);
-  height: var(--x-height);
-  top: 1px;
-  left: 1px;
+  width: $w;
+  height: $h;
+  top: 0px;
+  left: 0px;
 
   & > li:nth-child(1) {
     @include corner(top, left);

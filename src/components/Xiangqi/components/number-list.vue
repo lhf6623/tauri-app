@@ -17,18 +17,19 @@ defineProps({
 <style lang="scss" scoped>
 @import "../style/config.scss";
 .number-list {
-  height: calc(var(--x-width) * 0.5);
-  width: calc(var(--x-width) * 9);
+  /* 上下相加 等于一个 $h */
+  height: $h * 0.8; // 25 * 0.7 * 2
+  width: $w * 9;
   position: relative;
   display: flex;
-  font-size: calc(var(--x-width) * 0.4);
-  background-color: var(--x-plate-color);
+  font-size: $w * 0.4;
+  background-color: #eed3b3;
 
   li {
-    width: var(--x-width);
-    height: calc(var(--x-width) * 0.5);
+    width: $w;
+    height: $h * 0.8;
     text-align: center;
-    line-height: calc(var(--x-width) * 0.5);
+    line-height: $h * 0.8;
   }
 }
 </style>

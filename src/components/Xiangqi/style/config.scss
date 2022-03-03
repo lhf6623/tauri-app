@@ -1,3 +1,6 @@
+$w: 25px;
+$h: 25px;
+
 /* ↓↓↓↓↓ 棋盘边框线条 ↓↓↓↓↓ */
 /* 横 左 */
 $w_left: 1, 10, 19, 28, 37, 46, 55, 64, 73, 82;
@@ -42,10 +45,10 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
 @mixin lattice-line-rotate($rotate) {
   display: inline;
   position: absolute;
-  background-color: var(--x-line-color);
+  background-color: grey;
   height: 1px;
-  width: calc(var(--x-height) * 1.4);
-  left: calc(var(--x-width) * 0.3);
+  width: $w * 1.4;
+  left: $w * 0.3;
   bottom: -1px;
   transform: rotate(#{$rotate});
   border-radius: 5px;
@@ -64,8 +67,8 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
 /* 点位线条 */
 @mixin lattice-line-pseudo($position1, $position2) {
   @include pseudo-class(7px, 7px);
-  border-#{$position1}: 1px solid var(--x-line-color);
-  border-#{$position2}: 1px solid var(--x-line-color);
+  border-#{$position1}: 1px solid grey;
+  border-#{$position2}: 1px solid grey;
   #{$position1}: 3px;
   #{$position2}: 3px;
 }
