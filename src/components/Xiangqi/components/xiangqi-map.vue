@@ -31,9 +31,7 @@ const store = useGlobalState();
 
 const handleReset = useEventBus(ResetMatchKey);
 
-/**
- * 第一个为选中的棋子，后面的是能运动的格子
- */
+// 第一个为选中的棋子，后面的是能运动的格子
 const active = ref<number[]>([]);
 const nextPiece = ref<Type>(RED);
 const mapList = ref<Array<PieceType | null>>([]);
@@ -46,10 +44,13 @@ function initMapList() {
   });
   nextPiece.value = RED;
   active.value = [];
+  store.value.record = [];
 }
-handleReset.on(initMapList);
 
 onMounted(() => {
+  // 事件总线
+  handleReset.on(initMapList);
+  // 初始化数据
   initMapList();
 });
 
@@ -102,7 +103,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     nextPiece.value = nextPiece.value === RED ? BLACK : RED;
 
     let chessManual = makingChess(_mapList, pieceIndex, index);
-    console.log(`🚀 ~ chessManual`, chessManual);
+    store.value.record.push(chessManual);
     return;
   }
 

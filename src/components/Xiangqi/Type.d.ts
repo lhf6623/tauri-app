@@ -24,6 +24,7 @@ type RunRule = {
 
 type StoreType = {
   tips: boolean;
+  record: Array<string>;
 };
 
 type StoreKeyType = keyof StoreType;

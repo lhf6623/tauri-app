@@ -1,57 +1,40 @@
 <template>
   <div class="record-list">
     <header>棋谱序列</header>
-    <NScrollbar>
-      <span class="record-text" v-for="(item, index) in list" :key="index">{{
-        item
-      }}</span>
+    <NScrollbar ref="scrollbarRef">
+      <div ref="recordListRef">
+        <span class="record-text" v-for="(item, index) in record" :key="index">
+          {{ item }}
+        </span>
+      </div>
     </NScrollbar>
     <footer></footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { NScrollbar } from "naive-ui";
+import { computed, ref, watch } from "vue";
+import { NScrollbar, ScrollbarInst } from "naive-ui";
+import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
+import { useElementSize } from "@vueuse/core";
 
-const list = ref([
-  "跑二平五",
-  "跑三平六",
-  "跑四平七",
-  "跑五平八",
-  "跑六平九",
-  "跑七平十",
-  "跑八平一",
-  "跑九平二",
-  "跑十平三",
-  "跑二平五",
-  "跑三平六",
-  "跑四平七",
-  "跑五平八",
-  "跑六平九",
-  "跑七平十",
-  "跑八平一",
-  "跑九平二",
-  "跑十平三",
-  "跑二平五",
-  "跑三平六",
-  "跑四平七",
-  "跑五平八",
-  "跑六平九",
-  "跑七平十",
-  "跑八平一",
-  "跑九平二",
-  "跑十平三",
-  "跑二平五",
-  "跑三平六",
-  "跑四平七",
-  "跑五平八",
-  "跑六平九",
-  "跑七平十",
-  "跑八平一",
-  "跑九平二",
-  "跑十平三",
-]);
+const recordListRef = ref<HTMLDivElement | null>(null);
+const scrollbarRef = ref<ScrollbarInst | null>(null);
+
+const store = useGlobalState();
+const record = computed(() => store.value.record);
+
+const { height } = useElementSize(recordListRef);
+watch(
+  () => height,
+  () => {
+    scrollbarRef.value?.scrollBy({
+      top: height.value,
+      behavior: "smooth",
+    });
+  },
+  { deep: true }
+);
 </script>
 
 <style lang="scss" scoped>

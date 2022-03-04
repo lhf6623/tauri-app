@@ -4,6 +4,9 @@
       <NButton size="tiny" type="info" @click="resetMatchBus.emit">
         重新开始
       </NButton>
+      <NButton size="tiny" type="info" @click="resetMatchBus.emit">
+        读谱
+      </NButton>
     </div>
     <NButton
       size="tiny"
