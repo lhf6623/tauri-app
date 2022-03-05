@@ -22,14 +22,11 @@ import { ref, onMounted, computed } from "vue";
 import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
 import { run_rule } from "../config-data/run-rule";
 import { isEmpty, delay, cloneDeep } from "lodash-es";
-import { useEventBus } from "@vueuse/core";
-import { ResetMatchKey } from "../vueuse/event-bus-key";
+import { resetMatchBus } from "../vueuse/event-bus-key";
 import { useGlobalState } from "../vueuse/store";
 import { makingChess } from "../config-data/making-chess";
 
 const store = useGlobalState();
-
-const handleReset = useEventBus(ResetMatchKey);
 
 // 第一个为选中的棋子，后面的是能运动的格子
 const active = ref<number[]>([]);
@@ -49,7 +46,7 @@ function initMapList() {
 
 onMounted(() => {
   // 事件总线
-  handleReset.on(initMapList);
+  resetMatchBus.on(initMapList);
   // 初始化数据
   initMapList();
 });

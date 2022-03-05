@@ -4,9 +4,7 @@
       <NButton size="tiny" type="info" @click="resetMatchBus.emit">
         重新开始
       </NButton>
-      <NButton size="tiny" type="info" @click="resetMatchBus.emit">
-        读谱
-      </NButton>
+      <NButton size="tiny" type="info"> 读谱 </NButton>
     </div>
     <NButton
       size="tiny"
@@ -28,14 +26,11 @@
 
 <script setup lang="ts">
 import { NButton, NIcon } from "naive-ui";
-import { useEventBus } from "@vueuse/core";
-import { ResetMatchKey } from "../vueuse/event-bus-key";
+import { resetMatchBus } from "../vueuse/event-bus-key";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
 import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
 
 const store = useGlobalState();
-
-const resetMatchBus = useEventBus(ResetMatchKey);
 
 function handleChangeTips() {
   store.value.tips = !store.value.tips;
@@ -55,13 +50,11 @@ footer {
     display: flex;
     justify-content: flex-end;
 
-    &::first-letter {
-      button {
-        margin-right: 2px;
+    button {
+      margin-right: 3px;
 
-        &:last-child {
-          margin-right: 0;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }

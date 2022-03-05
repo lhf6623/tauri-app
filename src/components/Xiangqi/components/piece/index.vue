@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="xiangqi-piece" :class="`${data?.type}`">
+  <div class="piece">
+    <div v-show="data" class="xiangqi-piece" :class="`${data?.type}`">
       {{ data?.text }}
     </div>
-    <Active v-show="active.includes(index)" :color="activeColor"></Active>
+    <Active v-show="showActive" :color="activeColor"></Active>
   </div>
 </template>
 
@@ -30,13 +30,23 @@ const activeColor = computed(() => {
   const isRed = props.active.findIndex((item) => item === props.index) === 0;
   return isRed ? "red" : "black";
 });
+
+const showActive = computed(() => {
+  return props.active.includes(props.index);
+});
 </script>
 
 <style lang="scss" scoped>
 @import "../../style/config.scss";
+
+.piece {
+  width: $w;
+  height: $h;
+  position: relative;
+  z-index: 100;
+}
 .xiangqi-piece {
   position: absolute;
-  z-index: 100;
   width: $w - 2px;
   height: $h - 2px;
   top: 1px;
