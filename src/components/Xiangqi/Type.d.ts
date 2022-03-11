@@ -1,13 +1,5 @@
 type Type = "isRed" | "isBlack";
-type PieceCodeType =
-  | "che"
-  | "ma"
-  | "xiang"
-  | "shi"
-  | "jiang"
-  | "pao"
-  | "zu"
-  | "bing";
+type PieceCodeType = "che" | "ma" | "xiang" | "shi" | "jiang" | "pao" | "bing";
 type PieceType = {
   index: number;
   text: string;
@@ -25,6 +17,9 @@ type RunRule = {
 type StoreType = {
   tips: boolean;
   record: Array<string>;
+  nextAction: Type;
+  identity: Type;
+  transformStyle: string;
 };
 
 type StoreKeyType = keyof StoreType;

@@ -12,7 +12,12 @@
         <XiangqiPiece :data="item" :active="tipsActive" :index="index" />
       </li>
     </ul>
-    <div class="limit">楚河汉界</div>
+    <div class="limit">
+      <span>楚</span>
+      <span>河</span>
+      <span>汉</span>
+      <span>界</span>
+    </div>
   </div>
 </template>
 
@@ -30,7 +35,6 @@ const store = useGlobalState();
 
 // 第一个为选中的棋子，后面的是能运动的格子
 const active = ref<number[]>([]);
-const nextPiece = ref<Type>(RED);
 const mapList = ref<Array<PieceType | null>>([]);
 
 function initMapList() {
@@ -39,7 +43,7 @@ function initMapList() {
     let { index } = item;
     mapList.value[index] = { ...item };
   });
-  nextPiece.value = RED;
+  store.value.nextAction = RED;
   active.value = [];
   store.value.record = [];
 }
@@ -97,7 +101,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[index] = { ..._piece, index };
     mapList.value[pieceIndex] = NULL;
     setActive(null);
-    nextPiece.value = nextPiece.value === RED ? BLACK : RED;
+    store.value.nextAction = store.value.nextAction === RED ? BLACK : RED;
 
     let chessManual = makingChess(_mapList, pieceIndex, index);
     store.value.record.push(chessManual);
@@ -105,7 +109,11 @@ const handleActive = (index: number, item: PieceType | null): void => {
   }
 
   // 选中棋子
-  if (item !== NULL && isEmpty(active.value) && nextPiece.value === item.type) {
+  if (
+    item !== NULL &&
+    isEmpty(active.value) &&
+    store.value.nextAction === item.type
+  ) {
     setActive(item);
   }
 };
@@ -128,10 +136,16 @@ const handleActive = (index: number, item: PieceType | null): void => {
   width: 100%;
   top: calc(50% - $h * 0.5);
   z-index: 10;
-  text-align: center;
-  line-height: $h;
-  text-indent: $w * 1.3;
-  letter-spacing: $w * 1.3;
+  display: flex;
+  justify-content: space-evenly;
+
+  span {
+    display: inline-block;
+    transform: v-bind("store.transformStyle");
+    transition: transform 1s;
+    height: $h;
+    line-height: $h;
+  }
 }
 .map-layout {
   position: relative;

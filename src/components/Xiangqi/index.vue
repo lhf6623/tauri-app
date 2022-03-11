@@ -1,24 +1,23 @@
 <template>
-  <NConfigProvider abstract>
-    <NGlobalStyle />
-    <NEl class="xiangqi-box">
-      <section>
-        <div class="map-box">
-          <Numbers :list="numbers" />
-          <Maps />
-          <Numbers :list="numbers_cn" />
-        </div>
-        <Records class="records-box" v-if="true" />
-      </section>
-      <Control />
-    </NEl>
-  </NConfigProvider>
+  <NEl class="xiangqi-box">
+    <section>
+      <div class="map-box">
+        <Numbers :list="numbers" />
+        <Maps />
+        <Numbers :list="numbers_cn" />
+      </div>
+      <Records class="records-box" />
+    </section>
+    <Control />
+  </NEl>
 </template>
 
 <script setup lang="ts">
-import { NConfigProvider, NEl, NGlobalStyle } from "naive-ui";
+import { NEl } from "naive-ui";
 import { Numbers, Records, Maps, Control } from "./components";
 import { numbers, numbers_cn } from "./config-data";
+import { useGlobalState } from "./vueuse/store";
+const store = useGlobalState();
 </script>
 
 <style lang="scss" scoped>
@@ -34,6 +33,7 @@ import { numbers, numbers_cn } from "./config-data";
   background-color: #9cf;
   font-size: $w * 0.5;
   font-family: 宋体, 新宋体, "MS Song", SimSun, NSimSun;
+  overflow: hidden;
 }
 footer {
   width: calc(100% - 10px);
@@ -52,7 +52,10 @@ section {
   height: $h * 11 + 15px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
   border-radius: 2px;
-  overflow: hidden;
+
+  transform: v-bind("store.transformStyle");
+  transition: transform 1s;
+  z-index: 100;
 }
 .records-box {
   width: 106px;

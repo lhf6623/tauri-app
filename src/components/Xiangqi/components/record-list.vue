@@ -4,7 +4,7 @@
     <NScrollbar ref="scrollbarRef">
       <div ref="recordListRef">
         <span class="record-text" v-for="(item, index) in record" :key="index">
-          {{ item }}
+          {{ index % 2 ? "" : `${index / 2 + 1}.` }}{{ item }}
         </span>
       </div>
     </NScrollbar>

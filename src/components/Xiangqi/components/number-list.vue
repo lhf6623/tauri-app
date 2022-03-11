@@ -6,6 +6,9 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
+import { useGlobalState } from "../vueuse/store";
+
+const store = useGlobalState();
 defineProps({
   list: {
     type: Object as PropType<string[] | number[]>,
@@ -30,6 +33,9 @@ defineProps({
     height: $h * 0.8;
     text-align: center;
     line-height: $h * 0.8;
+
+    transform: v-bind("store.transformStyle");
+    transition: transform 1s;
   }
 }
 </style>

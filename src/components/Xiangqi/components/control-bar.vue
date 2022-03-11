@@ -1,11 +1,12 @@
 <template>
   <footer>
     <div class="footer-bus">
-      <NButton size="tiny" type="info" @click="resetMatchBus.emit">
-        重新开始
-      </NButton>
-      <NButton size="tiny" type="info"> 读谱 </NButton>
+      <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
+      <NButton size="tiny" type="info" @click="handleTrans">旋转</NButton>
     </div>
+    <p>
+      下棋方：<span>{{ nextText }}</span>
+    </p>
     <NButton
       size="tiny"
       type="info"
@@ -29,12 +30,27 @@ import { NButton, NIcon } from "naive-ui";
 import { resetMatchBus } from "../vueuse/event-bus-key";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
 import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
+import { computed } from "vue";
+import { BLACK, RED } from "../config-data";
 
 const store = useGlobalState();
 
 function handleChangeTips() {
   store.value.tips = !store.value.tips;
 }
+
+const nextText = computed(() => {
+  let { nextAction } = store.value;
+  return nextAction === RED ? "红方" : "黑方";
+});
+
+function handleTrans() {
+  let isRed = store.value.identity === RED;
+  store.value.identity = isRed ? BLACK : RED;
+  store.value.transformStyle = `rotate(${isRed ? 0 : 180}deg)`;
+}
+
+const handleReset = resetMatchBus.emit;
 </script>
 
 <style lang="scss" scoped>

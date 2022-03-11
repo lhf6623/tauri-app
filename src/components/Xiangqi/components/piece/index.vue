@@ -10,6 +10,9 @@
 <script setup lang="tsx">
 import { PropType, computed } from "vue";
 import Active from "./active.vue";
+import { useGlobalState } from "../../vueuse/store";
+
+const store = useGlobalState();
 
 const props = defineProps({
   data: {
@@ -55,6 +58,9 @@ const showActive = computed(() => {
   font-weight: 700;
   line-height: $h - 2px;
   text-align: center;
+
+  transform: v-bind("store.transformStyle");
+  transition: transform 1s;
 }
 .isRed {
   background-color: red;
