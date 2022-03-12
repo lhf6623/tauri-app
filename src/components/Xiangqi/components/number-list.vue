@@ -21,18 +21,17 @@ defineProps({
 @import "../style/config.scss";
 .number-list {
   /* 上下相加 等于一个 $h */
-  height: $h * 0.8; // 25 * 0.7 * 2
+  height: $h_n; // 26 * 0.8 * 2
   width: $w * 9;
   position: relative;
   display: flex;
-  font-size: $w * 0.4;
+  font-size: $w * 0.5;
   background-color: #eed3b3;
 
   li {
     width: $w;
-    height: $h * 0.8;
+    height: $h_n;
     text-align: center;
-    line-height: $h * 0.8;
 
     transform: v-bind("store.transformStyle");
     transition: transform 1s;

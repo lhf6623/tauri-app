@@ -15,11 +15,18 @@ type RunRule = {
 };
 
 type StoreType = {
+  // 可移动格子提示
   tips: boolean;
+  // 棋谱
   record: Array<string>;
+  // 下一个移动棋子的一方
   nextAction: Type;
+  // 当前人所执棋的颜色
   identity: Type;
-  transformStyle: string;
+  // 根据所执棋的颜色翻转棋盘 translateZ(0) 防抖动
+  transformStyle:
+    | "rotate(0deg)  translateZ(0)"
+    | "rotate(180deg)  translateZ(0)";
 };
 
 type StoreKeyType = keyof StoreType;

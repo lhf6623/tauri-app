@@ -25,7 +25,7 @@ const store = useGlobalState();
 .xiangqi-box {
   position: relative;
   width: $w * 9 + 4px + 106px + 10px;
-  height: $h * 11 + 15px + 4px + 22px + 10px;
+  height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,17 +49,17 @@ section {
 
 .map-box {
   width: $w * 9;
-  height: $h * 11 + 15px;
+  height: ($h * 10) + ($h_n * 2);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
   border-radius: 2px;
+  overflow: hidden;
 
   transform: v-bind("store.transformStyle");
-  transition: transform 1s;
   z-index: 100;
 }
 .records-box {
   width: 106px;
-  height: $h * 11 + 15px;
+  height: ($h * 10) + ($h_n * 2);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
   border-radius: 2px;
   overflow: hidden;

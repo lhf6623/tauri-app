@@ -56,7 +56,6 @@ const showActive = computed(() => {
   left: 1px;
   border-radius: $h;
   font-weight: 700;
-  line-height: $h - 2px;
   text-align: center;
 
   transform: v-bind("store.transformStyle");

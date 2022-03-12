@@ -1,6 +1,9 @@
 $w: 26px;
 $h: 26px;
 
+$w_n: 20px;
+$h_n: 20px;
+
 /* ↓↓↓↓↓ 棋盘边框线条 ↓↓↓↓↓ */
 /* 横 左 */
 $w_left: 1, 10, 19, 28, 37, 46, 55, 64, 73, 82;
@@ -48,8 +51,8 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
   background-color: grey;
   height: 1px;
   width: $w * 1.4;
-  left: $w * 0.3;
-  bottom: -1px;
+  left: $w * 0.31;
+  bottom: -0.4px;
   transform: rotate(#{$rotate});
   border-radius: 5px;
 }

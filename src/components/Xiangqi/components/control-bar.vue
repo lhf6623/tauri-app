@@ -47,7 +47,7 @@ const nextText = computed(() => {
 function handleTrans() {
   let isRed = store.value.identity === RED;
   store.value.identity = isRed ? BLACK : RED;
-  store.value.transformStyle = `rotate(${isRed ? 0 : 180}deg)`;
+  store.value.transformStyle = `rotate(${isRed ? 0 : 180}deg)  translateZ(0)`;
 }
 
 const handleReset = resetMatchBus.emit;
