@@ -14,10 +14,19 @@
 
 <script setup lang="ts">
 import { NEl } from "naive-ui";
+import { onMounted, onUnmounted } from "vue";
 import { Numbers, Records, Maps, Control } from "./components";
 import { numbers, numbers_cn } from "./config-data";
 import { useGlobalState } from "./vueuse/store";
 const store = useGlobalState();
+const bgColor = "#9cf";
+onMounted(() => {
+  document.body.style.backgroundColor = bgColor;
+});
+
+onUnmounted(() => {
+  document.body.style.backgroundColor = "";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -30,7 +39,7 @@ const store = useGlobalState();
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #9cf;
+  background-color: v-bind("bgColor");
   font-size: $w * 0.5;
   font-family: 宋体, 新宋体, "MS Song", SimSun, NSimSun;
   overflow: hidden;

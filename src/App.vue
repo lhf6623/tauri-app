@@ -1,7 +1,6 @@
 <template>
   <NConfigProvider abstract>
     <NGlobalStyle />
-
     <XiangqiMap />
     <TauriAppsApiLIst v-if="false" />
   </NConfigProvider>

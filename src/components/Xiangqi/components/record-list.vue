@@ -2,11 +2,19 @@
   <div class="record-list">
     <header>棋谱序列</header>
     <NScrollbar ref="scrollbarRef">
-      <div ref="recordListRef">
-        <span class="record-text" v-for="(item, index) in record" :key="index">
-          {{ index % 2 ? "" : `${index / 2 + 1}.` }}{{ item }}
-        </span>
-      </div>
+      <ul ref="recordListRef">
+        <li class="record-text">
+          <span>===棋局开始===</span>
+        </li>
+        <li class="record-text" v-for="(item, index) in record" :key="index">
+          <p class="inline-block">
+            {{ index % 2 ? "&nbsp;&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
+          </p>
+          <p class="text">
+            <span v-for="wz in item">{{ wz }}</span>
+          </p>
+        </li>
+      </ul>
     </NScrollbar>
     <footer></footer>
   </div>
@@ -22,7 +30,12 @@ const recordListRef = ref<HTMLDivElement | null>(null);
 const scrollbarRef = ref<ScrollbarInst | null>(null);
 
 const store = useGlobalState();
-const record = computed(() => store.value.record);
+const record = computed(() => {
+  let _record = store.value.record.map((item) => {
+    return item.split("");
+  });
+  return _record;
+});
 
 const { height } = useElementSize(recordListRef);
 watch(
@@ -54,8 +67,15 @@ watch(
   }
 
   .record-text {
-    display: block;
+    display: flex;
     text-align: center;
+    justify-content: center;
+
+    .text {
+      display: flex;
+      min-width: 50px;
+      justify-content: space-between;
+    }
   }
 }
 </style>

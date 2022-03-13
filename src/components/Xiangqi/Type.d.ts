@@ -1,8 +1,22 @@
 type Type = "isRed" | "isBlack";
 type PieceCodeType = "che" | "ma" | "xiang" | "shi" | "jiang" | "pao" | "bing";
+type PieceTextType =
+  | "车"
+  | "車"
+  | "马"
+  | "馬"
+  | "相"
+  | "象"
+  | "仕"
+  | "士"
+  | "帅"
+  | "将"
+  | "炮"
+  | "兵"
+  | "卒";
 type PieceType = {
   index: number;
-  text: string;
+  text: PieceTextType;
   type: Type;
   code: PieceCodeType;
 };

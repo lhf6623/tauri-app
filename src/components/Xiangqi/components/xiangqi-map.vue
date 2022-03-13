@@ -102,8 +102,9 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[pieceIndex] = NULL;
     setActive(null);
     store.value.nextAction = store.value.nextAction === RED ? BLACK : RED;
-
+    console.time("制作棋谱");
     let chessManual = makingChess(_mapList, pieceIndex, index);
+    console.timeEnd("制作棋谱");
     store.value.record.push(chessManual);
     return;
   }
