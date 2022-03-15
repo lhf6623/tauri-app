@@ -14,6 +14,9 @@ type PieceTextType =
   | "炮"
   | "兵"
   | "卒";
+
+type Text3Type = "进" | "退" | "平";
+
 type PieceType = {
   index: number;
   text: PieceTextType;

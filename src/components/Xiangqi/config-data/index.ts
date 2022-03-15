@@ -25,9 +25,9 @@ export const piece_list: PieceType[] = [
   },
   {
     index: 1,
-    text: "兵",
-    code: "bing",
-    type: RED,
+    text: "馬",
+    code: "ma",
+    type: BLACK,
   },
   {
     index: 2,
@@ -73,9 +73,9 @@ export const piece_list: PieceType[] = [
   },
   {
     index: 19,
-    text: "兵",
-    code: "bing",
-    type: RED,
+    text: "炮",
+    code: "pao",
+    type: BLACK,
   },
   {
     index: 25,
@@ -84,10 +84,10 @@ export const piece_list: PieceType[] = [
     type: BLACK,
   },
   {
-    index: 28,
-    text: "兵",
+    index: 27,
+    text: "卒",
     code: "bing",
-    type: RED,
+    type: BLACK,
   },
   {
     index: 29,
@@ -145,8 +145,8 @@ export const piece_list: PieceType[] = [
   },
   {
     index: 64,
-    text: "兵",
-    code: "bing",
+    text: "炮",
+    code: "pao",
     type: RED,
   },
   {
@@ -163,8 +163,8 @@ export const piece_list: PieceType[] = [
   },
   {
     index: 82,
-    text: "兵",
-    code: "bing",
+    text: "马",
+    code: "ma",
     type: RED,
   },
   {

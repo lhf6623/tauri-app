@@ -1,8 +1,7 @@
 import { indexToXY } from "./run-rule";
 import { RED, COL, ROW, NULL, numbers, numbers_cn } from "./index";
-import { isMatch } from "lodash-es";
-
-type Text3Type = "进" | "退" | "平";
+import { isMatch, cloneDeep } from "lodash-es";
+const _numbers_cn = cloneDeep(numbers_cn).reverse();
 /* 下棋制作棋谱 */
 /**
  * 直走的直接加减，马，相，士之类的需要按照x轴数字来显示
@@ -134,18 +133,18 @@ const getText1 = (
   piece: PieceType
 ): string => {
   let { index, type, text, code } = piece;
-  let { x, y } = indexToXY(index);
+  let isRed = type === RED;
 
   const yArr = getYIndex(mapArr, piece);
-  if (code === "bing") {
-    if (yArr.length > 2 || isTwoColBing(mapArr, piece)) {
-      console.log(`🚀 ~ yArr`, yArr);
+  if (code === "bing" && yArr.length >= 2 && isTwoColBing(mapArr, piece)) {
+    // 第一个字是棋子对应在第几个位置
+    let _y = yArr.indexOf(index);
+    const textBing = isRed ? _numbers_cn[_y] : yArr.length - _y;
 
-      // 判断有没有两列兵大于2以上的
-      return "";
-    }
+    // 第二个字是棋子文字
+    // 第三个字是棋盘对应的列数
+    return `${textBing}${text}${getText2(index, isRed)}`;
   }
-  let isRed = type === RED;
   // 红棋，查询到的棋子 下标y 小于当前棋子 后，反之 前
   // 黑棋，查询到的棋子 下标y 大于当前棋子 后，反之 后
   // 没有 就是当前棋子的 text
@@ -174,8 +173,9 @@ export const makingChess = (
   afterIndex: number
 ): string => {
   const beforePice = mapArr[beforeIndex] as PieceType;
-  const text1_2 = getText1(mapArr, beforePice);
+  // 如果是兵 特殊情可能有三个字
+  const text1_2_3 = getText1(mapArr, beforePice);
   const text3 = getText3(beforeIndex, afterIndex, beforePice);
   const text4 = getText4(beforeIndex, afterIndex, beforePice);
-  return `${text1_2}${text3}${text4}`;
+  return `${text1_2_3}${text3}${text4}`;
 };
