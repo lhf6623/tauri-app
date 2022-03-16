@@ -1,5 +1,5 @@
 <template>
-  <ul class="active">
+  <ul class="active absolute top-0 left-0">
     <li></li>
     <li></li>
     <li></li>
@@ -29,12 +29,9 @@ const props = defineProps({
   animation: warn 1s linear 0.4s infinite;
 }
 .active {
-  position: absolute;
   z-index: 5;
   width: $w;
   height: $h;
-  top: 0px;
-  left: 0px;
 
   & > li:nth-child(1) {
     @include corner(top, left);

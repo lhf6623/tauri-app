@@ -1,6 +1,12 @@
 <template>
-  <div class="piece">
-    <div v-show="data" class="xiangqi-piece" :class="`${data?.type}`">
+  <div class="piece relative z-100">
+    <div
+      v-show="data"
+      class="xiangqi-piece absolute text-center font-bold text-white"
+      :class="`${data?.type} cursor-${
+        data || showActive ? 'pointer' : 'default'
+      }`"
+    >
       {{ data?.text }}
     </div>
     <Active v-show="showActive" :color="activeColor"></Active>
@@ -42,31 +48,27 @@ const showActive = computed(() => {
 <style lang="scss" scoped>
 @import "../../style/config.scss";
 
+/*  cursor: pointer; */
 .piece {
   width: $w;
   height: $h;
-  position: relative;
   z-index: 100;
 }
 .xiangqi-piece {
-  position: absolute;
   width: $w - 2px;
   height: $h - 2px;
+  line-height: $h - 2px;
   top: 1px;
   left: 1px;
   border-radius: $h;
-  font-weight: 700;
-  text-align: center;
-
+  z-index: 99;
   transform: v-bind("store.transformStyle");
   transition: transform 1s;
 }
 .isRed {
   background-color: red;
-  color: white;
 }
 .isBlack {
   background-color: black;
-  color: white;
 }
 </style>

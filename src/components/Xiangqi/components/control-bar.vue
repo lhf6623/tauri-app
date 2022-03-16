@@ -1,6 +1,6 @@
 <template>
-  <footer>
-    <div class="footer-bus">
+  <footer class="relative flex items-center justify-between h-22px mt-4px">
+    <div class="footer-bus flex justify-end">
       <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
       <NButton size="tiny" type="info" @click="handleTrans">旋转</NButton>
     </div>
@@ -56,22 +56,12 @@ const handleReset = resetMatchBus.emit;
 <style lang="scss" scoped>
 @import "../style/config.scss";
 
-footer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.footer-bus {
+  button {
+    margin-right: 3px;
 
-  .footer-bus {
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      margin-right: 3px;
-
-      &:last-child {
-        margin-right: 0;
-      }
+    &:last-child {
+      margin-right: 0;
     }
   }
 }

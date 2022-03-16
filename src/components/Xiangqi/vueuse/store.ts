@@ -8,6 +8,6 @@ export const useGlobalState = createGlobalState(() =>
     record: [],
     nextAction: RED,
     identity: RED,
-    transformStyle: "rotate(0deg)  translateZ(0)",
+    transformStyle: `rotate(0deg)  translateZ(0)`,
   })
 );

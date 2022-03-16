@@ -1,9 +1,9 @@
 <template>
-  <div class="checkerboard">
-    <ul class="map-layout">
+  <div class="checkerboard relative select-none">
+    <ul class="map-layout relative w-full h-full flex flex-wrap">
       <li
         v-for="(item, index) in mapList"
-        class="lattice"
+        class="lattice relative flex items-center justify-center"
         @click="handleActive(index, item)"
       >
         <!-- 斜线 -->
@@ -12,7 +12,7 @@
         <XiangqiPiece :data="item" :active="tipsActive" :index="index" />
       </li>
     </ul>
-    <div class="limit">
+    <div class="limit absolute w-full flex justify-evenly">
       <span>楚</span>
       <span>河</span>
       <span>汉</span>
@@ -102,9 +102,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[pieceIndex] = NULL;
     setActive(null);
     store.value.nextAction = store.value.nextAction === RED ? BLACK : RED;
-    console.time("制作棋谱");
     let chessManual = makingChess(_mapList, pieceIndex, index);
-    console.timeEnd("制作棋谱");
     store.value.record.push(chessManual);
     return;
   }
@@ -123,22 +121,14 @@ const handleActive = (index: number, item: PieceType | null): void => {
 <style lang="scss" scoped>
 @import "../style/config.scss";
 .checkerboard {
-  position: relative;
   width: $w * 9;
   height: $h * 10;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
 }
 /* 楚河汉界 */
 .limit {
-  position: absolute;
   height: $h;
-  width: 100%;
   top: calc(50% - $h * 0.5);
   z-index: 10;
-  display: flex;
-  justify-content: space-evenly;
 
   span {
     display: inline-block;
@@ -149,12 +139,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   }
 }
 .map-layout {
-  position: relative;
   background-color: #eed3b3;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
 
   &::after {
     position: absolute;
@@ -166,12 +151,8 @@ const handleActive = (index: number, item: PieceType | null): void => {
     border: 2px solid grey;
   }
   .lattice {
-    position: relative;
     width: $w;
     height: $h;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     /* 横 */
     &::after {

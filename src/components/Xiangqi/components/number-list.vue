@@ -1,6 +1,8 @@
 <template>
-  <ul class="number-list">
-    <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+  <ul class="number-list relative flex">
+    <li v-for="(item, index) in list" :key="index" class="text-center">
+      {{ item }}
+    </li>
   </ul>
 </template>
 
@@ -23,15 +25,12 @@ defineProps({
   /* 上下相加 等于一个 $h */
   height: $h_n; // 26 * 0.8 * 2
   width: $w * 9;
-  position: relative;
-  display: flex;
   font-size: $w * 0.5;
   background-color: #eed3b3;
 
   li {
     width: $w;
     height: $h_n;
-    text-align: center;
 
     transform: v-bind("store.transformStyle");
     transition: transform 1s;
