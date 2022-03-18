@@ -2,9 +2,7 @@ type Type = "isRed" | "isBlack";
 type PieceCodeType = "che" | "ma" | "xiang" | "shi" | "jiang" | "pao" | "bing";
 type PieceTextType =
   | "车"
-  | "車"
   | "马"
-  | "馬"
   | "相"
   | "象"
   | "仕"
@@ -36,6 +34,10 @@ type StoreType = {
   tips: boolean;
   // 棋谱
   record: Array<string>;
+  // true下棋模式 ｜ false读棋模式
+  recordType: boolean;
+  // 读棋模式下的棋谱序列下标
+  recordActive: number;
   // 下一个移动棋子的一方
   nextAction: Type;
   // 当前人所执棋的颜色

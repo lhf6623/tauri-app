@@ -18,20 +18,28 @@
 
 <script setup lang="ts">
 import { NEl } from "naive-ui";
+import { onMounted } from "vue";
 import { Numbers, Records, Maps, Control } from "./components";
-import { numbers, numbers_cn } from "./config-data";
-import { useGlobalState } from "./vueuse/store";
+import { numbers, numbers_cn } from "./utils/data";
+import { useGlobalState, initChessGame } from "./vueuse/store";
 const store = useGlobalState();
+
+// TODO: 后期接口化
+onMounted(initChessGame);
 </script>
 
 <style lang="scss" scoped>
 @import "./style/config.scss";
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("@/assets/fonts/ttf/JetBrainsMono-Light.ttf");
+}
 .xiangqi-box {
   width: $w * 9 + 4px + 106px + 10px;
   height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
   background-color: #9cf;
-  font-size: 12px;
-  font-family: 宋体, 新宋体, "MS Song", SimSun, NSimSun;
+  font-size: 16px;
+  font-family: "JetBrains Mono";
 }
 .footer {
   width: calc(100% - 10px);

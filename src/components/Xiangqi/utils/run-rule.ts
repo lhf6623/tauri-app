@@ -8,14 +8,8 @@ import {
   shiRule,
   shiSeat,
 } from "./run-rule-data";
-import { COL, ROW, NULL, BLACK, RED } from "./index";
+import { COL, ROW, NULL, BLACK, RED, indexToXY } from "./data";
 
-export function indexToXY(index: number): { x: number; y: number } {
-  return {
-    x: index % COL,
-    y: (index / COL) | 0,
-  };
-}
 /**
  * 在地图上
  */
@@ -32,7 +26,6 @@ function isPass(
 ): boolean {
   return map[i] === NULL || map[i]?.type !== pieceType;
 }
-
 export const run_rule: RunRule = {
   che: (map, { index: pieceIndex, type: pieceType }) => {
     let result: number[] = [];

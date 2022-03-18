@@ -24,12 +24,12 @@
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
 import { ref, onMounted, computed } from "vue";
-import { piece_list, NULL, COL, ROW, RED, BLACK } from "../config-data";
-import { run_rule } from "../config-data/run-rule";
+import { makingChess, initMap, readChess } from "../utils";
+import { NULL, RED, BLACK } from "../utils/data";
+import { run_rule } from "../utils/run-rule";
 import { isEmpty, delay, cloneDeep } from "lodash-es";
-import { resetMatchBus } from "../vueuse/event-bus-key";
-import { useGlobalState } from "../vueuse/store";
-import { makingChess } from "../config-data/making-chess";
+import { resetMatchBus, historyBus } from "../vueuse/event-bus";
+import { useGlobalState, initChessGame } from "../vueuse/store";
 
 const store = useGlobalState();
 
@@ -38,19 +38,24 @@ const active = ref<number[]>([]);
 const mapList = ref<Array<PieceType | null>>([]);
 
 function initMapList() {
-  mapList.value = Array(COL * ROW).fill(NULL);
-  piece_list.forEach((item) => {
-    let { index } = item;
-    mapList.value[index] = { ...item };
-  });
-  store.value.nextAction = RED;
+  mapList.value = initMap();
   active.value = [];
-  store.value.record = [];
+  initChessGame();
 }
 
 onMounted(() => {
   // 事件总线
   resetMatchBus.on(initMapList);
+  historyBus.on((index) => {
+    let { record } = store.value;
+    if (store.value.recordActive === index) return;
+    if (index === 0) {
+      mapList.value = initMap();
+      return;
+    }
+    readChess(record, index - 1);
+    store.value.recordActive = index;
+  });
   // 初始化数据
   initMapList();
 });
@@ -101,9 +106,13 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[index] = { ..._piece, index };
     mapList.value[pieceIndex] = NULL;
     setActive(null);
-    store.value.nextAction = store.value.nextAction === RED ? BLACK : RED;
-    let chessManual = makingChess(_mapList, pieceIndex, index);
-    store.value.record.push(chessManual);
+    let { nextAction, recordType } = store.value;
+    store.value.nextAction = nextAction === RED ? BLACK : RED;
+    // 读谱的时候不生成棋谱
+    if (recordType) {
+      let chessManual = makingChess(_mapList, pieceIndex, index);
+      store.value.record.push(chessManual);
+    }
     return;
   }
 

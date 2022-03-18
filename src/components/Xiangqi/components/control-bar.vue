@@ -1,5 +1,7 @@
 <template>
-  <footer class="relative flex items-center justify-between h-22px mt-4px">
+  <footer
+    class="footer-text relative flex items-center justify-between h-22px mt-4px"
+  >
     <div class="footer-bus flex justify-end">
       <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
       <NButton size="tiny" type="info" @click="handleTrans">旋转</NButton>
@@ -27,11 +29,11 @@
 
 <script setup lang="ts">
 import { NButton, NIcon } from "naive-ui";
-import { resetMatchBus } from "../vueuse/event-bus-key";
+import { resetMatchBus } from "../vueuse/event-bus";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
 import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
 import { computed } from "vue";
-import { BLACK, RED } from "../config-data";
+import { BLACK, RED } from "../utils/data";
 
 const store = useGlobalState();
 
@@ -55,7 +57,9 @@ const handleReset = resetMatchBus.emit;
 
 <style lang="scss" scoped>
 @import "../style/config.scss";
-
+.footer-text {
+  font-size: 12px;
+}
 .footer-bus {
   button {
     margin-right: 3px;

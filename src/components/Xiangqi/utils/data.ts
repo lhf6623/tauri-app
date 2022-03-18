@@ -1,9 +1,3 @@
-export const COL: number = 9;
-export const ROW: number = 10;
-export const NULL: null = null;
-export const BLACK = "isBlack";
-export const RED = "isRed";
-
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export const numbers_cn: string[] = [
   "九",
@@ -16,16 +10,28 @@ export const numbers_cn: string[] = [
   "二",
   "一",
 ];
+export const COL: number = 9;
+export const ROW: number = 10;
+export const NULL: null = null;
+export const BLACK: Type = "isBlack";
+export const RED: Type = "isRed";
+
+export function indexToXY(index: number): { x: number; y: number } {
+  return {
+    x: index % COL,
+    y: (index / COL) | 0,
+  };
+}
 export const piece_list: PieceType[] = [
   {
     index: 0,
-    text: "車",
+    text: "车",
     code: "che",
     type: BLACK,
   },
   {
     index: 1,
-    text: "馬",
+    text: "马",
     code: "ma",
     type: BLACK,
   },
@@ -61,13 +67,13 @@ export const piece_list: PieceType[] = [
   },
   {
     index: 7,
-    text: "馬",
+    text: "马",
     code: "ma",
     type: BLACK,
   },
   {
     index: 8,
-    text: "車",
+    text: "车",
     code: "che",
     type: BLACK,
   },

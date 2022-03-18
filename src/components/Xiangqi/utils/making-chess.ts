@@ -1,8 +1,12 @@
-import { indexToXY } from "./run-rule";
-import { RED, COL, ROW, NULL, numbers, numbers_cn } from "./index";
+/**
+ * 下棋制作棋谱
+ */
+import { RED, COL, ROW, NULL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
+import { numbers, numbers_cn } from "./data";
+
 const _numbers_cn = cloneDeep(numbers_cn).reverse();
-/* 下棋制作棋谱 */
+
 /**
  * 直走的直接加减，马，相，士之类的需要按照x轴数字来显示
  * @param beforeIndex

@@ -2,8 +2,8 @@
   <div class="piece relative z-100">
     <div
       v-show="data"
-      class="xiangqi-piece absolute text-center font-bold text-white"
-      :class="`${data?.type} cursor-${
+      class="xiangqi-piece absolute text-center text-white"
+      :class="`${pieceTypeClass} cursor-${
         data || showActive ? 'pointer' : 'default'
       }`"
     >
@@ -13,10 +13,11 @@
   </div>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 import { PropType, computed } from "vue";
 import Active from "./active.vue";
 import { useGlobalState } from "../../vueuse/store";
+import { RED } from "../../utils/data";
 
 const store = useGlobalState();
 
@@ -43,6 +44,10 @@ const activeColor = computed(() => {
 const showActive = computed(() => {
   return props.active.includes(props.index);
 });
+
+const pieceTypeClass = computed(() =>
+  props.data?.type === RED ? "isRed" : "isBlack"
+);
 </script>
 
 <style lang="scss" scoped>

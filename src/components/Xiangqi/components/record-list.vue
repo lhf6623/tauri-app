@@ -1,21 +1,31 @@
 <template>
   <div class="record-list flex flex-col bg-white font-s">
-    <header class="px-6px h-18px flex-shrink-0">棋谱序列</header>
+    <header class="px-6px h-18px flex-shrink-0 flex justify-between">
+      <span>棋谱序列</span>
+      <span class="cursor-pointer" @click="changeRecordType"
+        >[{{ store.recordType ? "下棋" : "读谱" }}]</span
+      >
+    </header>
     <NScrollbar ref="scrollbarRef">
-      <ul ref="recordListRef" class="text-center">
-        <li>
+      <ul
+        ref="recordListRef"
+        class="text-center"
+        :class="`cursor-${store.recordType ? 'default' : 'pointer'}`"
+      >
+        <li :class="activeItem === 0 ? `active` : ''" @click="handleHistory(0)">
           <span>===棋局开始===</span>
         </li>
         <li
           class="flex text-center justify-center"
-          v-for="(item, index) in record"
-          :key="index"
+          v-for="(item, index) in store.record"
+          @click="handleHistory(index + 1)"
+          :class="activeItem === index + 1 ? `active` : ''"
         >
           <p class="inline-block">
-            {{ index % 2 ? "&nbsp;&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
+            {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
           </p>
           <p class="flex min-w-50px justify-between">
-            <span v-for="wz in item">{{ wz }}</span>
+            <span v-for="texts in item.split('')">{{ texts }}</span>
           </p>
         </li>
       </ul>
@@ -29,16 +39,16 @@ import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
 import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
 import { useElementSize } from "@vueuse/core";
+import { historyBus } from "../vueuse/event-bus";
 
 const recordListRef = ref<HTMLDivElement | null>(null);
 const scrollbarRef = ref<ScrollbarInst | null>(null);
 
 const store = useGlobalState();
-const record = computed(() => {
-  let _record = store.value.record.map((item) => {
-    return item.split("");
-  });
-  return _record;
+
+const activeItem = computed(() => {
+  let { recordActive, record, recordType } = store.value;
+  return recordType ? record.length : recordActive;
 });
 
 const { height } = useElementSize(recordListRef);
@@ -52,6 +62,17 @@ watch(
   },
   { deep: true }
 );
+
+const handleHistory = (index: number) => {
+  if (store.value.recordType) return;
+  historyBus.emit(index);
+};
+
+const changeRecordType = () => {
+  let { recordType, record } = store.value;
+  store.value.recordType = !recordType;
+  store.value.recordActive = record.length;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -62,6 +83,11 @@ watch(
   header,
   footer {
     background-color: #9df;
+  }
+
+  .active {
+    background-color: rgb(49, 106, 197);
+    color: white;
   }
 }
 </style>
