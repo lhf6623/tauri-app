@@ -49,12 +49,12 @@ onMounted(() => {
   historyBus.on((index) => {
     let { record } = store.value;
     if (store.value.recordActive === index) return;
+    store.value.recordActive = index;
     if (index === 0) {
       mapList.value = initMap();
       return;
     }
     readChess(record, index - 1);
-    store.value.recordActive = index;
   });
   // 初始化数据
   initMapList();
@@ -148,8 +148,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   }
 }
 .map-layout {
-  background-color: #eed3b3;
-
+  /* 最外围的框框 */
   &::after {
     position: absolute;
     content: "";
@@ -159,6 +158,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     top: $h * 0.3;
     border: 2px solid grey;
   }
+  /* 格子 */
   .lattice {
     width: $w;
     height: $h;
@@ -168,6 +168,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
       @include pseudo-class(100%, 1px);
       background-color: grey;
     }
+    /* 竖 */
     &::before {
       @include pseudo-class(1px, 100%);
       background-color: grey;
@@ -257,7 +258,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
       }
     }
 
-    /* 右下 */
+    /* 位置角标右下 */
     @each $key in $position_r_b {
       &:nth-child(#{$key}) .lattice-line {
         @include lattice-line-mixin;
@@ -267,7 +268,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
       }
     }
 
-    /* 左下 */
+    /* 位置角标左下 */
     @each $key in $position_l_b {
       &:nth-child(#{$key}) .lattice-line {
         @include lattice-line-mixin;
@@ -277,7 +278,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
       }
     }
 
-    /* 左上 */
+    /* 位置角标左上 */
     @each $key in $position_l_t {
       &:nth-child(#{$key}) .lattice-line {
         @include lattice-line-mixin;
@@ -287,7 +288,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
       }
     }
 
-    /* 右上 */
+    /* 位置角标右上 */
     @each $key in $position_r_t {
       &:nth-child(#{$key}) .lattice-line {
         @include lattice-line-mixin;

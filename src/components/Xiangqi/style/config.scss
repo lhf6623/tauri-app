@@ -50,11 +50,12 @@ $position_r_t: 19, 25, 29, 31, 33, 35, 56, 58, 60, 62, 64, 70;
   position: absolute;
   background-color: grey;
   height: 1px;
-  width: $w * 1.4;
-  left: $w * 0.31;
-  bottom: -0.4px;
+  width: 36.77px;
+  height: 1px;
+  left: 7.6px;
+  top: calc(26px - 0.5px);
   transform: rotate(#{$rotate});
-  border-radius: 5px;
+  z-index: 100;
 }
 
 /* 点位 */

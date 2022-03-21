@@ -1,4 +1,6 @@
+/** 黑棋X轴 */
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+/** 红旗X轴 */
 export const numbers_cn: string[] = [
   "九",
   "八",
@@ -15,6 +17,11 @@ export const ROW: number = 10;
 export const NULL: null = null;
 export const BLACK: Type = "isBlack";
 export const RED: Type = "isRed";
+
+/** 除兵外第三个字 "进", "退", "平" */
+export const text3: Text3Type[] = ["进", "退", "平"];
+/** 除兵外多个棋子在一条Y轴的第一个字 "前", "后" */
+export const text1: Text1Type[] = ["前", "后"];
 
 export function indexToXY(index: number): { x: number; y: number } {
   return {

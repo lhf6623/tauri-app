@@ -14,6 +14,7 @@ type PieceTextType =
   | "卒";
 
 type Text3Type = "进" | "退" | "平";
+type Text1Type = "前" | "后";
 
 type PieceType = {
   index: number;

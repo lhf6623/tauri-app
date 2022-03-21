@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "tauri-app",
+    "productName": "象",
     "version": "0.1.2"
   },
   "build": {
@@ -55,8 +55,8 @@
     },
     "windows": [
       {
-        "title": "",
-        "width": 354,
+        "title": "象",
+        "width": 358,
         "height": 336,
         "resizable": false,
         "fullscreen": false

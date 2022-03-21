@@ -3,7 +3,11 @@
  */
 import { RED, COL, ROW, NULL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
-import { numbers, numbers_cn } from "./data";
+
+import { numbers, numbers_cn, text1, text3 } from "./data";
+
+const [QIAN, HOU] = text1;
+const [JIN, TUI, PING] = text3;
 
 const _numbers_cn = cloneDeep(numbers_cn).reverse();
 
@@ -51,14 +55,14 @@ const getText3 = (
   let { y: afterY } = indexToXY(afterIndex);
 
   // 直线
-  if (beforeY === afterY) return "平";
+  if (beforeY === afterY) return PING;
 
   // 红棋，移动前棋子 小于当前棋子 进，反之 退
   // 黑棋，移动前棋子 小于当前棋子 进，反之 退
   if (isRed) {
-    return beforeIndex < afterIndex ? "退" : "进";
+    return beforeIndex < afterIndex ? TUI : JIN;
   } else {
-    return beforeIndex < afterIndex ? "进" : "退";
+    return beforeIndex < afterIndex ? JIN : TUI;
   }
 };
 
@@ -155,10 +159,10 @@ const getText1 = (
   for (let i = 0; i < yArr.length; i++) {
     let _index = yArr[i];
     if ((isRed && _index < index) || (!isRed && _index > index)) {
-      return `后${text}`;
+      return `${HOU}${text}`;
     }
     if ((isRed && _index > index) || (!isRed && _index < index)) {
-      return `前${text}`;
+      return `${QIAN}${text}`;
     }
   }
   return text.length === 1 ? `${text}${getText2(index, isRed)}` : text;
