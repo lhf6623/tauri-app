@@ -7,7 +7,7 @@ import {
   type,
   version,
 } from "@tauri-apps/api/os";
-import { ref, Ref } from "vue-demi";
+import { ref, Ref } from "vue";
 
 export const useAppInfo = (): Ref<AppInfo> => {
   let appInfo = ref<AppInfo>({});
