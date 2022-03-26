@@ -1,26 +1,15 @@
 <template>
   <div class="m-2">
-    <p>
-      <span>{{ `${appInfo.name || ""}` }}</span>
-      <span class="ml-2">版本：{{ appInfo.version || "" }}</span>
-      <span class="ml-2">Tauri：{{ appInfo.tauriVersion || "" }}</span>
-    </p>
-    <p>
-      <span>{{ `${osInfo.type || ""}` }}</span>
-      <span class="ml-2">{{ osInfo.version || "" }}</span>
-    </p>
+    <AppApi />
+    <OsApi />
+    <NoticeApi />
+    <ProcessApi />
   </div>
 </template>
 
 <script setup lang="ts">
-import { getMatches } from "@tauri-apps/api/cli";
-import { onMounted } from "vue";
-import { useAppInfo, uasOSInfo } from "./useAppsApi";
-let appInfo = useAppInfo();
-let osInfo = uasOSInfo();
-
-onMounted(async () => {
-  let a = await getMatches();
-  console.log(`🚀 ~ a`, a);
-});
+import AppApi from "./app-api.vue";
+import OsApi from "./os-api.vue";
+import ProcessApi from "./process-api.vue";
+import NoticeApi from "./notice.api.vue";
 </script>

@@ -1,8 +1,8 @@
 <template>
   <NConfigProvider abstract>
     <NGlobalStyle />
-    <XiangqiMap />
-    <TauriAppsApiLIst v-if="false" />
+    <XiangqiMap v-if="false" />
+    <TauriAppsApiLIst />
   </NConfigProvider>
 </template>
 <script setup lang="ts">
