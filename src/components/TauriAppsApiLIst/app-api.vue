@@ -1,15 +1,13 @@
 <template>
-  <div class="shadow mb-1 pb-1">
-    <h1 class="font-bold pb-2">App：获取应用程序元数据。</h1>
-    <p class="flex justify-around">
-      <span>{{ `${appInfo.name || ""}` }}</span>
-      <span class="ml-2">{{ appInfo.version || "" }}</span>
-      <span class="ml-2">Tauri：{{ appInfo.tauriVersion || "" }}</span>
-    </p>
-  </div>
+  <CustomCard title="App：获取应用程序信息">
+    <p>应用名称：{{ appInfo.name }}</p>
+    <p>应用版本：{{ appInfo.version }}</p>
+    <p>Tauri版本：{{ appInfo.tauriVersion }}</p>
+  </CustomCard>
 </template>
 
 <script setup lang="ts">
+import CustomCard from "./components/custom-card.vue";
 import { getName, getTauriVersion, getVersion } from "@tauri-apps/api/app";
 import { computed, reactive } from "vue";
 

@@ -1,20 +1,20 @@
 <template>
-  <div class="shadow mb-1 pb-1">
-    <h1 class="font-bold pb-2">Notification：向用户发送 Toast 通知</h1>
+  <CustomCard title="Notification：向用户发送通知">
     <p class="flex justify-around">
       <NButton size="small" @click="handleSendNotice">
         <template #icon>
-          <NotificationsCircleOutline />
+          <NotificationOutlined />
         </template>
         发送通知
       </NButton>
     </p>
-  </div>
+  </CustomCard>
 </template>
 
 <script setup lang="ts">
-import { NButton } from "naive-ui";
-import { NotificationsCircleOutline } from "@vicons/ionicons5";
+import CustomCard from "./components/custom-card.vue";
+import { NButton, useDialog } from "naive-ui";
+import { NotificationOutlined } from "@vicons/antd";
 
 import {
   sendNotification,
@@ -23,10 +23,19 @@ import {
 } from "@tauri-apps/api/notification";
 import type { Options } from "@tauri-apps/api/notification";
 
+const dialog = useDialog();
 async function handleSendNotice() {
   let isPass = await isPermissionGranted();
   if (!isPass) {
     let permission = await requestPermission();
+    if (permission === "denied") {
+      dialog.error({
+        title: "错误提示",
+        content: "系统拒绝发送消息",
+        iconPlacement: "top",
+        showIcon: false,
+      });
+    }
     if (permission !== "granted") {
       return;
     }

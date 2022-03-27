@@ -3,8 +3,8 @@
     <div
       class="xiangqi-box p-5px shadow relative flex items-center justify-center flex-col overflow-hidden"
     >
-      <section class="w-full flex flex-row justify-between overflow-hidden">
-        <div class="map-box relative flex flex-col items-center">
+      <section class="w-full flex flex-row justify-between">
+        <div class="map-box shadow relative flex flex-col items-center">
           <Numbers :list="numbers" />
           <Maps />
           <Numbers :list="numbers_cn" />
@@ -36,6 +36,7 @@ onMounted(initChessGame);
   height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
   background-color: #9cf;
   font-size: 16px;
+  color: black;
 }
 
 .map-box {

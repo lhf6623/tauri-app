@@ -1,6 +1,5 @@
 <template>
-  <div class="shadow mb-1 pb-1">
-    <h1 class="font-bold pb-2">Process：对当前进程执行操作。</h1>
+  <CustomCard title="Process：对当前进程执行操作">
     <p class="flex justify-around">
       <NButton size="small" @click="relaunch">
         <template #icon>
@@ -10,17 +9,18 @@
       </NButton>
       <NButton size="small" @click="handleExit">
         <template #icon>
-          <CloseCircleOutline />
+          <ExitOutline />
         </template>
         关闭
       </NButton>
     </p>
-  </div>
+  </CustomCard>
 </template>
 
 <script setup lang="ts">
+import CustomCard from "./components/custom-card.vue";
 import { NButton } from "naive-ui";
-import { CloseCircleOutline, RefreshCircleOutline } from "@vicons/ionicons5";
+import { ExitOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 import { exit, relaunch } from "@tauri-apps/api/process";
 
 const handleExit = () => {

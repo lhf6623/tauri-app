@@ -1,18 +1,18 @@
 <template>
-  <div class="shadow mb-1 pb-1">
-    <h1 class="font-bold pb-2">OS：提供与操作系统相关的实用工具方法和属性。</h1>
+  <CustomCard title="OS：操作系统相关的方法和属性">
     <p>特定于操作系统的行尾标记：{{ osInfo.EOL }}</p>
     <p>操作系统平台：{{ osInfo.platform }}</p>
-    <p>系统内核版本：{{ osInfo.version }}</p>
+    <p>系统版本：{{ osInfo.version }}</p>
     <p>系统：{{ osInfo.type }}</p>
     <p>CPU架构：{{ osInfo.arch }}</p>
     <p class="whitespace-normal break-words break-all">
       临时文件的默认目录：{{ osInfo.tempdir }}
     </p>
-  </div>
+  </CustomCard>
 </template>
 
 <script setup lang="ts">
+import CustomCard from "./components/custom-card.vue";
 import {
   EOL,
   arch,
