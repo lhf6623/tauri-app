@@ -2,16 +2,16 @@
   <div
     class="shadow-sm m-1 px-1 pb-1 rounded-sm overflow-hidden border hover:shadow-md transition duration-300"
   >
-    <h1 class="card-title font-bold mb-1 border-b py-1">
-      <span>{{ title }}</span>
+    <h1 class="card-title mb-1 border-b py-1">
+      <span class="font-bold">{{ title }}</span>
       <NIcon
         :component="Link"
-        class="sticky-top cursor-pointer ml-1 align-middle"
+        class="sticky-top hidden cursor-pointer ml-1 align-middle"
         color="#4682BE"
       />
       <NIcon
         :component="ArrowBigTop"
-        class="back-top cursor-pointer ml-1 align-middle"
+        class="back-top hidden cursor-pointer ml-1 align-middle"
         color="#4682BE"
       />
     </h1>
