@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
-import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
+import { useGlobalState } from "../vueuse/store";
 import { useElementSize } from "@vueuse/core";
 import { historyBus } from "../vueuse/event-bus";
 

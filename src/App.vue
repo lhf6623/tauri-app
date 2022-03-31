@@ -1,14 +1,14 @@
 <template>
   <NConfigProvider abstract :theme="theme">
-    <NGlobalStyle />
-    <XiangqiMap v-if="false" />
+    <NGlobalStyle v-if="false" />
+    <XiangqiMap />
     <TauriAppsApiLIst />
   </NConfigProvider>
 </template>
 <script setup lang="ts">
 import { NConfigProvider, NGlobalStyle, darkTheme, useOsTheme } from "naive-ui";
-import XiangqiMap from "@/components/Xiangqi/index.vue";
-import TauriAppsApiLIst from "@/components/TauriAppsApiLIst/index.vue";
+import XiangqiMap from "@/views/Xiangqi/index.vue";
+import TauriAppsApiLIst from "@/views/TauriAppsApiLIst/index.vue";
 import { computed } from "vue";
 
 const osThemeRef = useOsTheme();

@@ -30,7 +30,7 @@
 import { NButton, NIcon } from "naive-ui";
 import { resetMatchBus } from "../vueuse/event-bus";
 import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
-import { useGlobalState } from "@/components/Xiangqi/vueuse/store";
+import { useGlobalState } from "../vueuse/store";
 import { computed } from "vue";
 import { BLACK, RED } from "../utils/data";
 
