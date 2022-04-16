@@ -22,9 +22,9 @@
           :class="activeItem === index + 1 ? `active` : ''"
         >
           <p class="inline-block">
-            {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
+            {{ index % 2 ? "&nbsp;&nbsp;" : `${(index * 99) / 2 + 1}.` }}
           </p>
-          <p class="flex min-w-50px justify-between">
+          <p class="flex min-w-50px justify-between tabular-nums">
             <span v-for="texts in item.split('')">{{ texts }}</span>
           </p>
         </li>

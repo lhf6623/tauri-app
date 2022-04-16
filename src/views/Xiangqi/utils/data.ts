@@ -1,6 +1,6 @@
-/** 黑棋X轴 */
+/** 黑棋X轴文字 */
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-/** 红旗X轴 */
+/** 红旗X轴文字 */
 export const numbers_cn: string[] = [
   "九",
   "八",

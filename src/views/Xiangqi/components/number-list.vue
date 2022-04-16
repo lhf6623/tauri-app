@@ -1,6 +1,10 @@
 <template>
   <ul class="number-list relative flex">
-    <li v-for="(item, index) in list" :key="index" class="text-center">
+    <li
+      v-for="(item, index) in list"
+      :key="index"
+      class="text-center tabular-nums"
+    >
       {{ item }}
     </li>
   </ul>

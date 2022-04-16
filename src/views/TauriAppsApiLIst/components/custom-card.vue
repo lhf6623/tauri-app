@@ -27,7 +27,7 @@ import { NIcon } from "naive-ui";
 import { Link } from "@vicons/carbon";
 import { ArrowBigTop } from "@vicons/tabler";
 import { ref, inject, computed } from "vue";
-import { useElementBounding } from "@vueuse/core";
+import { MaybeElement, useElementBounding } from "@vueuse/core";
 
 defineProps({
   title: {
@@ -35,7 +35,7 @@ defineProps({
     default: "",
   },
 });
-const cardRef = ref<HTMLDivElement | null>(null);
+const cardRef = ref<MaybeElement>();
 const scrollFn = inject("scrollFn") as (
   n: number,
   type: "scrollBy" | "scrollTo"

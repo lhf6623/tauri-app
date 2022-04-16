@@ -1,9 +1,5 @@
-/**
- * 下棋制作棋谱
- */
-import { RED, COL, ROW, NULL, indexToXY } from "./data";
+import { RED, COL, NULL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
-
 import { numbers, numbers_cn, text1, text3 } from "./data";
 
 const [QIAN, HOU] = text1;
@@ -15,8 +11,7 @@ const _numbers_cn = cloneDeep(numbers_cn).reverse();
  * 直走的直接加减，马，相，士之类的需要按照x轴数字来显示
  * @param beforeIndex
  * @param afterIndex
- * @param param2
- * @returns
+ * @param piece
  */
 const getText4 = (
   beforeIndex: number,
@@ -42,8 +37,7 @@ const getText4 = (
  * 棋谱第三个字
  * @param beforeIndex 移动前棋子下标
  * @param afterIndex 移动后棋子下标
- * @param param2 当前棋子
- * @returns Text3Type
+ * @param piece 当前棋子
  */
 const getText3 = (
   beforeIndex: number,
@@ -69,8 +63,7 @@ const getText3 = (
 /**
  * 棋谱第二个字
  * @param index
- * @param isRed[boolean]
- * @returns
+ * @param isRed
  */
 const getText2 = (index: number, isRed: boolean): string | number => {
   let { x } = indexToXY(index);
@@ -80,53 +73,25 @@ const getText2 = (index: number, isRed: boolean): string | number => {
 
 /**
  * 获取Y轴相同的棋子下标
- * @param mapArr 棋盘数组
+ * @param indexArr 相同棋子下标数组
  * @param piece 移动之前的棋子
- * @returns
  */
-const getYIndex = (
-  mapArr: Array<PieceType | null>,
-  piece: PieceType
-): number[] => {
-  let res: number[] = [];
-  let { index } = piece;
-  let { x } = indexToXY(index);
+const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
+  let { x } = indexToXY(piece.index);
 
-  for (let i = 0; i < ROW; i++) {
-    let _index = i * COL + x;
-    let targetPiece = mapArr[_index];
-    if (targetPiece !== NULL) {
-      let { code, type, text } = targetPiece;
-      if (isMatch(piece, { code, type, text })) {
-        res.push(targetPiece.index);
-      }
-    }
-  }
-  return res;
+  return indexArr.filter((_index) => _index % COL == x);
 };
 
 /**
  * 判断是否有两列兵,每列两个或以上
- * @param mapArr
- * @param piece
- * @returns
+ * @param indexArr 相同棋子下标数组
  */
-const isTwoColBing = (
-  mapArr: Array<PieceType | null>,
-  piece: PieceType
-): boolean => {
+const isTwoColBing = (indexArr: Array<number>): boolean => {
   let obj: { [k: number]: number } = {};
-  let { code, type, text } = piece;
-  mapArr.forEach((item) => {
-    if (item && isMatch(item, { code, type, text })) {
-      let { index } = item;
-      let { x } = indexToXY(index);
-      if (!obj[x]) {
-        obj[x] = 1;
-      } else {
-        obj[x] += 1;
-      }
-    }
+  indexArr.forEach((index) => {
+    let { x } = indexToXY(index);
+
+    obj[x] = obj[x] ? obj[x] + 1 : 1;
   });
   return Object.values(obj).filter((n) => n >= 2).length >= 2;
 };
@@ -134,17 +99,13 @@ const isTwoColBing = (
  * 获取第一个文字
  * @param mapArr
  * @param piece
- * @returns
  */
-const getText1 = (
-  mapArr: Array<PieceType | null>,
-  piece: PieceType
-): string => {
+const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
   let { index, type, text, code } = piece;
   let isRed = type === RED;
 
   const yArr = getYIndex(mapArr, piece);
-  if (code === "bing" && yArr.length >= 2 && isTwoColBing(mapArr, piece)) {
+  if (code === "bing" && yArr.length >= 2 && isTwoColBing(mapArr)) {
     // 第一个字是棋子对应在第几个位置
     let _y = yArr.indexOf(index);
     const textBing = isRed ? _numbers_cn[_y] : yArr.length - _y;
@@ -165,7 +126,7 @@ const getText1 = (
       return `${QIAN}${text}`;
     }
   }
-  return text.length === 1 ? `${text}${getText2(index, isRed)}` : text;
+  return `${text}${getText2(index, isRed)}`;
 };
 
 /**
@@ -182,7 +143,15 @@ export const makingChess = (
 ): string => {
   const beforePice = mapArr[beforeIndex] as PieceType;
   // 如果是兵 特殊情可能有三个字
-  const text1_2_3 = getText1(mapArr, beforePice);
+  const text1_2_3 = getText1(
+    // 找出相同棋子的下标
+    mapArr.flatMap((_beforePice) => {
+      let { code, type, text, index } = _beforePice || { index: 0 };
+      if (isMatch(beforePice, { code, type, text })) return [index];
+      return [];
+    }),
+    beforePice
+  );
   const text3 = getText3(beforeIndex, afterIndex, beforePice);
   const text4 = getText4(beforeIndex, afterIndex, beforePice);
   return `${text1_2_3}${text3}${text4}`;
