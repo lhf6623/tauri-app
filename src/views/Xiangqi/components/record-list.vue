@@ -22,10 +22,10 @@
           :class="activeItem === index + 1 ? `active` : ''"
         >
           <p class="inline-block">
-            {{ index % 2 ? "&nbsp;&nbsp;" : `${(index * 99) / 2 + 1}.` }}
+            {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
           </p>
           <p class="flex min-w-50px justify-between tabular-nums">
-            <span v-for="texts in item.split('')">{{ texts }}</span>
+            <span v-for="texts in item">{{ texts }}</span>
           </p>
         </li>
       </ul>
@@ -38,10 +38,10 @@
 import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
 import { useGlobalState } from "../vueuse/store";
-import { useElementSize } from "@vueuse/core";
+import { MaybeElement, useElementSize } from "@vueuse/core";
 import { historyBus } from "../vueuse/event-bus";
 
-const recordListRef = ref<HTMLDivElement | null>(null);
+const recordListRef = ref<MaybeElement>();
 const scrollbarRef = ref<ScrollbarInst | null>(null);
 
 const store = useGlobalState();

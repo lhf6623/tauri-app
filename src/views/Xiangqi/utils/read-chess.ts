@@ -1,6 +1,3 @@
-/**
- * 读取棋谱
- */
 import {
   COL,
   ROW,
@@ -11,18 +8,10 @@ import {
   numbers,
   numbers_cn,
   indexToXY,
+  initMap,
 } from "./data";
 /** 棋子的文字 */
 const pieceTexts = piece_list.map(({ text }) => text);
-
-export const initMap = () => {
-  const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
-  piece_list.forEach((item) => {
-    let { index } = item;
-    mapList[index] = { ...item };
-  });
-  return mapList;
-};
 
 // number 在 split 切割中会变成 string，所以没有 number  类型的
 type RecordItemType = [
@@ -60,7 +49,7 @@ const getBeforeMotion = (
 };
 
 /**
- * 读取棋谱
+ * 读取棋谱  =====需要从第一个开始读取 initMap是关键
  * @param record 棋谱
  * @param index 点击的第几步棋
  */
