@@ -1,12 +1,12 @@
 <template>
-  <div class="record-list flex flex-col bg-white font-s">
+  <div class="record-list flex flex-col bg-white">
     <header class="px-6px h-18px flex-shrink-0 flex justify-between">
       <span>棋谱序列</span>
       <span class="cursor-pointer" @click="changeRecordType"
         >[{{ store.recordType ? "下棋" : "读谱" }}]</span
       >
     </header>
-    <NScrollbar ref="scrollbarRef">
+    <NScrollbar ref="scrollbarRef" class="flex-1">
       <ul
         ref="recordListRef"
         class="text-center"
