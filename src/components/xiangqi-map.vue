@@ -1,34 +1,33 @@
 <template>
-  <div class="checkerboard relative select-none">
-    <ul class="map-layout relative w-full h-full flex flex-wrap">
-      <li
-        v-for="(item, index) in mapList"
-        class="lattice relative flex items-center justify-center"
-        @click="handleActive(index, item)"
-      >
-        <!-- 斜线 -->
-        <i class="lattice-line"></i>
-        <!-- 棋子 -->
-        <XiangqiPiece :data="item" :active="tipsActive" :index="index" />
-      </li>
-    </ul>
-    <div class="limit absolute w-full flex justify-evenly">
-      <span>楚</span>
-      <span>河</span>
-      <span>汉</span>
-      <span>界</span>
+  <div class="map-box shadow">
+    <NumberList :list="numbers" />
+    <div class="checkerboard">
+      <ul class="lattices">
+        <XiangqiPiece
+          v-for="(item, index) in mapList"
+          class="lattice"
+          @click="handleActive(index, item)"
+          :data="item"
+          :active="tipsActive"
+          :index="index"
+        />
+      </ul>
+      <Rivers />
     </div>
+    <NumberList :list="numbers_cn" />
   </div>
 </template>
 
 <script setup lang="tsx">
 import XiangqiPiece from "./piece/index.vue";
+import Rivers from "./rivers.vue";
+import NumberList from "./number-list.vue";
 import { ref, onMounted, computed } from "vue";
-import { makingChess, initMap, readChess } from "../utils";
-import { NULL, RED, BLACK } from "../utils/data";
+import { makingChess, initMap } from "../utils";
+import { NULL, RED, BLACK, numbers, numbers_cn } from "@/utils/data";
 import { run_rule } from "../utils/run-rule";
 import { isEmpty, delay, cloneDeep } from "lodash-es";
-import { resetMatchBus, historyBus } from "../vueuse/event-bus";
+import { resetMatchBus } from "../vueuse/event-bus";
 import { useGlobalState, initChessGame } from "../vueuse/store";
 
 const store = useGlobalState();
@@ -46,16 +45,7 @@ function initMapList() {
 onMounted(() => {
   // 事件总线
   resetMatchBus.on(initMapList);
-  historyBus.on((index) => {
-    let { record } = store.value;
-    if (store.value.recordActive === index) return;
-    store.value.recordActive = index;
-    if (index === 0) {
-      mapList.value = initMap();
-      return;
-    }
-    readChess(record, index - 1);
-  });
+
   // 初始化数据
   initMapList();
 });
@@ -106,13 +96,12 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[index] = { ..._piece, index };
     mapList.value[pieceIndex] = NULL;
     setActive(null);
-    let { nextAction, recordType } = store.value;
+    let { nextAction } = store.value;
     store.value.nextAction = nextAction === RED ? BLACK : RED;
-    // 读谱的时候不生成棋谱
-    if (recordType) {
-      let chessManual = makingChess(_mapList, pieceIndex, index);
-      store.value.record.push(chessManual);
-    }
+
+    let chessManual = makingChess(_mapList, pieceIndex, index);
+    store.value.record.push(chessManual);
+
     return;
   }
 
@@ -128,26 +117,33 @@ const handleActive = (index: number, item: PieceType | null): void => {
 </script>
 
 <style lang="scss" scoped>
-@import "../style/config.scss";
+@import "@/style/config.scss";
+
+.map-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: $w * 9 + 4px;
+  height: ($h * 10) + ($h_n * 2);
+  transform: v-bind("store.transformStyle");
+
+  transition: transform 1s;
+  background-color: #eed3b3;
+}
 .checkerboard {
+  position: relative;
+  user-select: none;
   width: $w * 9;
   height: $h * 10;
 }
-/* 楚河汉界 */
-.limit {
-  height: $h;
-  top: calc(50% - $h * 0.5);
-  z-index: 10;
-
-  span {
-    display: inline-block;
-    transform: v-bind("store.transformStyle");
-    transition: transform 1s;
-    height: $h;
-    line-height: $h;
-  }
-}
-.map-layout {
+.lattices {
+  position: relative;
+  user-select: none;
+  width: $w * 9;
+  height: $h * 10;
+  display: flex;
+  flex-wrap: wrap;
   /* 最外围的框框 */
   &::after {
     position: absolute;
@@ -160,6 +156,10 @@ const handleActive = (index: number, item: PieceType | null): void => {
   }
   /* 格子 */
   .lattice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: $w;
     height: $h;
 

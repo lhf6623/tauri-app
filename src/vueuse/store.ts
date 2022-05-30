@@ -4,9 +4,8 @@ const XIANGQI_KEY = "xiangqi_store_key";
 
 export const useGlobalState = createGlobalState(() =>
   useStorage<StoreType>(XIANGQI_KEY, {
-    tips: false,
+    tips: true,
     record: [],
-    recordType: true,
     recordActive: 0,
     nextAction: RED,
     identity: RED,
@@ -18,8 +17,7 @@ export const initChessGame = () => {
   const store = useGlobalState();
   store.value = {
     ...store.value,
-    record: ["炮二进七", "象3进5", "马二进三", "卒3进1"],
-    recordType: false,
+    record: [],
     recordActive: 0,
     nextAction: RED,
   };

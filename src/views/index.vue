@@ -1,0 +1,56 @@
+<template>
+  <div class="xiangqi-box-full">
+    <div class="xiangqi-box shadow">
+      <section>
+        <Maps />
+        <Records />
+      </section>
+      <Control />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { Records, Maps, Control } from "@/components";
+import { useGlobalState, initChessGame } from "@/vueuse/store";
+
+const store = useGlobalState();
+
+onMounted(initChessGame);
+</script>
+
+<style lang="scss" scoped>
+@import "@/style/config.scss";
+
+.xiangqi-box-full {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.xiangqi-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 5px;
+  width: $w * 9 + 8px + 106px + 10px;
+  height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
+  background-color: #9cf;
+  font-size: 16px;
+  color: black;
+}
+</style>

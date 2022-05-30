@@ -1,0 +1,36 @@
+<template>
+  <div class="limit">
+    <span>楚</span>
+    <span>河</span>
+    <span>汉</span>
+    <span>界</span>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useGlobalState } from "@/vueuse/store";
+
+const store = useGlobalState();
+</script>
+
+<style scoped lang="scss">
+@import "@/style/config.scss";
+/* 楚河汉界 */
+.limit {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  height: $h;
+  top: calc(50% - $h * 0.5);
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    transform: v-bind("store.transformStyle");
+    transition: transform 1s;
+    height: $h;
+    line-height: $h;
+  }
+}
+</style>

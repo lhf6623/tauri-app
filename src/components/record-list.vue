@@ -1,24 +1,14 @@
 <template>
-  <div class="record-list flex flex-col bg-white">
-    <header class="px-6px h-18px flex-shrink-0 flex justify-between">
-      <span>棋谱序列</span>
-      <span class="cursor-pointer" @click="changeRecordType"
-        >[{{ store.recordType ? "下棋" : "读谱" }}]</span
-      >
-    </header>
+  <div class="record-list shadow">
+    <header>棋谱序列</header>
     <NScrollbar ref="scrollbarRef" class="flex-1">
-      <ul
-        ref="recordListRef"
-        class="text-center"
-        :class="`cursor-${store.recordType ? 'default' : 'pointer'}`"
-      >
-        <li :class="activeItem === 0 ? `active` : ''" @click="handleHistory(0)">
+      <ul ref="recordListRef" class="text-center cursor-default">
+        <li :class="activeItem === 0 ? `active` : ''">
           <span>===棋局开始===</span>
         </li>
         <li
           class="flex text-center justify-center"
           v-for="(item, index) in store.record"
-          @click="handleHistory(index + 1)"
           :class="activeItem === index + 1 ? `active` : ''"
         >
           <p class="inline-block">
@@ -30,7 +20,7 @@
         </li>
       </ul>
     </NScrollbar>
-    <footer class="px-6px h-18px flex-shrink-0"></footer>
+    <footer></footer>
   </div>
 </template>
 
@@ -39,17 +29,13 @@ import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
 import { useGlobalState } from "../vueuse/store";
 import { MaybeElement, useElementSize } from "@vueuse/core";
-import { historyBus } from "../vueuse/event-bus";
 
 const recordListRef = ref<MaybeElement>();
 const scrollbarRef = ref<ScrollbarInst | null>(null);
 
 const store = useGlobalState();
 
-const activeItem = computed(() => {
-  let { recordActive, record, recordType } = store.value;
-  return recordType ? record.length : recordActive;
-});
+const activeItem = computed(() => store.value.record.length);
 
 const { height } = useElementSize(recordListRef);
 watch(
@@ -62,27 +48,27 @@ watch(
   },
   { deep: true }
 );
-
-const handleHistory = (index: number) => {
-  if (store.value.recordType) return;
-  historyBus.emit(index);
-};
-
-const changeRecordType = () => {
-  let { recordType, record } = store.value;
-  store.value.recordType = !recordType;
-  store.value.recordActive = record.length;
-};
 </script>
 
 <style lang="scss" scoped>
-@import "../style/config.scss";
+@import "@/style/config.scss";
 .record-list {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
   font-size: 12px;
+
+  overflow: hidden;
+  width: 106px;
+  z-index: 50;
+  height: ($h * 10) + ($h_n * 2);
 
   header,
   footer {
     background-color: #9df;
+    padding: 0 6px;
+    height: 18px;
+    flex-shrink: 0;
   }
 
   .active {

@@ -1,8 +1,6 @@
 <template>
-  <footer
-    class="footer-text relative flex items-center justify-between h-22px mt-4px"
-  >
-    <div class="footer-bus flex justify-end">
+  <footer class="footer-text">
+    <div class="footer-bus">
       <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
       <NButton size="tiny" type="info" @click="handleTrans">旋转</NButton>
     </div>
@@ -48,18 +46,28 @@ const nextText = computed(() => {
 function handleTrans() {
   let isRed = store.value.identity === RED;
   store.value.identity = isRed ? BLACK : RED;
-  store.value.transformStyle = `rotate(${isRed ? 0 : 180}deg)  translateZ(0)`;
+  store.value.transformStyle = `rotate(${isRed ? 180 : 0}deg)  translateZ(0)`;
 }
 
 const handleReset = resetMatchBus.emit;
 </script>
 
 <style lang="scss" scoped>
-@import "../style/config.scss";
+@import "@/style/config.scss";
+
 .footer-text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  margin-top: 4px;
   font-size: 12px;
+  width: 100%;
 }
 .footer-bus {
+  display: flex;
+  justify-content: end;
   button {
     margin-right: 3px;
 

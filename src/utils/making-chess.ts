@@ -1,4 +1,4 @@
-import { RED, COL, NULL, indexToXY } from "./data";
+import { RED, COL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
 import { numbers, numbers_cn, text1, text3 } from "./data";
 

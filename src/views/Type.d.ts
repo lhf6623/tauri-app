@@ -35,8 +35,6 @@ type StoreType = {
   tips: boolean;
   // 棋谱
   record: Array<string>;
-  // true下棋模式 ｜ false读棋模式
-  recordType: boolean;
   // 读棋模式下的棋谱序列下标
   recordActive: number;
   // 下一个移动棋子的一方

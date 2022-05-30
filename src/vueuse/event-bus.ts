@@ -5,9 +5,3 @@ import { useEventBus } from "@vueuse/core";
  */
 const ResetMatchKey = Symbol();
 export const resetMatchBus = useEventBus(ResetMatchKey);
-
-/**
- * 点击棋谱历史记录
- */
-const HistoryKey = Symbol();
-export const historyBus = useEventBus<number>(HistoryKey);

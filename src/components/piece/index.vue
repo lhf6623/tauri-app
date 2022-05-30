@@ -1,16 +1,21 @@
 <template>
-  <div class="piece relative z-100">
-    <div
-      v-show="data"
-      class="xiangqi-piece absolute text-center text-white"
-      :class="`${pieceTypeClass} cursor-${
-        data || showActive ? 'pointer' : 'default'
-      }`"
-    >
-      {{ data?.text }}
+  <li>
+    <!-- 斜线 -->
+    <i class="lattice-line"></i>
+    <!-- 棋子 -->
+    <div class="piece relative z-100">
+      <div
+        v-show="data"
+        class="xiangqi-piece absolute text-center text-white"
+        :class="`${pieceTypeClass} cursor-${
+          data || showActive ? 'pointer' : 'default'
+        }`"
+      >
+        {{ data?.text }}
+      </div>
+      <Active v-show="showActive" :color="activeColor"></Active>
     </div>
-    <Active v-show="showActive" :color="activeColor"></Active>
-  </div>
+  </li>
 </template>
 
 <script setup lang="ts">
@@ -51,7 +56,7 @@ const pieceTypeClass = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/config.scss";
+@import "@/style/config.scss";
 
 /*  cursor: pointer; */
 .piece {
