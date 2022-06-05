@@ -128,8 +128,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   height: ($h * 10) + ($h_n * 2);
   transform: v-bind("store.transformStyle");
 
-  transition: transform 1s;
-  background-color: #eed3b3;
+  background-color: rgb(238, 211, 179, $bgOpacity);
 }
 .checkerboard {
   position: relative;
@@ -152,7 +151,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
     left: $w * 0.3;
     height: calc(100% - $h * 0.6);
     top: $h * 0.3;
-    border: 2px solid grey;
+    border: 2px solid $lineColor;
   }
   /* 格子 */
   .lattice {
@@ -166,12 +165,12 @@ const handleActive = (index: number, item: PieceType | null): void => {
     /* 横 */
     &::after {
       @include pseudo-class(100%, 1px);
-      background-color: grey;
+      background-color: $lineColor;
     }
     /* 竖 */
     &::before {
       @include pseudo-class(1px, 100%);
-      background-color: grey;
+      background-color: $lineColor;
     }
 
     /* 横 左 */

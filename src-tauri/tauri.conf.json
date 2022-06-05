@@ -7,10 +7,10 @@
     "distDir": "../dist",
     "devPath": "http://localhost:3000",
     "beforeDevCommand": "pnpm run dev",
-    "beforeBuildCommand": "pnpm run build",
-    "withGlobalTauri": true
+    "beforeBuildCommand": "pnpm run build"
   },
   "tauri": {
+    "macOSPrivateApi": true,
     "bundle": {
       "active": true,
       "targets": "all",
@@ -55,9 +55,12 @@
       {
         "title": "tauri-app",
         "width": 358,
-        "height": 336,
+        "height": 364,
         "resizable": false,
-        "fullscreen": false
+        "fullscreen": false,
+        "transparent": true,
+        "center": true,
+        "decorations": true
       }
     ],
     "security": {

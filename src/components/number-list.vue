@@ -34,7 +34,6 @@ defineProps({
     height: $h_n;
 
     transform: v-bind("store.transformStyle");
-    transition: transform 1s;
   }
 }
 </style>

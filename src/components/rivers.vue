@@ -28,7 +28,6 @@ const store = useGlobalState();
   span {
     display: inline-block;
     transform: v-bind("store.transformStyle");
-    transition: transform 1s;
     height: $h;
     line-height: $h;
   }

@@ -13,7 +13,7 @@
       circle
       quaternary
       @click="handleChangeTips"
-      aria-label="棋子可移动格子提示按钮"
+      aria-label="这是一个按钮提示"
     >
       <template #icon>
         <NIcon

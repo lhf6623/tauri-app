@@ -49,7 +49,7 @@ onMounted(initChessGame);
   padding: 5px;
   width: $w * 9 + 8px + 106px + 10px;
   height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
-  background-color: #9cf;
+  background-color: rgb(153, 204, 255, $bgOpacity);
   font-size: 16px;
   color: black;
 }

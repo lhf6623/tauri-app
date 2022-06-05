@@ -3,14 +3,8 @@
     <!-- 斜线 -->
     <i class="lattice-line"></i>
     <!-- 棋子 -->
-    <div class="piece relative z-100">
-      <div
-        v-show="data"
-        class="xiangqi-piece absolute text-center text-white"
-        :class="`${pieceTypeClass} cursor-${
-          data || showActive ? 'pointer' : 'default'
-        }`"
-      >
+    <div class="piece">
+      <div v-show="data" :class="`xiangqi-piece ${pieceTypeClass}`">
         {{ data?.text }}
       </div>
       <Active v-show="showActive" :color="activeColor"></Active>
@@ -63,8 +57,15 @@ const pieceTypeClass = computed(() =>
   width: $w;
   height: $h;
   z-index: 100;
+  position: relative;
+  z-index: 100;
 }
 .xiangqi-piece {
+  position: absolute;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  color: white;
   width: $w - 2px;
   height: $h - 2px;
   line-height: $h - 2px;
@@ -73,7 +74,7 @@ const pieceTypeClass = computed(() =>
   border-radius: $h;
   z-index: 99;
   transform: v-bind("store.transformStyle");
-  transition: transform 1s;
+  cursor: pointer;
 }
 .isRed {
   background-color: red;

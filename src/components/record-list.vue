@@ -55,7 +55,7 @@ watch(
 .record-list {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: rgb(255, 255, 255, $bgOpacity);
   font-size: 12px;
 
   overflow: hidden;
@@ -65,14 +65,14 @@ watch(
 
   header,
   footer {
-    background-color: #9df;
+    background-color: rgb(153, 221, 255, $bgOpacity);
     padding: 0 6px;
     height: 18px;
     flex-shrink: 0;
   }
 
   .active {
-    background-color: rgb(49, 106, 197);
+    background-color: rgba(0, 98, 255, $bgOpacity);
     color: white;
   }
 }
