@@ -1,33 +1,47 @@
 <template>
   <footer class="footer-text">
-    <div class="footer-bus">
-      <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
-      <NButton size="tiny" type="info" @click="handleTrans">旋转</NButton>
-    </div>
+    <NButton size="tiny" type="info" @click="handleReset"> 重新开始 </NButton>
     <p>
       下棋方：<span>{{ nextText }}</span>
     </p>
-    <NButton
-      size="tiny"
-      type="info"
-      circle
-      quaternary
-      @click="handleChangeTips"
-      aria-label="这是一个按钮提示"
-    >
-      <template #icon>
-        <NIcon
-          :component="store.tips ? AlertCircleSharp : AlertCircleOutline"
-        />
-      </template>
-    </NButton>
+    <div>
+      <NButton
+        size="tiny"
+        type="info"
+        circle
+        quaternary
+        @click="handleChangeTips"
+      >
+        <template #icon>
+          <NIcon
+            :component="store.tips ? AlertCircleSharp : AlertCircleOutline"
+          />
+        </template>
+      </NButton>
+      <!-- <NButton
+        size="tiny"
+        type="info"
+        circle
+        quaternary
+        @click="handleChangeTips"
+      >
+        <template #icon>
+          <NIcon :component="store.tips ? LogIn : LogInOutline" />
+        </template>
+      </NButton> -->
+    </div>
   </footer>
 </template>
 
 <script setup lang="ts">
 import { NButton, NIcon } from "naive-ui";
 import { resetMatchBus } from "../vueuse/event-bus";
-import { AlertCircleSharp, AlertCircleOutline } from "@vicons/ionicons5";
+import {
+  AlertCircleSharp,
+  AlertCircleOutline,
+  LogInOutline,
+  LogIn,
+} from "@vicons/ionicons5";
 import { useGlobalState } from "../vueuse/store";
 import { computed } from "vue";
 import { BLACK, RED } from "../utils/data";
@@ -64,16 +78,17 @@ const handleReset = resetMatchBus.emit;
   margin-top: 4px;
   font-size: 12px;
   width: 100%;
-}
-.footer-bus {
-  display: flex;
-  justify-content: end;
-  button {
-    margin-right: 3px;
 
-    &:last-child {
-      margin-right: 0;
-    }
+  & > p,
+  & > div {
+    height: 100%;
+    line-height: 22px;
+    background-color: rgb(255, 255, 255, $bgOpacity);
+    border-radius: 5px;
+  }
+
+  & > p {
+    padding: 0 5px;
   }
 }
 </style>

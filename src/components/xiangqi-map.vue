@@ -23,12 +23,13 @@ import XiangqiPiece from "./piece/index.vue";
 import Rivers from "./rivers.vue";
 import NumberList from "./number-list.vue";
 import { ref, onMounted, computed } from "vue";
-import { makingChess, initMap } from "../utils";
+import { makingChess, initMap } from "@/utils";
 import { NULL, RED, BLACK, numbers, numbers_cn } from "@/utils/data";
-import { run_rule } from "../utils/run-rule";
-import { isEmpty, delay, cloneDeep } from "lodash-es";
-import { resetMatchBus } from "../vueuse/event-bus";
-import { useGlobalState, initChessGame } from "../vueuse/store";
+import { run_rule } from "@/utils/run-rule";
+import { cloneDeep, isEmpty, delay } from "@/utils/is";
+
+import { resetMatchBus } from "@/vueuse/event-bus";
+import { useGlobalState, initChessGame } from "@/vueuse/store";
 
 const store = useGlobalState();
 

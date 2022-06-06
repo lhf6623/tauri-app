@@ -1,5 +1,6 @@
 <template>
   <div class="xiangqi-box-full">
+    <TitleBar />
     <div class="xiangqi-box shadow">
       <section>
         <Maps />
@@ -13,9 +14,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { Records, Maps, Control } from "@/components";
-import { useGlobalState, initChessGame } from "@/vueuse/store";
-
-const store = useGlobalState();
+import { initChessGame } from "@/vueuse/store";
+import TitleBar from "@/components/title-bar.vue";
 
 onMounted(initChessGame);
 </script>
@@ -30,6 +30,7 @@ onMounted(initChessGame);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: $titlebarHeight;
 
   section {
     width: 100%;

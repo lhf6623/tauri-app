@@ -1,4 +1,3 @@
-import { inRange, ceil } from "lodash-es";
 import {
   lineRule,
   maRule,
@@ -9,6 +8,7 @@ import {
   shiSeat,
 } from "./run-rule-data";
 import { COL, ROW, NULL, BLACK, RED, indexToXY } from "./data";
+import { inRange, ceil } from "@/utils/is";
 
 /**
  * 在地图上

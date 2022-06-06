@@ -1,5 +1,5 @@
 import { RED, COL, indexToXY } from "./data";
-import { isMatch, cloneDeep } from "lodash-es";
+import { isMatch, cloneDeep } from "./is";
 import { numbers, numbers_cn, text1, text3 } from "./data";
 
 const [QIAN, HOU] = text1;
@@ -105,8 +105,9 @@ const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
   let isRed = type === RED;
 
   const yArr = getYIndex(mapArr, piece);
-  if (code === "bing" && yArr.length >= 2 && isTwoColBing(mapArr)) {
-    // 第一个字是棋子对应在第几个位置
+
+  if ((code === "bing" && yArr.length >= 3) || isTwoColBing(mapArr)) {
+    // 第一个字是棋子对应在Y轴第几个位置
     let _y = yArr.indexOf(index);
     const textBing = isRed ? _numbers_cn[_y] : yArr.length - _y;
 

@@ -6,7 +6,6 @@ export const useGlobalState = createGlobalState(() =>
   useStorage<StoreType>(XIANGQI_KEY, {
     tips: true,
     record: [],
-    recordActive: 0,
     nextAction: RED,
     identity: RED,
     transformStyle: `rotate(0deg)  translateZ(0)`,
@@ -18,7 +17,6 @@ export const initChessGame = () => {
   store.value = {
     ...store.value,
     record: [],
-    recordActive: 0,
     nextAction: RED,
   };
 };

@@ -1,20 +1,28 @@
 {
-  "package": {
-    "productName": "tauri-app",
-    "version": "0.1.2"
-  },
+  "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
   "build": {
     "distDir": "../dist",
     "devPath": "http://localhost:3000",
     "beforeDevCommand": "pnpm run dev",
-    "beforeBuildCommand": "pnpm run build"
+    "beforeBuildCommand": "pnpm run build",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "tauri-app",
+    "version": "0.1.0"
   },
   "tauri": {
-    "macOSPrivateApi": true,
+    "allowlist": {
+      "all": true
+    },
     "bundle": {
       "active": true,
-      "targets": "all",
-      "identifier": "com.tauri.dev --lhf6623",
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -22,34 +30,29 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "resources": [],
-      "externalBin": [],
-      "copyright": "",
-      "category": "DeveloperTool",
-      "shortDescription": "",
+      "identifier": "com.tauri.dev",
       "longDescription": "",
-      "deb": {
-        "depends": []
-      },
       "macOS": {
-        "frameworks": [],
-        "minimumSystemVersion": "",
+        "entitlements": null,
         "exceptionDomain": "",
-        "signingIdentity": null,
+        "frameworks": [],
         "providerShortName": null,
-        "entitlements": null
+        "signingIdentity": null
       },
+      "resources": [],
+      "shortDescription": "",
+      "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
       }
     },
+    "security": {
+      "csp": null
+    },
     "updater": {
       "active": false
-    },
-    "allowlist": {
-      "all": true
     },
     "windows": [
       {
@@ -60,11 +63,8 @@
         "fullscreen": false,
         "transparent": true,
         "center": true,
-        "decorations": true
+        "decorations": false
       }
-    ],
-    "security": {
-      "csp": null
-    }
+    ]
   }
 }

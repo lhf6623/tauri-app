@@ -72,8 +72,8 @@ watch(
   }
 
   .active {
-    background-color: rgba(0, 98, 255, $bgOpacity);
-    color: white;
+    background-color: rgba(0, 98, 255, 0.6);
+    color: rgb(255, 255, 255);
   }
 }
 </style>

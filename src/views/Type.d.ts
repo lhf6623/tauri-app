@@ -35,8 +35,6 @@ type StoreType = {
   tips: boolean;
   // 棋谱
   record: Array<string>;
-  // 读棋模式下的棋谱序列下标
-  recordActive: number;
   // 下一个移动棋子的一方
   nextAction: Type;
   // 当前人所执棋的颜色
@@ -46,5 +44,3 @@ type StoreType = {
     | "rotate(0deg)  translateZ(0)"
     | "rotate(180deg)  translateZ(0)";
 };
-
-type StoreKeyType = keyof StoreType;
