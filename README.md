@@ -35,7 +35,7 @@ pnpm install
 
 ```
 
-- 运行
+- 运行 --在Mac上第一次运行如果报错，请添加sudo
 
 ```bash
 pnpm run tauri dev
