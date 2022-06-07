@@ -3,8 +3,11 @@
   windows_subsystem = "windows"
 )]
 
+mod xiang;
+
 fn main() {
   tauri::Builder::default()
+    .setup(xiang::setup::init)
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
