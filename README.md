@@ -5,7 +5,7 @@
 ## 预览
 
 <p align="center">
-    <img alt="VbenAdmin Logo" width="100%" src="https://gitee.com/lhf6623/tauri-app/raw/master/public/page.png">
+    <img alt="VbenAdmin Logo" width="358" src="https://gitee.com/lhf6623/tauri-app/raw/master/public/page.png">
 </p>
 
 ## 准备
