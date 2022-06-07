@@ -130,16 +130,17 @@ const handleActive = (index: number, item: PieceType | null): void => {
   transform: v-bind("store.transformStyle");
 
   background-color: rgb(238, 211, 179, $bgOpacity);
+
+  user-select: none;
+  -webkit-user-select: none;
 }
 .checkerboard {
   position: relative;
-  user-select: none;
   width: $w * 9;
   height: $h * 10;
 }
 .lattices {
   position: relative;
-  user-select: none;
   width: $w * 9;
   height: $h * 10;
   display: flex;

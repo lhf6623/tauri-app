@@ -63,8 +63,6 @@ const pieceTypeClass = computed(() =>
 .xiangqi-piece {
   position: absolute;
   text-align: center;
-  user-select: none;
-  -webkit-user-select: none;
   color: white;
   width: $w - 2px;
   height: $h - 2px;

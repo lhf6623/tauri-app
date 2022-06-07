@@ -1,4 +1,5 @@
 use tauri::{App, Manager};
+use window_vibrancy::{NSVisualEffectMaterial};
 
 pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>> {
     let win = app.get_window("main").unwrap();

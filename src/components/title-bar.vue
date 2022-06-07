@@ -49,6 +49,7 @@ onMounted(async () => {
   height: $titlebarHeight;
   background: rgb(0, 0, 0, $bgOpacity);
   user-select: none;
+  -webkit-user-select: none;
   display: flex;
   position: absolute;
   top: 0;
@@ -70,6 +71,7 @@ onMounted(async () => {
   width: $titlebarHeight;
   height: $titlebarHeight;
   flex-shrink: 0;
+  cursor: pointer;
 }
 .titlebar-button:hover {
   background: rgb(255, 255, 255, $bgOpacity);
