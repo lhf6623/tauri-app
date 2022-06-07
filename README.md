@@ -1,13 +1,48 @@
-# Vue 3 + Typescript + Vite
+## 简介
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+使用tauri打包成PC端的一次尝试
 
-## Recommended IDE Setup
+## 预览
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+<p align="center">
+    <img alt="VbenAdmin Logo" width="100%" src="https://gitee.com/lhf6623/tauri-app/raw/master/public/page.png">
+</p>
 
-## Type Support For `.vue` Imports in TS
+## 准备
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- [node](http://nodejs.org/) _【12.x以上】_  和 [git](https://git-scm.com/) -项目开发环境
+- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
+- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
+- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
+- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
+- [Naive UI](https://www.naiveui.com/zh-CN/light) - ui 基本使用
+- [Tauri](https://tauri.studio/v1/guides/getting-started/prerequisites) - 基本环境搭建 _【重要】_ 
 
-![介绍图片](https://gitee.com/lhf6623/tauri-app/raw/master/public/page.png)
+## 安装使用
+
+- 获取项目代码
+
+```bash
+git clone https://gitee.com/lhf6623/tauri-app.git
+```
+
+- 安装依赖
+
+```bash
+cd tauri-app
+
+pnpm install
+
+```
+
+- 运行
+
+```bash
+pnpm run tauri dev
+```
+
+- 打包
+
+```bash
+pnpm run tauri build
+```
