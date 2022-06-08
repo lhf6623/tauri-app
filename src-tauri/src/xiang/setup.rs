@@ -1,4 +1,6 @@
 use tauri::{App, Manager};
+
+#[cfg(target_os = "macos")]
 use window_vibrancy::{NSVisualEffectMaterial};
 
 pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>> {

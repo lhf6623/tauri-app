@@ -1,5 +1,10 @@
 <template>
-  <div v-if="showTitle" data-tauri-drag-region class="titlebar">
+  <div
+    v-if="showTitle"
+    data-tauri-drag-region
+    class="titlebar"
+    @contextmenu.prevent.self
+  >
     <p class="text-left w-full" data-tauri-drag-region>{{ title }}</p>
     <NIcon
       class="titlebar-button"
