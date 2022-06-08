@@ -54,7 +54,7 @@ onMounted(() => {
 const tipsActive = computed(() => {
   if (isEmpty(active.value)) return [];
   let [index] = active.value;
-  return store.value.tips ? active.value : [index];
+  return store.value.setting.tips ? active.value : [index];
 });
 
 async function setActive(piece: PieceType | null | undefined) {
@@ -129,7 +129,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   height: ($h * 10) + ($h_n * 2);
   transform: v-bind("store.transformStyle");
 
-  background-color: rgb(238, 211, 179, $bgOpacity);
+  background-color: rgb(238, 211, 179, var(--bgOpacity));
 
   user-select: none;
   -webkit-user-select: none;

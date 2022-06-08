@@ -1,7 +1,7 @@
 {
   "name": "tauri-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.0.0-rc.13",
-    "@types/lodash-es": "^4.17.6",
     "@types/node": "^17.0.40",
     "@vitejs/plugin-vue": "^2.3.3",
     "naive-ui": "^2.30.0",

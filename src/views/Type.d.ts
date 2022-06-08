@@ -30,9 +30,16 @@ type RunRule = {
   ) => number[];
 };
 
-type StoreType = {
+type SettingType = {
   // 可移动格子提示
   tips: boolean;
+  // 透明度
+  bgOpacity: number;
+};
+
+type StoreType = {
+  // 设置项
+  setting: SettingType;
   // 棋谱
   record: Array<string>;
   // 下一个移动棋子的一方
