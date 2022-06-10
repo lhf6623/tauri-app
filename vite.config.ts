@@ -18,7 +18,6 @@ export default defineConfig({
       presets: [presetAttributify({}), presetUno()],
     }),
   ],
-
   resolve: {
     alias: [
       // @/xxxx => src/xxxx
@@ -36,6 +35,14 @@ export default defineConfig({
       scss: {
         charset: false,
       },
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: [
+        resolve(__dirname, "index.html"),
+        resolve(__dirname, "splashscreen.html"),
+      ],
     },
   },
 });
