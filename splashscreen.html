@@ -6,30 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>启动页</title>
     <style>
-      html,
-      body,
-      .x-box {
+      @keyframes rotate {
+        100% {
+          transform: rotateZ(360deg);
+        }
+      }
+      @keyframes rotate_ni {
+        100% {
+          transform: rotateZ(-360deg);
+        }
+      }
+      body {
         margin: 0;
         padding: 0;
-        height: 150px;
-        width: 150px;
         overflow: hidden;
-        border-radius: 50%;
-        user-select: none;
-        -webkit-user-select: none;
+        background-color: transparent;
       }
 
-      .x-box {
-        line-height: 150px;
-        text-align: center;
+      .loading {
+        position: relative;
+        height: 150px;
+        width: 150px;
+        box-sizing: border-box;
         border-radius: 50%;
-        background-color: antiquewhite;
-        font-size: 12px;
+        border-top: 10px solid #74b9ff;
+        animation: rotate 2s linear infinite;
+        background-color: black;
+      }
+
+      .loading::before,
+      .loading::after {
+        content: "";
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        left: 0;
+        top: -10px;
+        box-sizing: border-box;
+        border-radius: 50%;
+      }
+
+      .loading::before {
+        border-top: 10px solid #a29bfe;
+        transform: rotateZ(120deg);
+      }
+      .loading::after {
+        border-top: 10px solid #55efc4;
+        transform: rotate(240deg);
+      }
+      span {
+        position: absolute;
+        color: snow;
+        width: 150px;
+        height: 150px;
+        text-align: center;
+        line-height: 150px;
+        animation: rotate_ni 2s linear infinite;
       }
     </style>
   </head>
   <body>
-    <div class="x-box">程序加载中</div>
+    <div class="loading">
+      <span>程序加载中</span>
+    </div>
 
     <script>
       document.body.oncontextmenu = function () {

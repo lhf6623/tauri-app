@@ -25,7 +25,7 @@ onMounted(initChessGame);
 
 const store = useGlobalState();
 const bgOpacity = computed(() => {
-  return store.value.setting.bgOpacity / 100 || 0.1;
+  return (store.value.setting.bgOpacity / 100).toFixed(1);
 });
 </script>
 

@@ -24,6 +24,8 @@ pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>
 
         // After it's done, close the splashscreen and display the main window
         splashscreen_window.close().unwrap();
+
+        std::thread::sleep(std::time::Duration::from_secs(1));
         win.show().unwrap();
     });
     Ok(())
