@@ -1,4 +1,5 @@
-import "virtual:windi.css";
+import "@unocss/reset/tailwind.css";
+import "uno.css";
 
 // 通用字体
 import "vfonts/Lato.css";

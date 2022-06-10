@@ -1,5 +1,9 @@
 <template>
-  <div class="xiangqi-box-full" :style="{ '--bgOpacity': bgOpacity }">
+  <div
+    class="xiangqi-box-full"
+    :style="{ '--bgOpacity': bgOpacity }"
+    @contextmenu.prevent.self
+  >
     <TitleBar />
     <div class="xiangqi-box shadow" id="xiangqi-box">
       <section>

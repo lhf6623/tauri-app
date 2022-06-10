@@ -1,8 +1,9 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
-import WindiCSS from "vite-plugin-windicss";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import Unocss from "unocss/vite";
+import { presetAttributify, presetUno } from "unocss";
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), ".", dir);
@@ -10,7 +11,13 @@ function pathResolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueJsx(), WindiCSS()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    Unocss({
+      presets: [presetAttributify({}), presetUno()],
+    }),
+  ],
 
   resolve: {
     alias: [
