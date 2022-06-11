@@ -1,0 +1,9 @@
+name: GitHub Actions Build and Deploy Demo
+on: push
+  
+jobs:
+  build-app:
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: tauri-build
+      uses: JonasKruckenberg/tauri-build@v0.1.1
