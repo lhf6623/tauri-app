@@ -1,16 +1,17 @@
-name: Release
+name: Test
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - "*"
+  pull_request:
   workflow_dispatch:
 
 jobs:
-  release:
+  test:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-10.15, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
@@ -26,22 +27,25 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install dependencies (ubuntu only)
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: ./src-tauri
+
+      - name: Install webkit2gtk (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-      - name: Install app dependencies and build web
-        run: yarn && yarn build
+          sudo apt-get install -y webkit2gtk-4.0
+      - run: npm install
+      - run: npm run build:web
 
-      - name: Build the app
-        uses: tauri-apps/tauri-action@v0
+      - run: npm run lint
+        if: matrix.platform == 'ubuntu-latest'
 
+      - run: npm run test
+
+      - name: Build
+        uses: tauri-apps/tauri-action@b3f03835ca527e9735b386f1b1302ca70714b1e6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: v__VERSION__ # tauri-action replaces \_\_VERSION\_\_ with the app version
-          releaseName: "v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
-          releaseDraft: true
-          prerelease: false
