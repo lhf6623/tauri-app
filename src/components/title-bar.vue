@@ -4,14 +4,14 @@
     <NIcon
       class="titlebar-button"
       @click="() => appWindow.minimize()"
-      color="#fff"
+      color="rgb(177, 177, 177)"
       size="20px"
       :component="Remove"
     />
     <NIcon
       class="titlebar-button"
       @click="() => appWindow.close()"
-      color="#fff"
+      color="rgb(177, 177, 177)"
       size="20px"
       :component="Close"
     />
@@ -47,7 +47,7 @@ onMounted(async () => {
 
 .titlebar {
   height: $titlebarHeight;
-  background: rgb(0, 0, 0, var(--bgOpacity));
+  background: rgba(0, 0, 0, var(--bgOpacity));
   user-select: none;
   -webkit-user-select: none;
   display: flex;
@@ -56,7 +56,7 @@ onMounted(async () => {
   left: 0;
   right: 0;
   flex-shrink: 0;
-  color: rgb(255, 255, 255);
+  color: rgb(177, 177, 177);
 
   p {
     height: $titlebarHeight;
@@ -74,6 +74,6 @@ onMounted(async () => {
   cursor: pointer;
 }
 .titlebar-button:hover {
-  background: rgb(255, 255, 255, var(--bgOpacity));
+  background: rgb(255, 255, 255, 0.5);
 }
 </style>

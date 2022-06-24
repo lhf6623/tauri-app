@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { NButton } from "naive-ui";
 import SettingPanel from "./settingPanel/index.vue";
-import { resetMatchBus } from "@/vueuse/event-bus";
+import { ResetBus } from "@/vueuse/event-bus";
 import { useGlobalState } from "@/vueuse/store";
 import { computed } from "vue";
 import { RED } from "@/utils/data";
@@ -23,7 +23,7 @@ const nextText = computed(() => {
   return nextAction === RED ? "红方" : "黑方";
 });
 
-const handleReset = resetMatchBus.emit;
+const handleReset = ResetBus.emit;
 </script>
 
 <style lang="scss" scoped>
@@ -43,12 +43,13 @@ const handleReset = resetMatchBus.emit;
   & > div {
     height: 100%;
     line-height: 22px;
-    background-color: rgb(255, 255, 255, var(--bgOpacity));
-    border-radius: 5px;
+    border-radius: 3px;
   }
 
   & > p {
     padding: 0 5px;
+    color: white;
+    background-color: #2080f0;
   }
 }
 </style>

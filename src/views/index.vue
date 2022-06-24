@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="xiangqi-box-full"
-    :style="{ '--bgOpacity': bgOpacity }"
-    @contextmenu.prevent.self
-  >
+  <!-- @contextmenu.prevent.self -->
+  <div class="xiangqi-box-full" :style="{ '--bgOpacity': bgOpacity }">
     <TitleBar />
     <div class="xiangqi-box shadow" id="xiangqi-box">
       <section>
@@ -16,17 +13,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { computed } from "vue";
 import { Records, Maps, Control } from "@/components";
-import { initChessGame, useGlobalState } from "@/vueuse/store";
+import { useGlobalState } from "@/vueuse/store";
 import TitleBar from "@/components/title-bar.vue";
 
-onMounted(initChessGame);
-
 const store = useGlobalState();
-const bgOpacity = computed(() => {
-  return (store.value.setting.bgOpacity / 100).toFixed(1);
-});
+const bgOpacity = computed(() => store.value.setting.bgOpacity / 100);
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +33,7 @@ const bgOpacity = computed(() => {
   justify-content: center;
   align-items: center;
   padding-top: $titlebarHeight;
+  transition: background-color 2s;
 
   section {
     width: 100%;
@@ -59,7 +53,7 @@ const bgOpacity = computed(() => {
   padding: 5px;
   width: $w * 9 + 8px + 106px + 10px;
   height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
-  background-color: rgb(153, 204, 255, var(--bgOpacity));
+  background-color: rgba(153, 204, 255, var(--bgOpacity));
   font-size: 16px;
   color: black;
 }

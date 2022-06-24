@@ -1,11 +1,20 @@
-import { defineComponent } from "vue";
-import { NSwitch, NSpace, NSlider } from "naive-ui";
+import { defineComponent, computed } from "vue";
+import { NSwitch, NSpace, NSlider, NIconWrapper, NIcon } from "naive-ui";
 import { useGlobalState } from "@/vueuse/store";
+import { Moon, MoonOutline, SunnyOutline, Sunny } from "@vicons/ionicons5";
 
 export default defineComponent({
   name: "SettingList",
   setup() {
     const store = useGlobalState();
+
+    const getIcon = computed(() => {
+      let { bgOpacity } = store.value.setting;
+      if (bgOpacity < 25) return Moon;
+      if (bgOpacity >= 25 && bgOpacity < 50) return MoonOutline;
+      if (bgOpacity >= 50 && bgOpacity < 75) return SunnyOutline;
+      return Sunny;
+    });
 
     return () => (
       <NSpace vertical={true}>
@@ -17,6 +26,13 @@ export default defineComponent({
             v-model={[store.value.setting.bgOpacity, "value"]}
             onUpdateValue={(value: number) => {
               store.value.setting.bgOpacity = value;
+            }}
+            v-slots={{
+              thumb: () => (
+                <NIconWrapper size={18} border-radius={12}>
+                  <NIcon size={14} component={getIcon.value} />
+                </NIconWrapper>
+              ),
             }}
           />
         </p>

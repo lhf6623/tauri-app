@@ -59,6 +59,6 @@ export const readChess = (
 ): Array<PieceType | null> => {
   console.log(record, index);
   let mapList = initMap();
-  getBeforeMotion(mapList, record[index]);
+  //getBeforeMotion(mapList, record[index]);
   return mapList;
 };

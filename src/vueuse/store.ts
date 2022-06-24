@@ -18,11 +18,15 @@ export const useGlobalState = createGlobalState(() =>
   })
 );
 
-export const initChessGame = () => {
+/**
+ * 初始化棋盘和记录
+ * @param data
+ */
+export const initChessGame = (data: string[]) => {
   const store = useGlobalState();
   store.value = {
     ...store.value,
-    record: [],
+    record: data,
     nextAction: RED,
   };
 };

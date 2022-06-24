@@ -23,12 +23,12 @@ import XiangqiPiece from "./piece/index.vue";
 import Rivers from "./rivers.vue";
 import NumberList from "./number-list.vue";
 import { ref, onMounted, computed } from "vue";
-import { makingChess, initMap } from "@/utils";
+import { makingChess, initMap, readChess } from "@/utils";
 import { NULL, RED, BLACK, numbers, numbers_cn } from "@/utils/data";
 import { run_rule } from "@/utils/run-rule";
 import { cloneDeep, isEmpty, delay } from "@/utils/is";
 
-import { resetMatchBus } from "@/vueuse/event-bus";
+import { ResetBus, BackBus } from "@/vueuse/event-bus";
 import { useGlobalState, initChessGame } from "@/vueuse/store";
 
 const store = useGlobalState();
@@ -40,15 +40,19 @@ const mapList = ref<Array<PieceType | null>>([]);
 function initMapList() {
   mapList.value = initMap();
   active.value = [];
-  initChessGame();
+  initChessGame(["炮二进七"]);
 }
 
 onMounted(() => {
-  // 事件总线
-  resetMatchBus.on(initMapList);
+  // 事件总线 重新开始
+  ResetBus.on(initMapList);
 
   // 初始化数据
   initMapList();
+
+  BackBus.on((index) => {
+    mapList.value = readChess(store.value.record, index);
+  });
 });
 
 const tipsActive = computed(() => {
@@ -129,7 +133,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   height: ($h * 10) + ($h_n * 2);
   transform: v-bind("store.transformStyle");
 
-  background-color: rgb(238, 211, 179, var(--bgOpacity));
+  background-color: rgba(238, 211, 179, var(--bgOpacity));
 
   user-select: none;
   -webkit-user-select: none;

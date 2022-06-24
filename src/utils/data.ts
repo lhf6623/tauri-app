@@ -224,6 +224,10 @@ export const piece_list: PieceType[] = [
   },
 ];
 
+/**
+ * 初始化棋盘棋子位置
+ * @returns Array<PieceType | null>
+ */
 export const initMap = () => {
   const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
   piece_list.forEach((item) => {

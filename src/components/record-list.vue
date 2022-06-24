@@ -10,6 +10,7 @@
           class="flex text-center justify-center"
           v-for="(item, index) in store.record"
           :class="activeItem === index + 1 ? `active` : ''"
+          @click="handleActive(index)"
         >
           <p class="inline-block">
             {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
@@ -29,6 +30,7 @@ import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
 import { useGlobalState } from "../vueuse/store";
 import { MaybeElement, useElementSize } from "@vueuse/core";
+import { BackBus } from "@/vueuse/event-bus";
 
 const recordListRef = ref<MaybeElement>();
 const scrollbarRef = ref<ScrollbarInst | null>(null);
@@ -48,6 +50,10 @@ watch(
   },
   { deep: true }
 );
+
+const handleActive = (index: number) => {
+  BackBus.emit(index);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -55,7 +61,7 @@ watch(
 .record-list {
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 255, 255, var(--bgOpacity));
+  background-color: rgba(255, 255, 255, var(--bgOpacity));
   font-size: 12px;
 
   overflow: hidden;
@@ -65,7 +71,7 @@ watch(
 
   header,
   footer {
-    background-color: rgb(153, 221, 255, var(--bgOpacity));
+    background-color: rgba(153, 221, 255, var(--bgOpacity));
     padding: 0 6px;
     height: 18px;
     flex-shrink: 0;
