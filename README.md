@@ -5,8 +5,8 @@
 ## 预览
 
 <p align="center">
-    <img alt="VbenAdmin Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page.png">
-    <img alt="VbenAdmin Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page_setting.png"></img>
+    <img alt="tauri-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page.png">
+    <img alt="tauri-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page_setting.png"></img>
 </p>
 
 ## 准备
