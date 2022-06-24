@@ -4,8 +4,7 @@
   "version": "0.1.1",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:tsc": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },

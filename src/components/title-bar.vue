@@ -33,12 +33,11 @@ onMounted(async () => {
   // 判断是不是在浏览器中
   try {
     await type();
+    title.value = await getName();
     showTitle.value = true;
   } catch (_) {
     showTitle.value = false;
   }
-
-  title.value = await getName();
 });
 </script>
 
