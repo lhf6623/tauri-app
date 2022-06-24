@@ -3,8 +3,8 @@
 <h1>tauri-app</h1>
     
 [![GitHub license](https://img.shields.io/github/license/lhf6623/tauri-app)](https://github.com/lhf6623/tauri-app/blob/master/LICENSE) [![OSCS Status](https://www.oscs1024.com/platform/badge/lhf6623/tauri-app.svg?size=small)](https://www.oscs1024.com/project/lhf6623/tauri-app?ref=badge_small)
-
 </div>
+
 ## 简介
 
 使用tauri打包成PC端的一次尝试
