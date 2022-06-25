@@ -137,6 +137,8 @@ const handleActive = (index: number, item: PieceType | null): void => {
 
   user-select: none;
   -webkit-user-select: none;
+
+  cursor: pointer;
 }
 .checkerboard {
   position: relative;

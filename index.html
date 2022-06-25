@@ -17,19 +17,79 @@
         height: 100%;
         width: 100%;
         position: relative;
-        /* 解决刷新的时候出现滚动条 */
-        margin: 0;
-        padding: 0;
 
         font-family: JetBrains;
 
         background-color: transparent !important;
+
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <div id="app">
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        #app {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        @keyframes rotate {
+          100% {
+            transform: rotateZ(360deg);
+          }
+        }
+        @keyframes rotate_in {
+          100% {
+            transform: rotateZ(-360deg);
+          }
+        }
+        .loading {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          box-sizing: border-box;
+          border-radius: 50%;
+          border-top: 10px solid #74b9ff;
+          animation: rotate 2s linear infinite;
+        }
+        .loading::before,
+        .loading::after {
+          content: "";
+          width: 200px;
+          height: 200px;
+          position: absolute;
+          left: 0;
+          top: -10px;
+          box-sizing: border-box;
+          border-radius: 50%;
+        }
+        .loading::before {
+          border-top: 10px solid #a29bfe;
+          transform: rotate(120deg);
+        }
+        .loading::after {
+          border-top: 10px solid #55efc4;
+          transform: rotate(240deg);
+        }
+        span {
+          position: absolute;
+          color: rgb(95, 95, 95);
+          width: 200px;
+          height: 200px;
+          text-align: center;
+          line-height: 200px;
+          animation: rotate_in 2s linear infinite;
+          user-select: none;
+          -webkit-user-select: none;
+        }
+      </style>
       <!-- 白屏加载动画 -->
+      <div class="loading"><span>looading...</span></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

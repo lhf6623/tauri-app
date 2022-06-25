@@ -2,7 +2,7 @@
   <div class="record-list shadow">
     <header>棋谱序列</header>
     <NScrollbar ref="scrollbarRef" class="flex-1">
-      <ul ref="recordListRef" class="text-center cursor-default">
+      <ul ref="recordListRef" class="text-center">
         <li :class="activeItem === 0 ? `active` : ''">
           <span>===棋局开始===</span>
         </li>

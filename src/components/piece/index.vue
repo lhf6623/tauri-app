@@ -52,7 +52,6 @@ const pieceTypeClass = computed(() =>
 <style lang="scss" scoped>
 @import "@/style/config.scss";
 
-/*  cursor: pointer; */
 .piece {
   width: $w;
   height: $h;
@@ -72,7 +71,6 @@ const pieceTypeClass = computed(() =>
   border-radius: $h;
   z-index: 99;
   transform: v-bind("store.transformStyle");
-  cursor: pointer;
 }
 .isRed {
   background-color: red;
