@@ -52,7 +52,7 @@ import { onMounted, ref } from "vue";
 import { type } from "@tauri-apps/api/os";
 import { getName } from "@tauri-apps/api/app";
 import { appWindow } from "@tauri-apps/api/window";
-import { NIcon, NButton } from "naive-ui";
+import { NIcon } from "naive-ui";
 import { Remove, CloseOutline } from "@vicons/ionicons5";
 
 const showTitle = ref(false);
@@ -69,6 +69,19 @@ onMounted(async () => {
   } catch (_) {
     showTitle.value = false;
   }
+
+  document.addEventListener("keydown", (e) => {
+    const { metaKey, key } = e;
+    if (metaKey) {
+      if (key === "q") {
+        appWindow.close();
+      }
+      if (key === "w") {
+        appWindow.minimize();
+      }
+    }
+    return false;
+  });
 });
 </script>
 

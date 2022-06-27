@@ -6,16 +6,20 @@ const { version } = pkg;
 const XIANGQI_KEY = `xiangqi_store_${version}`;
 
 export const useGlobalState = createGlobalState(() =>
-  useStorage<StoreType>(XIANGQI_KEY, {
-    record: [],
-    nextAction: RED,
-    identity: RED,
-    transformStyle: `rotate(0deg)  translateZ(0)`,
-    setting: {
-      tips: true,
-      bgOpacity: 10,
+  useStorage<StoreType>(
+    XIANGQI_KEY,
+    {
+      record: [],
+      nextAction: RED,
+      identity: RED,
+      transformStyle: `rotate(0deg)  translateZ(0)`,
+      setting: {
+        tips: true,
+        bgOpacity: 10,
+      },
     },
-  })
+    window.sessionStorage
+  )
 );
 
 /**

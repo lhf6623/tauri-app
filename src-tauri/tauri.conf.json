@@ -3,13 +3,13 @@
   "build": {
     "distDir": "../dist",
     "devPath": "http://localhost:3000",
-    "beforeDevCommand": "pnpm run dev",
-    "beforeBuildCommand": "pnpm run build",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "tauri-app",
-    "version": "0.1.0"
+    "productName": "象",
+    "version": "0.0.1"
   },
   "tauri": {
     "macOSPrivateApi": true,
@@ -57,7 +57,6 @@
     },
     "windows": [
       {
-        "title": "tauri-app",
         "width": 358,
         "height": 364,
         "resizable": false,
