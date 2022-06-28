@@ -1,6 +1,6 @@
 <div align="center"> 
     
-<h1>tauri-app</h1>
+<h1>tauri-xiang-app</h1>
     
 [![GitHub license](https://img.shields.io/github/license/lhf6623/tauri-app)](https://github.com/lhf6623/tauri-app/blob/master/LICENSE) [![OSCS Status](https://www.oscs1024.com/platform/badge/lhf6623/tauri-app.svg?size=small)](https://www.oscs1024.com/project/lhf6623/tauri-app?ref=badge_small)
 </div>
@@ -12,8 +12,8 @@
 ## 预览
 
 <p align="center">
-    <img alt="tauri-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page.png">
-    <img alt="tauri-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page_setting.png"></img>
+    <img alt="tauri-xiang-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page.png">
+    <img alt="tauri-xiang-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page_setting.png"></img>
 </p>
 
 ## 准备
@@ -46,11 +46,11 @@ pnpm install
 - 运行 --在Mac上第一次运行如果报错，请添加sudo
 
 ```bash
-pnpm run tauri dev
+pnpm tauri dev
 ```
 
 - 打包
 
 ```bash
-pnpm run tauri build
+pnpm tauri build
 ```
