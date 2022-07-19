@@ -5,10 +5,6 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import Unocss from "unocss/vite";
 import { presetAttributify, presetUno } from "unocss";
 
-function pathResolve(dir: string) {
-  return resolve(process.cwd(), ".", dir);
-}
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -23,7 +19,7 @@ export default defineConfig({
       // @/xxxx => src/xxxx
       {
         find: /@\//,
-        replacement: pathResolve("src") + "/",
+        replacement: resolve(process.cwd(), ".", "src") + "/",
       },
     ],
   },
@@ -43,7 +39,7 @@ export default defineConfig({
     // Tauri supports es2021
     target: ["es2021", "chrome97", "safari13"],
     // don't minify for debug builds
-    minify: !process.env.TAURI_DEBUG ? "esbuild" : false,
+    minify: "esbuild",
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
   },
