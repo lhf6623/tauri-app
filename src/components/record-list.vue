@@ -3,20 +3,20 @@
     <header>棋谱序列</header>
     <NScrollbar ref="scrollbarRef" class="flex-1">
       <ul ref="recordListRef" class="text-center">
-        <li :class="activeItem === 0 ? `active` : ''">
+        <li :class="store.getRecordLen === 0 ? `active` : ''">
           <span>===棋局开始===</span>
         </li>
         <li
           class="flex text-center justify-center"
           v-for="(item, index) in store.record"
-          :class="activeItem === index + 1 ? `active` : ''"
+          :class="store.getRecordLen === index + 1 ? `active` : ''"
           @click="handleActive(index)"
         >
           <p class="inline-block">
             {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
           </p>
           <p class="flex min-w-50px justify-between tabular-nums">
-            <span v-for="texts in item">{{ texts }}</span>
+            <span v-for="texts in item.name">{{ texts }}</span>
           </p>
         </li>
       </ul>
@@ -28,16 +28,14 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
-import { useGlobalState } from "../vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 import { MaybeElement, useElementSize } from "@vueuse/core";
 import { BackBus } from "@/vueuse/event-bus";
 
 const recordListRef = ref<MaybeElement>();
 const scrollbarRef = ref<ScrollbarInst | null>(null);
 
-const store = useGlobalState();
-
-const activeItem = computed(() => store.value.record.length);
+const store = useAppStore();
 
 const { height } = useElementSize(recordListRef);
 watch(

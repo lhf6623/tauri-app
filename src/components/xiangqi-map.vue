@@ -29,9 +29,9 @@ import { run_rule } from "@/utils/run-rule";
 import { cloneDeep, isEmpty, delay } from "@/utils/is";
 
 import { ResetBus, BackBus } from "@/vueuse/event-bus";
-import { useGlobalState, initChessGame } from "@/vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 
-const store = useGlobalState();
+const store = useAppStore();
 
 // 第一个为选中的棋子，后面的是能运动的格子
 const active = ref<number[]>([]);
@@ -40,7 +40,7 @@ const mapList = ref<Array<PieceType | null>>([]);
 function initMapList() {
   mapList.value = initMap();
   active.value = [];
-  initChessGame(["炮二进七"]);
+  store.initChessGame([]);
 }
 
 onMounted(() => {
@@ -50,15 +50,17 @@ onMounted(() => {
   // 初始化数据
   initMapList();
 
+  // 监听时间回溯事件
   BackBus.on((index) => {
-    mapList.value = readChess(store.value.record, index);
+    // TODO: 交给 store 来做
+    mapList.value = readChess(store.record, index);
   });
 });
 
 const tipsActive = computed(() => {
   if (isEmpty(active.value)) return [];
   let [index] = active.value;
-  return store.value.setting.tips ? active.value : [index];
+  return store.setting.tips ? active.value : [index];
 });
 
 async function setActive(piece: PieceType | null | undefined) {
@@ -101,12 +103,12 @@ const handleActive = (index: number, item: PieceType | null): void => {
     mapList.value[index] = { ..._piece, index };
     mapList.value[pieceIndex] = NULL;
     setActive(null);
-    let { nextAction } = store.value;
-    store.value.nextAction = nextAction === RED ? BLACK : RED;
+    store.setNextAction();
 
-    let chessManual = makingChess(_mapList, pieceIndex, index);
-    store.value.record.push(chessManual);
-
+    store.setRecord(
+      makingChess(_mapList, pieceIndex, index),
+      mapList.value.flatMap((item) => (item === NULL ? [] : [item]))
+    );
     return;
   }
 
@@ -114,7 +116,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   if (
     item !== NULL &&
     isEmpty(active.value) &&
-    store.value.nextAction === item.type
+    store.nextAction === item.type
   ) {
     setActive(item);
   }

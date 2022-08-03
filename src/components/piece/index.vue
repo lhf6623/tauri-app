@@ -15,10 +15,10 @@
 <script setup lang="ts">
 import { PropType, computed } from "vue";
 import Active from "./active.vue";
-import { useGlobalState } from "../../vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 import { RED } from "../../utils/data";
 
-const store = useGlobalState();
+const store = useAppStore();
 
 const props = defineProps({
   data: {

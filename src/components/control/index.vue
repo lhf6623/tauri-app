@@ -12,14 +12,14 @@
 import { NButton } from "naive-ui";
 import SettingPanel from "./settingPanel/index.vue";
 import { ResetBus } from "@/vueuse/event-bus";
-import { useGlobalState } from "@/vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 import { computed } from "vue";
 import { RED } from "@/utils/data";
 
-const store = useGlobalState();
+const store = useAppStore();
 
 const nextText = computed(() => {
-  let { nextAction } = store.value;
+  let { nextAction } = store;
   return nextAction === RED ? "红方" : "黑方";
 });
 

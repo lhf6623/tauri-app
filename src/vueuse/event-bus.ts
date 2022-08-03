@@ -5,7 +5,7 @@ import { useEventBus } from "@vueuse/core";
  */
 const RESET = Symbol();
 export const ResetBus = useEventBus(RESET);
-
+console.log(import.meta);
 /**
  * 触发时光回溯
  */

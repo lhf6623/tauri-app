@@ -8,9 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobalState } from "@/vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 
-const store = useGlobalState();
+const store = useAppStore();
 </script>
 
 <style scoped lang="scss">

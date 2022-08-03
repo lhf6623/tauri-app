@@ -22,7 +22,7 @@ function isInMap(col: number, row: number): boolean {
 function isPass(
   map: (PieceType | null)[],
   i: number,
-  pieceType: Type
+  pieceType: PieceColorType
 ): boolean {
   return map[i] === NULL || map[i]?.type !== pieceType;
 }

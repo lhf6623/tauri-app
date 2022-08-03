@@ -8,9 +8,9 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
-import { useGlobalState } from "../vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 
-const store = useGlobalState();
+const store = useAppStore();
 defineProps({
   list: {
     type: Object as PropType<string[] | number[]>,

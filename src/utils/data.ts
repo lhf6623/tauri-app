@@ -15,8 +15,8 @@ export const numbers_cn: string[] = [
 export const COL: number = 9;
 export const ROW: number = 10;
 export const NULL: null = null;
-export const BLACK: Type = "isBlack";
-export const RED: Type = "isRed";
+export const BLACK: PieceColorType = "isBlack";
+export const RED: PieceColorType = "isRed";
 
 /** 除兵外第三个字 "进", "退", "平" */
 export const text3: Text3Type[] = ["进", "退", "平"];
@@ -228,11 +228,12 @@ export const piece_list: PieceType[] = [
  * 初始化棋盘棋子位置
  * @returns Array<PieceType | null>
  */
-export const initMap = () => {
+export const initMap = (isPice = true) => {
   const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
-  piece_list.forEach((item) => {
-    let { index } = item;
-    mapList[index] = { ...item };
-  });
+  isPice &&
+    piece_list.forEach((item) => {
+      let { index } = item;
+      mapList[index] = { ...item };
+    });
   return mapList;
 };

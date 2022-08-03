@@ -1,15 +1,15 @@
 import { defineComponent, computed } from "vue";
 import { NSwitch, NSpace, NSlider, NIconWrapper, NIcon } from "naive-ui";
-import { useGlobalState } from "@/vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 import { Moon, MoonOutline, SunnyOutline, Sunny } from "@vicons/ionicons5";
 
 export default defineComponent({
   name: "SettingList",
   setup() {
-    const store = useGlobalState();
+    const store = useAppStore();
 
     const getIcon = computed(() => {
-      let { bgOpacity } = store.value.setting;
+      let { bgOpacity } = store.setting;
       if (bgOpacity < 25) return Moon;
       if (bgOpacity >= 25 && bgOpacity < 50) return MoonOutline;
       if (bgOpacity >= 50 && bgOpacity < 75) return SunnyOutline;
@@ -23,9 +23,9 @@ export default defineComponent({
           <NSlider
             step={1}
             tooltip={false}
-            v-model={[store.value.setting.bgOpacity, "value"]}
+            v-model={[store.setting.bgOpacity, "value"]}
             onUpdateValue={(value: number) => {
-              store.value.setting.bgOpacity = value;
+              store.setting.bgOpacity = value;
             }}
             v-slots={{
               thumb: () => (
@@ -44,9 +44,9 @@ export default defineComponent({
               checked: () => "开",
               unchecked: () => "关",
             }}
-            v-model={[store.value.setting.tips, "value"]}
+            v-model={[store.setting.tips, "value"]}
             onUpdateValue={(value: boolean) => {
-              store.value.setting.tips = value;
+              store.setting.tips = value;
             }}
           />
         </p>

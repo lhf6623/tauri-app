@@ -15,11 +15,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { Records, Maps, Control } from "@/components";
-import { useGlobalState } from "@/vueuse/store";
+import { useAppStore } from "@/store/modules/app";
 import TitleBar from "@/components/title-bar.vue";
 
-const store = useGlobalState();
-const bgOpacity = computed(() => store.value.setting.bgOpacity / 100);
+const store = useAppStore();
+const bgOpacity = computed(() => store.setting.bgOpacity / 100);
 </script>
 
 <style lang="scss" scoped>
