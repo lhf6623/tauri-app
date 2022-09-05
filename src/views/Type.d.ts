@@ -46,7 +46,7 @@ type AppStoreType = {
     mapData: PieceType[];
   }>;
   // 是否在看历史记录
-  isRecord: boolean;
+  isRecord: null | number;
   // 下一个移动棋子的一方
   nextAction: PieceColorType;
   // 当前人所执棋的颜色

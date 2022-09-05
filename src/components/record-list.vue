@@ -74,9 +74,11 @@ const handleActive = (index: number) => {
     height: 18px;
     flex-shrink: 0;
   }
-
+  li:hover {
+    background-color: rgba(0, 98, 255, 0.2);
+  }
   .active {
-    background-color: rgba(0, 98, 255, 0.6);
+    background-color: rgba(0, 98, 255, 0.6) !important;
     color: rgb(255, 255, 255);
   }
 }

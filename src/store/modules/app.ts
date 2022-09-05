@@ -10,7 +10,7 @@ const XIANGQI_KEY = `xiangqi_store_${version}`;
 
 export const useAppStore = defineStore("app", {
   state: (): AppStoreType => ({
-    isRecord: false,
+    isRecord: null,
     record: [],
     nextAction: RED,
     identity: RED,
@@ -45,6 +45,9 @@ export const useAppStore = defineStore("app", {
     /* 记录 */
     setRecord(name: string, mapData: PieceType[]) {
       this.record.push({ name, mapData: cloneDeep(mapData) });
+    },
+    openRecord(isRecord: number | null) {
+      this.isRecord = isRecord;
     },
   },
   persist: {
