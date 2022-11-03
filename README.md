@@ -1,6 +1,6 @@
 <div align="center"> 
     
-<h1>tauri-xiang-app</h1>
+<p align="center"><img src="./src-tauri/icons/128x128.png" /></p>
     
 [![GitHub license](https://img.shields.io/github/license/lhf6623/tauri-app)](https://github.com/lhf6623/tauri-app/blob/master/LICENSE) [![OSCS Status](https://www.oscs1024.com/platform/badge/lhf6623/tauri-app.svg?size=small)](https://www.oscs1024.com/project/lhf6623/tauri-app?ref=badge_small)
 </div>
