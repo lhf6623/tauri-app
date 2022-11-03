@@ -70,7 +70,7 @@ const pieceTypeClass = computed(() =>
   left: 1px;
   border-radius: $h;
   z-index: 99;
-  transform: v-bind("store.transformStyle");
+  transform: v-bind("store.setting.transformStyle");
 }
 .isRed {
   background-color: red;

@@ -18,7 +18,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 @import "@/style/config.scss";
-@mixin corner($position1, $position2) {
+@mixin corner($name, $position1, $position2) {
   @include pseudo-class(7px, 7px);
   #{$position1}: 1px;
   #{$position2}: 1px;
@@ -26,7 +26,7 @@ const props = defineProps({
 
   border-#{$position2}: 1px solid v-bind("props.color");
 
-  animation: warn 1s linear 0.4s infinite;
+  animation: $name 1s linear 0.4s infinite;
 }
 .active {
   z-index: 5;
@@ -34,16 +34,16 @@ const props = defineProps({
   height: $h;
 
   & > li:nth-child(1) {
-    @include corner(top, left);
+    @include corner(warn, top, left);
   }
   & > li:nth-child(2) {
-    @include corner(top, right);
+    @include corner(warn, top, right);
   }
   & > li:nth-child(3) {
-    @include corner(bottom, left);
+    @include corner(warn, bottom, left);
   }
   & > li:nth-child(4) {
-    @include corner(bottom, right);
+    @include corner(warn, bottom, right);
   }
 }
 @keyframes warn {

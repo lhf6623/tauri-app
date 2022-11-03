@@ -1,7 +1,6 @@
 <template>
   <!-- @contextmenu.prevent.self -->
   <div class="xiangqi-box-full" :style="{ '--bgOpacity': bgOpacity }">
-    <TitleBar />
     <div class="xiangqi-box shadow" id="xiangqi-box">
       <section>
         <Maps />
@@ -16,7 +15,6 @@
 import { computed } from "vue";
 import { Records, Maps, Control } from "@/components";
 import { useAppStore } from "@/store/modules/app";
-import TitleBar from "@/components/title-bar.vue";
 
 const store = useAppStore();
 const bgOpacity = computed(() => store.setting.bgOpacity / 100);
@@ -32,7 +30,6 @@ const bgOpacity = computed(() => store.setting.bgOpacity / 100);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: $titlebarHeight;
   transition: background-color 2s;
 
   section {

@@ -50,6 +50,22 @@ export default defineComponent({
             }}
           />
         </p>
+        <p class="flex justify-between items-center">
+          <span>方向</span>
+          <NSwitch
+            size="small"
+            v-slots={{
+              checked: () => "顺",
+              unchecked: () => "逆",
+            }}
+            checked-value="rotate(0deg)  translateZ(0)"
+            unchecked-value="rotate(180deg)  translateZ(0)"
+            v-model={[store.setting.transformStyle, "value"]}
+            onUpdateValue={(value: SettingType["transformStyle"]) => {
+              store.setting.transformStyle = value;
+            }}
+          />
+        </p>
       </NSpace>
     );
   },

@@ -1,22 +1,22 @@
 <template>
   <div class="record-list shadow">
-    <header>棋谱序列</header>
+    <header>
+      棋谱序列<span v-if="!store.is_run" class="scale-75 inline-block"
+        >[历史]</span
+      >
+    </header>
     <NScrollbar ref="scrollbarRef" class="flex-1">
       <ul ref="recordListRef" class="text-center">
-        <li :class="store.getRecordLen === 0 ? `active` : ''">
-          <span>===棋局开始===</span>
-        </li>
+        <li>===棋局开始===</li>
         <li
           class="flex text-center justify-center"
           v-for="(item, index) in store.record"
-          :class="store.getRecordLen === index + 1 ? `active` : ''"
-          @click="handleActive(index)"
+          :class="store.record_index === index ? `active` : ''"
+          @click="store.readRecord(index)"
         >
-          <p class="inline-block">
-            {{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}
-          </p>
-          <p class="flex min-w-50px justify-between tabular-nums">
-            <span v-for="texts in item.name">{{ texts }}</span>
+          <p>{{ index % 2 ? "&nbsp;&nbsp;" : `${index / 2 + 1}.` }}</p>
+          <p class="flex min-w-50px justify-between">
+            {{ item.name }}
           </p>
         </li>
       </ul>
@@ -26,11 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
 import { useAppStore } from "@/store/modules/app";
 import { MaybeElement, useElementSize } from "@vueuse/core";
-import { BackBus } from "@/vueuse/event-bus";
 
 const recordListRef = ref<MaybeElement>();
 const scrollbarRef = ref<ScrollbarInst | null>(null);
@@ -48,10 +47,6 @@ watch(
   },
   { deep: true }
 );
-
-const handleActive = (index: number) => {
-  BackBus.emit(index);
-};
 </script>
 
 <style lang="scss" scoped>

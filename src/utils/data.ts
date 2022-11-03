@@ -228,10 +228,10 @@ export const piece_list: PieceType[] = [
  * 初始化棋盘棋子位置
  * @returns Array<PieceType | null>
  */
-export const initMap = (isPice = true) => {
+export const initMap = (pice_list = piece_list) => {
   const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
-  isPice &&
-    piece_list.forEach((item) => {
+  pice_list &&
+    pice_list.forEach((item) => {
       let { index } = item;
       mapList[index] = { ...item };
     });

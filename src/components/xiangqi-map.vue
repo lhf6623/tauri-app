@@ -4,9 +4,9 @@
     <div class="checkerboard">
       <ul class="lattices">
         <XiangqiPiece
-          v-for="(item, index) in mapList"
+          v-for="(item, index) in store.list"
           class="lattice"
-          @click="handleActive(index, item)"
+          @click="store.clickLattice(index, item)"
           :data="item"
           :active="tipsActive"
           :index="index"
@@ -22,105 +22,21 @@
 import XiangqiPiece from "./piece/index.vue";
 import Rivers from "./rivers.vue";
 import NumberList from "./number-list.vue";
-import { ref, onMounted, computed } from "vue";
-import { makingChess, initMap, readChess } from "@/utils";
-import { NULL, RED, BLACK, numbers, numbers_cn } from "@/utils/data";
-import { run_rule } from "@/utils/run-rule";
-import { cloneDeep, isEmpty, delay } from "@/utils/is";
+import { computed, onMounted } from "vue";
+import { numbers, numbers_cn } from "@/utils/data";
 
-import { ResetBus, BackBus } from "@/vueuse/event-bus";
 import { useAppStore } from "@/store/modules/app";
 
 const store = useAppStore();
-
-// 第一个为选中的棋子，后面的是能运动的格子
-const active = ref<number[]>([]);
-const mapList = ref<Array<PieceType | null>>([]);
-
-function initMapList() {
-  mapList.value = initMap();
-  active.value = [];
-  store.initChessGame([]);
-}
-
 onMounted(() => {
-  // 事件总线 重新开始
-  ResetBus.on(initMapList);
-
-  // 初始化数据
-  initMapList();
-
-  // 监听时间回溯事件
-  BackBus.on((index) => {
-    // TODO: 交给 store 来做
-    mapList.value = readChess(store.record, index);
-  });
+  store.goEnd();
 });
 
 const tipsActive = computed(() => {
-  if (isEmpty(active.value)) return [];
-  let [index] = active.value;
-  return store.setting.tips ? active.value : [index];
+  if (!store.active.length) return [];
+  let [index] = store.active;
+  return store.setting.tips ? store.active : [index];
 });
-
-async function setActive(piece: PieceType | null | undefined) {
-  active.value = [];
-  delay(() => {
-    if (piece) {
-      let { code, index } = piece;
-      let run_lattice = run_rule[code]?.(mapList.value, piece) || [];
-      active.value = [index, ...run_lattice];
-    } else {
-      active.value = [];
-    }
-  }, 0);
-}
-/**
- *
- * @param index 选中格子的索引
- * @param item 选中格子的数据 棋子 | 空地
- */
-const handleActive = (index: number, item: PieceType | null): void => {
-  let [pieceIndex] = active.value;
-  // 走棋
-  if (active.value.length) {
-    let _piece = mapList.value[pieceIndex] as PieceType;
-
-    // 空地, 不在棋子可行走范围内
-    if (item === NULL && !active.value.includes(index)) return;
-
-    if (item) {
-      // 同一阵营的更新选中棋子
-      if (_piece.type === item.type) {
-        setActive(item);
-        return;
-      }
-      // 不在棋子可行走范围内
-      if (!active.value.includes(index)) return;
-    }
-    const _mapList = cloneDeep(mapList.value);
-
-    mapList.value[index] = { ..._piece, index };
-    mapList.value[pieceIndex] = NULL;
-    setActive(null);
-    store.setNextAction();
-
-    store.setRecord(
-      makingChess(_mapList, pieceIndex, index),
-      mapList.value.flatMap((item) => (item === NULL ? [] : [item]))
-    );
-    return;
-  }
-
-  // 选中棋子
-  if (
-    item !== NULL &&
-    isEmpty(active.value) &&
-    store.nextAction === item.type
-  ) {
-    setActive(item);
-  }
-};
 </script>
 
 <style lang="scss" scoped>
@@ -133,7 +49,7 @@ const handleActive = (index: number, item: PieceType | null): void => {
   align-items: center;
   width: $w * 9 + 4px;
   height: ($h * 10) + ($h_n * 2);
-  transform: v-bind("store.transformStyle");
+  transform: v-bind("store.setting.transformStyle");
 
   background-color: rgba(238, 211, 179, var(--bgOpacity));
 

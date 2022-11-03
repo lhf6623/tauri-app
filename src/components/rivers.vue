@@ -24,10 +24,10 @@ const store = useAppStore();
   height: $h;
   top: calc(50% - $h * 0.5);
   z-index: 10;
+  transform: v-bind("store.setting.transformStyle");
 
   span {
     display: inline-block;
-    transform: v-bind("store.transformStyle");
     height: $h;
     line-height: $h;
   }

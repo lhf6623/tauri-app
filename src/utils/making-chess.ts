@@ -1,5 +1,5 @@
 import { RED, COL, indexToXY } from "./data";
-import { isMatch, cloneDeep } from "./is";
+import { isMatch, cloneDeep } from "lodash-es";
 import { numbers, numbers_cn, text1, text3 } from "./data";
 
 const [QIAN, HOU] = text1;

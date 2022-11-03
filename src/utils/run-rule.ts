@@ -8,7 +8,7 @@ import {
   shiSeat,
 } from "./run-rule-data";
 import { COL, ROW, NULL, BLACK, RED, indexToXY } from "./data";
-import { inRange, ceil } from "@/utils/is";
+import { inRange, ceil } from "lodash-es";
 
 /**
  * 在地图上

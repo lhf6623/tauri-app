@@ -33,7 +33,7 @@ defineProps({
     width: $w;
     height: $h_n;
 
-    transform: v-bind("store.transformStyle");
+    transform: v-bind("store.setting.transformStyle");
   }
 }
 </style>

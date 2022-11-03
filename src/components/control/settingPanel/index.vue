@@ -8,7 +8,6 @@
     v-model:show="showDrawer"
     :width="150"
     :placement="placement"
-    to="#xiangqi-box"
     show-mask="transparent"
     display-directive="show"
   >

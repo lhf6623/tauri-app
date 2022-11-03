@@ -1,4 +1,5 @@
 type PieceColorType = "isRed" | "isBlack";
+type NullType = null;
 type PieceCodeType = "che" | "ma" | "xiang" | "shi" | "jiang" | "pao" | "bing";
 type PieceTextType =
   | "车"
@@ -35,6 +36,10 @@ type SettingType = {
   tips: boolean;
   // 透明度
   bgOpacity: number;
+  // 根据所执棋的颜色翻转棋盘 translateZ(0) 防抖动
+  transformStyle:
+    | "rotate(0deg)  translateZ(0)"
+    | "rotate(180deg)  translateZ(0)";
 };
 
 type AppStoreType = {
@@ -43,16 +48,16 @@ type AppStoreType = {
   // 棋谱
   record: Array<{
     name: string;
-    mapData: PieceType[];
+    list: PieceType[];
   }>;
+  list: Array<PieceType | NullType>;
+  active: number[];
   // 是否在看历史记录
-  isRecord: null | number;
+  is_run: boolean;
+  // 点击历史记录
+  record_index: number;
   // 下一个移动棋子的一方
-  nextAction: PieceColorType;
+  next: PieceColorType;
   // 当前人所执棋的颜色
   identity: PieceColorType;
-  // 根据所执棋的颜色翻转棋盘 translateZ(0) 防抖动
-  transformStyle:
-    | "rotate(0deg)  translateZ(0)"
-    | "rotate(180deg)  translateZ(0)";
 };

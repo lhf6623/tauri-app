@@ -63,8 +63,9 @@
         "fullscreen": false,
         "transparent": true,
         "center": true,
-        "decorations": false,
-        "visible": false
+        "decorations": true,
+        "visible": false,
+        "title": "象"
       }
     ]
   }
