@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
 
-import { NULL, RED, BLACK } from "@/utils/data";
+import { NULL, RED, BLACK, piece_list } from "@/utils/data";
 
 import { makingChess, initMap } from "@/utils";
 import { run_rule } from "@/utils/run-rule";
@@ -9,8 +9,8 @@ import { cloneDeep, isEmpty } from "lodash-es";
 
 import pkg from "../../../package.json";
 
-const { version } = pkg;
-const XIANGQI_KEY = `xiangqi_store_${version}`;
+const { version, name } = pkg;
+const XIANGQI_KEY = `${name}_${version}`;
 
 export const useAppStore = defineStore("app", {
   state: (): AppStoreType => ({
@@ -48,7 +48,6 @@ export const useAppStore = defineStore("app", {
     /** 在刷新的时候回到第一步 */
     goEnd() {
       const LEN = this.record.length - 1;
-      this.list = initMap(this.record[LEN]["list"]);
       this.is_run = true;
       this.active = [];
       this.record_index = LEN;
