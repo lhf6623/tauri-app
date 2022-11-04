@@ -48,6 +48,7 @@ export const useAppStore = defineStore("app", {
     /** 在刷新的时候回到第一步 */
     goEnd() {
       const LEN = this.record.length - 1;
+      this.list = initMap(this.record?.[LEN]?.["list"] ?? piece_list);
       this.is_run = true;
       this.active = [];
       this.record_index = LEN;
