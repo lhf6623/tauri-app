@@ -1,3 +1,5 @@
+import { PieceColorType, PieceType, Text1Type, Text3Type } from "/#/Type";
+
 /** 黑棋X轴文字 */
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 /** 红旗X轴文字 */

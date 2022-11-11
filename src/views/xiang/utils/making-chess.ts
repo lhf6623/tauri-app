@@ -1,6 +1,7 @@
 import { RED, COL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
 import { numbers, numbers_cn, text1, text3 } from "./data";
+import { PieceType, Text3Type } from "/#/Type";
 
 const [QIAN, HOU] = text1;
 const [JIN, TUI, PING] = text3;

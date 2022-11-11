@@ -9,6 +9,7 @@ import {
 } from "./run-rule-data";
 import { COL, ROW, NULL, BLACK, RED, indexToXY } from "./data";
 import { inRange, ceil } from "lodash-es";
+import { PieceColorType, PieceType, RunRule } from "/#/Type";
 
 /**
  * 在地图上

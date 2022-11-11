@@ -15,8 +15,9 @@
 <script setup lang="ts">
 import { PropType, computed } from "vue";
 import Active from "./active.vue";
-import { useAppStore } from "@/store/modules/app";
-import { RED } from "../../utils/data";
+import { PieceType } from "/#/Type";
+import { useAppStore } from "/@/store/modules/xiang";
+import { RED } from "/@xiang/utils/data";
 
 const store = useAppStore();
 
@@ -50,7 +51,7 @@ const pieceTypeClass = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 
 .piece {
   width: $w;

@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
 
 const store = useAppStore();
 defineProps({
@@ -20,7 +20,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 .number-list {
   position: relative;
   display: flex;

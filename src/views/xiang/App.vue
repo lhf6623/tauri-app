@@ -1,27 +1,30 @@
 <template>
-  <!-- @contextmenu.prevent.self -->
-  <div class="xiangqi-box-full" :style="{ '--bgOpacity': bgOpacity }">
-    <div class="xiangqi-box shadow" id="xiangqi-box">
-      <section>
-        <Maps />
-        <Records />
-      </section>
-      <Control />
+  <NConfigProvider abstract preflight-style-disabled>
+    <!-- @contextmenu.prevent.self -->
+    <div class="xiangqi-box-full" :style="{ '--bgOpacity': bgOpacity }">
+      <div class="xiangqi-box shadow" id="xiangqi-box">
+        <section>
+          <Maps />
+          <Records />
+        </section>
+        <Control />
+      </div>
     </div>
-  </div>
+    <NGlobalStyle />
+  </NConfigProvider>
 </template>
-
 <script setup lang="ts">
+import { NConfigProvider, NGlobalStyle } from "naive-ui";
 import { computed } from "vue";
-import { Records, Maps, Control } from "@/components";
-import { useAppStore } from "@/store/modules/app";
+import { Records, Maps, Control } from "/@xiang/components";
+import { useAppStore } from "/@/store/modules/xiang";
 
 const store = useAppStore();
 const bgOpacity = computed(() => store.setting.bgOpacity / 100);
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 
 .xiangqi-box-full {
   height: 100%;

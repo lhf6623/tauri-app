@@ -14,17 +14,21 @@
     "lib": ["dom", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "/@/*": ["src/*"],
+      "/@xiang/*": ["src/views/xiang/*"],
+      "/@mirror/*": ["src/views/mirror/*"],
+      "/#/*": ["types/*"]
     },
-    "types": ["pinia-plugin-persist"]
+    "types": ["pinia-plugin-persist", "vite/client"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "types/**/*.d.ts",
     "vite.config.ts"
   ],
-  "exclude": ["node_modules", "dist", "src-tauri", "public"],
+  "exclude": ["node_modules", "dist", "src-tauri", "public", "**/*.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

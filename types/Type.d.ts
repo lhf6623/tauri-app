@@ -1,7 +1,15 @@
-type PieceColorType = "isRed" | "isBlack";
-type NullType = null;
-type PieceCodeType = "che" | "ma" | "xiang" | "shi" | "jiang" | "pao" | "bing";
-type PieceTextType =
+import { WebviewWindow } from "@tauri-apps/api/window";
+export type PieceColorType = "isRed" | "isBlack";
+export type NullType = null;
+export type PieceCodeType =
+  | "che"
+  | "ma"
+  | "xiang"
+  | "shi"
+  | "jiang"
+  | "pao"
+  | "bing";
+export type PieceTextType =
   | "车"
   | "马"
   | "相"
@@ -14,24 +22,24 @@ type PieceTextType =
   | "兵"
   | "卒";
 
-type Text3Type = "进" | "退" | "平";
-type Text1Type = "前" | "后";
+export type Text3Type = "进" | "退" | "平";
+export type Text1Type = "前" | "后";
 
-type PieceType = {
+export type PieceType = {
   index: number;
   text: PieceTextType;
   type: PieceColorType;
   code: PieceCodeType;
 };
 
-type RunRule = {
+export type RunRule = {
   [key in PieceCodeType]?: (
     map: Array<PieceType | null>,
     piece: PieceType
   ) => number[];
 };
 
-type SettingType = {
+export type SettingType = {
   // 可移动格子提示
   tips: boolean;
   // 透明度
@@ -42,7 +50,7 @@ type SettingType = {
     | "rotate(180deg)  translateZ(0)";
 };
 
-type AppStoreType = {
+export type AppStoreType = {
   // 设置项
   setting: SettingType;
   // 棋谱
@@ -60,4 +68,9 @@ type AppStoreType = {
   next: PieceColorType;
   // 当前人所执棋的颜色
   identity: PieceColorType;
+};
+
+export type MirrorStoreType = {
+  mirrorIsOpen: boolean;
+  mirrorWindow: WebviewWindow | null;
 };

@@ -17,7 +17,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 @mixin corner($name, $position1, $position2) {
   @include pseudo-class(7px, 7px);
   #{$position1}: 1px;

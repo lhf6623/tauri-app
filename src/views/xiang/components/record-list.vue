@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { NScrollbar, ScrollbarInst } from "naive-ui";
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
 import { MaybeElement, useElementSize } from "@vueuse/core";
 
 const recordListRef = ref<MaybeElement>();
@@ -50,7 +50,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 .record-list {
   display: flex;
   flex-direction: column;

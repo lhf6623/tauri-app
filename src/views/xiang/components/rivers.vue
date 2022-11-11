@@ -8,13 +8,13 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
 
 const store = useAppStore();
 </script>
 
 <style scoped lang="scss">
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 /* 楚河汉界 */
 .limit {
   position: absolute;

@@ -23,9 +23,9 @@ import XiangqiPiece from "./piece/index.vue";
 import Rivers from "./rivers.vue";
 import NumberList from "./number-list.vue";
 import { computed, onMounted } from "vue";
-import { numbers, numbers_cn } from "@/utils/data";
+import { numbers, numbers_cn } from "/@xiang/utils/data";
 
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
 
 const store = useAppStore();
 onMounted(() => {
@@ -40,7 +40,7 @@ const tipsActive = computed(() => {
 </script>
 
 <style lang="scss">
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 
 .map-box {
   position: relative;

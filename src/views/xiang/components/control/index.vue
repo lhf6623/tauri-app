@@ -1,9 +1,7 @@
 <template>
   <footer class="footer-text">
     <NButton size="tiny" type="info" @click="handleReset"> 重新开始 </NButton>
-    <p>
-      下棋方：<span>{{ nextText }}</span>
-    </p>
+    <NButton type="info" size="tiny">下棋方：{{ nextText }}</NButton>
     <SettingPanel />
   </footer>
 </template>
@@ -11,9 +9,9 @@
 <script setup lang="ts">
 import { NButton } from "naive-ui";
 import SettingPanel from "./settingPanel/index.vue";
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
 import { computed } from "vue";
-import { RED } from "@/utils/data";
+import { RED } from "/@xiang/utils/data";
 
 const store = useAppStore();
 
@@ -26,7 +24,7 @@ const handleReset = store.refreshGame;
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/config.scss";
+@import "/@xiang/style/config.scss";
 
 .footer-text {
   position: relative;
@@ -37,18 +35,5 @@ const handleReset = store.refreshGame;
   margin-top: 4px;
   font-size: 12px;
   width: 100%;
-
-  & > p,
-  & > div {
-    height: 100%;
-    line-height: 22px;
-    border-radius: 3px;
-  }
-
-  & > p {
-    padding: 0 5px;
-    color: white;
-    background-color: #2080f0;
-  }
 }
 </style>

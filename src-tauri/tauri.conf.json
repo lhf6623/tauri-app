@@ -2,16 +2,20 @@
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "distDir": "../dist",
-    "devPath": "http://localhost:3000",
+    "devPath": "http://localhost:3000/",
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build",
     "withGlobalTauri": true
   },
   "package": {
     "productName": "xiang",
-    "version": "0.0.1"
+    "version": "../package.json"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
     "macOSPrivateApi": true,
     "allowlist": {
       "all": true
@@ -65,7 +69,9 @@
         "center": true,
         "decorations": true,
         "visible": false,
-        "title": "象"
+        "title": "象",
+        "label": "main",
+        "url": "xiang/index.html"
       }
     ]
   }

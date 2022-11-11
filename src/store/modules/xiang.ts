@@ -1,16 +1,14 @@
 import { defineStore } from "pinia";
-import { store } from "@/store";
+import { store } from "/@/store";
 
-import { NULL, RED, BLACK, piece_list } from "@/utils/data";
+import { NULL, RED, BLACK, piece_list } from "/@xiang/utils/data";
 
-import { makingChess, initMap } from "@/utils";
-import { run_rule } from "@/utils/run-rule";
+import { makingChess, initMap } from "/@xiang/utils";
+import { run_rule } from "/@xiang/utils/run-rule";
 import { cloneDeep, isEmpty } from "lodash-es";
 
-import pkg from "../../../package.json";
-
-const { version, name } = pkg;
-const XIANGQI_KEY = `${name}_${version}`;
+import { version_key } from "/@/utils/version";
+import { AppStoreType, PieceType } from "/#/Type";
 
 export const useAppStore = defineStore("app", {
   state: (): AppStoreType => ({
@@ -109,7 +107,7 @@ export const useAppStore = defineStore("app", {
     enabled: true,
     strategies: [
       {
-        key: XIANGQI_KEY,
+        key: version_key,
         storage: localStorage,
       },
     ],

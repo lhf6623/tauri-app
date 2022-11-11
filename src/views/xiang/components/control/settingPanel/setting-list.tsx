@@ -1,7 +1,10 @@
 import { defineComponent, computed } from "vue";
 import { NSwitch, NSpace, NSlider, NIconWrapper, NIcon } from "naive-ui";
-import { useAppStore } from "@/store/modules/app";
+import { useAppStore } from "/@/store/modules/xiang";
+import { useMirrorStore } from "/@/store/modules/mirror";
 import { Moon, MoonOutline, SunnyOutline, Sunny } from "@vicons/ionicons5";
+import { useMirror } from "/@mirror/MirrorHook";
+import { SettingType } from "/#/Type";
 
 export default defineComponent({
   name: "SettingList",
