@@ -1,9 +1,8 @@
 <template>
   <div class="record-list shadow">
     <header>
-      棋谱序列<span v-if="!store.is_run" class="scale-75 inline-block"
-        >[历史]</span
-      >
+      棋谱序列
+      <span v-if="!store.is_run" class="scale-75 inline-block">[历史]</span>
     </header>
     <NScrollbar ref="scrollbarRef" class="flex-1">
       <ul ref="recordListRef" class="text-center">
@@ -11,6 +10,7 @@
         <li
           class="flex text-center justify-center"
           v-for="(item, index) in store.record"
+          :key="index"
           :class="store.record_index === index ? `active` : ''"
           @click="store.readRecord(index)"
         >

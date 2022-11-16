@@ -1,4 +1,4 @@
-import { PieceColorType, PieceType, Text1Type, Text3Type } from "/#/Type";
+import { PieceColorType, PieceType, Text1Type, Text3Type } from "/#/Xiang";
 
 /** 黑棋X轴文字 */
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -14,9 +14,9 @@ export const numbers_cn: string[] = [
   "二",
   "一",
 ];
-export const COL: number = 9;
-export const ROW: number = 10;
-export const NULL: null = null;
+export const COL = 9;
+export const ROW = 10;
+export const NULL = null;
 export const BLACK: PieceColorType = "isBlack";
 export const RED: PieceColorType = "isRed";
 
@@ -233,8 +233,8 @@ export const piece_list: PieceType[] = [
 export const initMap = (list = piece_list) => {
   const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
   list?.length &&
-    list.forEach((item) => {
-      let { index } = item;
+    list.forEach(item => {
+      const { index } = item;
       mapList[index] = { ...item };
     });
   return mapList;

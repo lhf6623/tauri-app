@@ -1,4 +1,3 @@
-import { WebviewWindow } from "@tauri-apps/api/window";
 export type PieceColorType = "isRed" | "isBlack";
 export type NullType = null;
 export type PieceCodeType =
@@ -68,9 +67,4 @@ export type AppStoreType = {
   next: PieceColorType;
   // 当前人所执棋的颜色
   identity: PieceColorType;
-};
-
-export type MirrorStoreType = {
-  mirrorIsOpen: boolean;
-  mirrorWindow: WebviewWindow | null;
 };

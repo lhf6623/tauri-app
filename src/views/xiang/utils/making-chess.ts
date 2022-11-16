@@ -1,7 +1,7 @@
 import { RED, COL, indexToXY } from "./data";
 import { isMatch, cloneDeep } from "lodash-es";
 import { numbers, numbers_cn, text1, text3 } from "./data";
-import { PieceType, Text3Type } from "/#/Type";
+import { PieceType, Text3Type } from "/#/Xiang";
 
 const [QIAN, HOU] = text1;
 const [JIN, TUI, PING] = text3;
@@ -19,9 +19,9 @@ const getText4 = (
   afterIndex: number,
   { type }: PieceType
 ): string | number => {
-  let isRed = type === RED;
-  let { y: beforeY, x: beforeX } = indexToXY(beforeIndex);
-  let { y: afterY, x: afterX } = indexToXY(afterIndex);
+  const isRed = type === RED;
+  const { y: beforeY, x: beforeX } = indexToXY(beforeIndex);
+  const { y: afterY, x: afterX } = indexToXY(afterIndex);
 
   // y轴相等，平移
   if (beforeY === afterY || (beforeX !== afterX && beforeY !== afterY)) {
@@ -29,7 +29,7 @@ const getText4 = (
   } else {
     // x轴相等，上下移动
     //if (beforeX === afterX) {
-    let _y = Math.abs(afterY - beforeY);
+    const _y = Math.abs(afterY - beforeY);
     return isRed ? numbers_cn[numbers_cn.length - _y] : numbers[_y - 1];
   }
 };
@@ -45,9 +45,9 @@ const getText3 = (
   afterIndex: number,
   { type }: PieceType
 ): Text3Type => {
-  let isRed = type === RED;
-  let { y: beforeY } = indexToXY(beforeIndex);
-  let { y: afterY } = indexToXY(afterIndex);
+  const isRed = type === RED;
+  const { y: beforeY } = indexToXY(beforeIndex);
+  const { y: afterY } = indexToXY(afterIndex);
 
   // 直线
   if (beforeY === afterY) return PING;
@@ -67,7 +67,7 @@ const getText3 = (
  * @param isRed
  */
 const getText2 = (index: number, isRed: boolean): string | number => {
-  let { x } = indexToXY(index);
+  const { x } = indexToXY(index);
 
   return isRed ? numbers_cn[x] : numbers[x];
 };
@@ -78,9 +78,9 @@ const getText2 = (index: number, isRed: boolean): string | number => {
  * @param piece 移动之前的棋子
  */
 const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
-  let { x } = indexToXY(piece.index);
+  const { x } = indexToXY(piece.index);
 
-  return indexArr.filter((_index) => _index % COL == x);
+  return indexArr.filter(_index => _index % COL == x);
 };
 
 /**
@@ -88,13 +88,13 @@ const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
  * @param indexArr 相同棋子下标数组
  */
 const isTwoColBing = (indexArr: Array<number>): boolean => {
-  let obj: { [k: number]: number } = {};
-  indexArr.forEach((index) => {
-    let { x } = indexToXY(index);
+  const obj: { [k: number]: number } = {};
+  indexArr.forEach(index => {
+    const { x } = indexToXY(index);
 
     obj[x] = obj[x] ? obj[x] + 1 : 1;
   });
-  return Object.values(obj).filter((n) => n >= 2).length >= 2;
+  return Object.values(obj).filter(n => n >= 2).length >= 2;
 };
 /**
  * 获取第一个文字
@@ -102,14 +102,14 @@ const isTwoColBing = (indexArr: Array<number>): boolean => {
  * @param piece
  */
 const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
-  let { index, type, text, code } = piece;
-  let isRed = type === RED;
+  const { index, type, text, code } = piece;
+  const isRed = type === RED;
 
   const yArr = getYIndex(mapArr, piece);
 
   if ((code === "bing" && yArr.length >= 3) || isTwoColBing(mapArr)) {
     // 第一个字是棋子对应在Y轴第几个位置
-    let _y = yArr.indexOf(index);
+    const _y = yArr.indexOf(index);
     const textBing = isRed ? _numbers_cn[_y] : yArr.length - _y;
 
     // 第二个字是棋子文字
@@ -120,7 +120,7 @@ const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
   // 黑棋，查询到的棋子 下标y 大于当前棋子 后，反之 后
   // 没有 就是当前棋子的 text
   for (let i = 0; i < yArr.length; i++) {
-    let _index = yArr[i];
+    const _index = yArr[i];
     if ((isRed && _index < index) || (!isRed && _index > index)) {
       return `${HOU}${text}`;
     }
@@ -147,8 +147,8 @@ export const makingChess = (
   // 如果是兵 特殊情可能有三个字
   const text1_2_3 = getText1(
     // 找出相同棋子的下标
-    mapArr.flatMap((_beforePice) => {
-      let { code, type, text, index } = _beforePice || { index: 0 };
+    mapArr.flatMap(_beforePice => {
+      const { code, type, text, index } = _beforePice || { index: 0 };
       if (isMatch(beforePice, { code, type, text })) return [index];
       return [];
     }),

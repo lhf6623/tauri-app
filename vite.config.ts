@@ -4,7 +4,9 @@ import { resolve } from "path";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import Unocss from "unocss/vite";
 import { presetAttributify, presetUno } from "unocss";
-console.log(__dirname);
+
+const getAlias = (dir: string) => resolve(__dirname, dir);
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -16,10 +18,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "/@": resolve(__dirname, "./src/"),
-      "/@xiang": resolve(__dirname, "./src/views/xiang/"),
-      "/@mirror": resolve(__dirname, "./src/views/mirror/"),
-      "/#": resolve(__dirname, "./src/"),
+      "/@": getAlias("./src/"),
+      "/#": getAlias("./types/"),
+      "/@xiang": getAlias("./src/views/xiang/"),
+      "/@mirror": getAlias("./src/views/mirror/"),
+      "/@life": getAlias("./src/views/life/"),
     },
   },
   // prevent vite from obscuring rust errors
@@ -41,6 +44,7 @@ export default defineConfig({
       input: {
         xiang: resolve(__dirname, "src/views/xiang/index.html"),
         mirror: resolve(__dirname, "src/views/mirror/index.html"),
+        life: resolve(__dirname, "src/views/life/index.html"),
       },
       output: {
         chunkFileNames: "assets/js/[name]-[hash].js",
@@ -54,7 +58,8 @@ export default defineConfig({
     minify: "esbuild",
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
-    outDir: resolve(__dirname, "dist"),
+    outDir: getAlias("dist"),
     assetsDir: "assets",
+    emptyOutDir: true,
   },
 });

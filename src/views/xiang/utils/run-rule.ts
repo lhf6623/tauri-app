@@ -9,7 +9,7 @@ import {
 } from "./run-rule-data";
 import { COL, ROW, NULL, BLACK, RED, indexToXY } from "./data";
 import { inRange, ceil } from "lodash-es";
-import { PieceColorType, PieceType, RunRule } from "/#/Type";
+import { PieceColorType, PieceType, RunRule } from "/#/Xiang";
 
 /**
  * 在地图上
@@ -29,7 +29,7 @@ function isPass(
 }
 export const run_rule: RunRule = {
   che: (map, { index: pieceIndex, type: pieceType }) => {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(pieceIndex);
     lineRule.forEach(([col, row]) => {
       for (let i = 1; ; i++) {
@@ -44,7 +44,7 @@ export const run_rule: RunRule = {
     return result;
   },
   pao(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     lineRule.forEach(([col, row]) => {
       let obstacle = 0; // 障碍物，长度等于两个停止循环
@@ -67,7 +67,7 @@ export const run_rule: RunRule = {
     return result;
   },
   jiang(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     lineRule.forEach(([col, row]) => {
       const _x = x + col;
@@ -84,7 +84,7 @@ export const run_rule: RunRule = {
     return result;
   },
   ma(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     maRule.forEach(([col, row], i) => {
       const _x = x + col;
@@ -104,7 +104,7 @@ export const run_rule: RunRule = {
     return result;
   },
   xiang(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     // 不能过河
     const span = index < map.length / 2;
@@ -128,7 +128,7 @@ export const run_rule: RunRule = {
     return result;
   },
   shi(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     shiRule.forEach(([col, row]) => {
       const _col = x + col;
@@ -145,7 +145,7 @@ export const run_rule: RunRule = {
     return result;
   },
   bing(map, { type, index }) {
-    let result: number[] = [];
+    const result: number[] = [];
     const { x, y } = indexToXY(index);
     const MAP_LEN = map.length / 2;
 

@@ -7,7 +7,7 @@
 
 ## 简介
 
-使用tauri打包成PC端的一次尝试
+使用 tauri 打包成 PC 端的一次尝试
 
 ## 预览
 
@@ -18,13 +18,13 @@
 
 ## 准备
 
-- [node](http://nodejs.org/) _【12.x以上】_  和 [git](https://git-scm.com/) -项目开发环境
+- [node](http://nodejs.org/) _【12.x 以上】_ 和 [git](https://git-scm.com/) -项目开发环境
 - [Vite](https://vitejs.dev/) - 熟悉 vite 特性
 - [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [Naive UI](https://www.naiveui.com/zh-CN/light) - ui 基本使用
-- [Tauri](https://tauri.studio/v1/guides/getting-started/prerequisites) - 基本环境搭建 _【重要】_ 
+- [Tauri](https://tauri.studio/v1/guides/getting-started/prerequisites) - 基本环境搭建 _【重要】_
 
 ## 安装使用
 
@@ -43,7 +43,7 @@ pnpm install
 
 ```
 
-- 运行 --在Mac上第一次运行如果报错，请添加sudo
+- 运行 --在 Mac 上第一次运行如果报错，请添加 sudo
 
 ```bash
 pnpm tauri dev

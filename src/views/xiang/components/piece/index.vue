@@ -7,7 +7,7 @@
       <div v-show="data" :class="`xiangqi-piece ${pieceTypeClass}`">
         {{ data?.text }}
       </div>
-      <Active v-show="showActive" :color="activeColor"></Active>
+      <Active v-show="showActive" :color="activeColor" />
     </div>
   </li>
 </template>
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { PropType, computed } from "vue";
 import Active from "./active.vue";
-import { PieceType } from "/#/Type";
+import { PieceType } from "/#/Xiang";
 import { useAppStore } from "/@/store/modules/xiang";
 import { RED } from "/@xiang/utils/data";
 
@@ -32,12 +32,12 @@ const props = defineProps({
   },
   active: {
     type: Array as PropType<number[]>,
-    default: [],
+    default: () => [],
   },
 });
 
 const activeColor = computed(() => {
-  const isRed = props.active.findIndex((item) => item === props.index) === 0;
+  const isRed = props.active.findIndex(item => item === props.index) === 0;
   return isRed ? "red" : "black";
 });
 

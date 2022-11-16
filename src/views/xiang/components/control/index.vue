@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-text">
-    <NButton size="tiny" type="info" @click="handleReset"> 重新开始 </NButton>
+    <NButton size="tiny" type="info" @click="handleReset">重新开始</NButton>
     <NButton type="info" size="tiny">下棋方：{{ nextText }}</NButton>
     <SettingPanel />
   </footer>

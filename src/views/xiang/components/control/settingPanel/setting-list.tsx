@@ -1,10 +1,8 @@
 import { defineComponent, computed } from "vue";
 import { NSwitch, NSpace, NSlider, NIconWrapper, NIcon } from "naive-ui";
 import { useAppStore } from "/@/store/modules/xiang";
-import { useMirrorStore } from "/@/store/modules/mirror";
 import { Moon, MoonOutline, SunnyOutline, Sunny } from "@vicons/ionicons5";
-import { useMirror } from "/@mirror/MirrorHook";
-import { SettingType } from "/#/Type";
+import { SettingType } from "/#/Xiang";
 
 export default defineComponent({
   name: "SettingList",
@@ -12,7 +10,7 @@ export default defineComponent({
     const store = useAppStore();
 
     const getIcon = computed(() => {
-      let { bgOpacity } = store.setting;
+      const { bgOpacity } = store.setting;
       if (bgOpacity < 25) return Moon;
       if (bgOpacity >= 25 && bgOpacity < 50) return MoonOutline;
       if (bgOpacity >= 50 && bgOpacity < 75) return SunnyOutline;

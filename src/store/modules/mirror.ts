@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { store } from "/@/store";
-import { MirrorStoreType } from "/#/Type";
+import { MirrorStoreType } from "/#/Mirror";
 import { appWindow } from "@tauri-apps/api/window";
 import { version_key } from "/@/utils/version";
 
@@ -12,7 +12,7 @@ export const useMirrorStore = defineStore("mirror", {
   actions: {
     initWindow() {
       this.mirrorIsOpen = true;
-      appWindow.onCloseRequested(async (event) => {
+      appWindow.onCloseRequested(() => {
         this.mirrorIsOpen = false;
       });
     },

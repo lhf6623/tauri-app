@@ -6,6 +6,7 @@
         <XiangqiPiece
           v-for="(item, index) in store.list"
           class="lattice"
+          :key="index"
           @click="store.clickLattice(index, item)"
           :data="item"
           :active="tipsActive"

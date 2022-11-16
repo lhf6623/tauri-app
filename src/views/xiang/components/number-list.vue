@@ -13,7 +13,7 @@ import { useAppStore } from "/@/store/modules/xiang";
 const store = useAppStore();
 defineProps({
   list: {
-    type: Object as PropType<string[] | number[]>,
+    type: Array as PropType<string[] | number[]>,
     default: () => [],
   },
 });

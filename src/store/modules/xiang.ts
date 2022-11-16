@@ -8,7 +8,7 @@ import { run_rule } from "/@xiang/utils/run-rule";
 import { cloneDeep, isEmpty } from "lodash-es";
 
 import { version_key } from "/@/utils/version";
-import { AppStoreType, PieceType } from "/#/Type";
+import { AppStoreType, PieceType } from "/#/Xiang";
 
 export const useAppStore = defineStore("app", {
   state: (): AppStoreType => ({
@@ -54,8 +54,8 @@ export const useAppStore = defineStore("app", {
     /** 棋盘格子的活动状态 */
     setActive(piece: PieceType | null | undefined) {
       if (piece) {
-        let { code, index } = piece;
-        let run_lattice = run_rule[code]?.(this.list, piece) || [];
+        const { code, index } = piece;
+        const run_lattice = run_rule[code]?.(this.list, piece) || [];
         this.active = [index, ...run_lattice];
       } else {
         this.active = [];
@@ -64,10 +64,10 @@ export const useAppStore = defineStore("app", {
     /** 点击格子，选中 或者 移动棋子 */
     clickLattice(index: number, item: PieceType | null) {
       if (!this.is_run) return;
-      let [pieceIndex] = this.active;
+      const [pieceIndex] = this.active;
       // 走棋
       if (this.active.length) {
-        let _piece = this.list[pieceIndex] as PieceType;
+        const _piece = this.list[pieceIndex] as PieceType;
 
         // 空地, 不在棋子可行走范围内
         if (item === NULL && !this.active.includes(index)) return;
@@ -91,7 +91,7 @@ export const useAppStore = defineStore("app", {
 
         this.record.push({
           name: makingChess(_mapList, pieceIndex, index),
-          list: this.list.flatMap((item) => (item === NULL ? [] : [item])),
+          list: this.list.flatMap(item => (item === NULL ? [] : [item])),
         });
         this.record_index = this.record.length - 1;
         return;

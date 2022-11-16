@@ -15,9 +15,10 @@
     "baseUrl": ".",
     "paths": {
       "/@/*": ["src/*"],
+      "/#/*": ["types/*"],
       "/@xiang/*": ["src/views/xiang/*"],
       "/@mirror/*": ["src/views/mirror/*"],
-      "/#/*": ["types/*"]
+      "/@life/": ["src/views/life/*"]
     },
     "types": ["pinia-plugin-persist", "vite/client"]
   },

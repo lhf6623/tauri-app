@@ -4,7 +4,7 @@ import { WebviewWindow } from "@tauri-apps/api/window";
 // TODO: 判断是否有摄像头
 export const useVideo = (
   mirrorRef: Ref<HTMLVideoElement | null>,
-  isInitPlay: boolean = false
+  isInitPlay = false
 ) => {
   let mediaStreamTrack: MediaStream | null = null;
   const plays = reactive({
@@ -41,14 +41,14 @@ export const useVideo = (
         },
         audio: false,
       })
-      .then((stream) => {
+      .then(stream => {
         mediaStreamTrack = stream;
         if (mirrorRef.value !== null) {
           mirrorRef.value.srcObject = stream;
           play(mirrorRef.value);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -75,7 +75,7 @@ export const useVideo = (
   function close() {
     if (mediaStreamTrack === null) return;
     closes.loading = true;
-    mediaStreamTrack?.getVideoTracks().forEach((track) => {
+    mediaStreamTrack?.getVideoTracks().forEach(track => {
       track.stop();
       plays.is_play = false;
       closes.is_close = true;
@@ -104,7 +104,7 @@ export const useMirror = () => {
 
   watch(
     () => mirrorWindow,
-    (newValue) => {
+    newValue => {
       if (newValue.value === null) {
         mirrorIsOpen.value = false;
       } else {
@@ -135,7 +135,7 @@ export const useMirror = () => {
       // webview window successfully created
       mirrorWindow.value = "created";
     });
-    webview.once("tauri://error", function (e) {
+    webview.once("tauri://error", function () {
       console.log(`🚀 ~ "tauri://error"`, "tauri://error");
       // an error happened creating the webview window
       mirrorWindow.value = "error";
