@@ -4,6 +4,7 @@ import { resolve } from "path";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import Unocss from "unocss/vite";
 import { presetAttributify, presetUno } from "unocss";
+import presetIcons from "@unocss/preset-icons";
 
 const getAlias = (dir: string) => resolve(__dirname, dir);
 
@@ -13,7 +14,18 @@ export default defineConfig({
     vue(),
     vueJsx(),
     Unocss({
-      presets: [presetAttributify({}), presetUno()],
+      presets: [
+        presetAttributify({}),
+        presetUno(),
+        presetIcons({
+          prefix: "i-",
+          extraProperties: {
+            display: "inline-block",
+            "vertical-align": "middle",
+            // ...
+          },
+        }),
+      ],
     }),
   ],
   resolve: {

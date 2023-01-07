@@ -1,10 +1,10 @@
 import { inRange, random } from "lodash-es";
 /** 一列 x 轴 */
-export const COL = 120;
+export const COL = 170;
 /** 一行 y 轴 */
-export const ROW = 120;
+export const ROW = 170;
 /** 格子大小 */
-export const SIZE = "4px";
+export const SIZE = "2px";
 /** 多少个随机数 */
 export const RANDOM = 5240;
 
@@ -31,14 +31,15 @@ export function getRandom(
     console.error(`${total}大于${max}`);
     return [];
   }
-  const _random = random(0, max);
-  if (!randomList.includes(_random)) {
-    randomList.push(_random);
+
+  while (randomList.length < total) {
+    const _random = random(0, max);
+    if (!randomList.includes(_random)) {
+      randomList.push(_random);
+    }
   }
 
-  return randomList.length < total
-    ? getRandom(max, total, randomList)
-    : randomList;
+  return randomList;
 }
 /**
  * [x, y]

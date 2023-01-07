@@ -62,14 +62,11 @@
     "windows": [
       {
         "width": 358,
-        "height": 336,
+        "height": 364,
         "resizable": false,
-        "fullscreen": false,
-        "transparent": true,
         "center": true,
-        "decorations": true,
-        "visible": false,
         "title": "象",
+        "transparent": true,
         "label": "main",
         "url": "xiang/index.html"
       }

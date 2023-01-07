@@ -41,14 +41,14 @@ export const useVideo = (
         },
         audio: false,
       })
-      .then(stream => {
+      .then((stream) => {
         mediaStreamTrack = stream;
         if (mirrorRef.value !== null) {
           mirrorRef.value.srcObject = stream;
           play(mirrorRef.value);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -75,7 +75,7 @@ export const useVideo = (
   function close() {
     if (mediaStreamTrack === null) return;
     closes.loading = true;
-    mediaStreamTrack?.getVideoTracks().forEach(track => {
+    mediaStreamTrack?.getVideoTracks().forEach((track) => {
       track.stop();
       plays.is_play = false;
       closes.is_close = true;
@@ -104,7 +104,7 @@ export const useMirror = () => {
 
   watch(
     () => mirrorWindow,
-    newValue => {
+    (newValue) => {
       if (newValue.value === null) {
         mirrorIsOpen.value = false;
       } else {

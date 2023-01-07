@@ -30,6 +30,5 @@
     "types/**/*.d.ts",
     "vite.config.ts"
   ],
-  "exclude": ["node_modules", "dist", "src-tauri", "public", "**/*.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "dist", "src-tauri", "public", "**/*.js"]
 }

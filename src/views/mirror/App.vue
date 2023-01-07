@@ -4,17 +4,13 @@
       <!-- video 标签不能设置圆形 外面包一层控制圆形 -->
       <div class="mirror-circle">
         <video v-show="!closes.is_close" ref="mirrorRef" class="mirror"></video>
-        <Transition>
-          <NIcon
-            v-if="closes.is_close"
-            size="100"
-            class="absolute mix-blend-difference"
-          >
-            <PersonOutline />
-          </NIcon>
-        </Transition>
+        <i
+          v-show="closes.is_close"
+          @click="playOrPause"
+          class="i-mdi:camera-retake-outline absolute mix-blend-difference w-full h-full !cursor-pointer"
+        />
       </div>
-      <div class="mirror-control">
+      <div class="mirror-control" v-show="!closes.is_close">
         <!-- 开始 暂停 -->
         <NButton
           text-color="#FFF"
@@ -23,24 +19,14 @@
           @click="playOrPause"
         >
           <template #icon>
-            <NIcon
-              :component="
-                plays.is_play ? PauseCircleOutline : CaretForwardCircleOutline
-              "
-            />
+            <i v-show="plays.is_play" class="i-mdi:pause-circle-outline" />
+            <i v-show="!plays.is_play" class="i-mdi:step-forward" />
           </template>
         </NButton>
         <!-- 翻转 -->
-        <NButton
-          text-color="#FFF"
-          circle
-          v-if="!closes.is_close"
-          @click="turn = !turn"
-        >
+        <NButton text-color="#FFF" circle @click="turn = !turn">
           <template #icon>
-            <NIcon>
-              <RepeatOutline />
-            </NIcon>
+            <i class="i-mdi:repeat" />
           </template>
         </NButton>
         <!-- 关闭摄像头 -->
@@ -49,12 +35,9 @@
           text-color="#FFF"
           :loading="closes.loading"
           @click="close"
-          v-if="!closes.is_close"
         >
           <template #icon>
-            <NIcon>
-              <LockClosedOutline />
-            </NIcon>
+            <i class="i-mdi:camera-off-outline" />
           </template>
         </NButton>
       </div>
@@ -63,15 +46,8 @@
   </NConfigProvider>
 </template>
 <script setup lang="ts">
-import { NConfigProvider, NGlobalStyle, NButton, NIcon } from "naive-ui";
+import { NConfigProvider, NGlobalStyle, NButton } from "naive-ui";
 import { ref } from "vue";
-import {
-  PauseCircleOutline,
-  PersonOutline,
-  CaretForwardCircleOutline,
-  RepeatOutline,
-  LockClosedOutline,
-} from "@vicons/ionicons5";
 import { useVideo } from "/@/views/mirror/MirrorHook";
 
 const mirrorRef = ref<HTMLVideoElement | null>(null);

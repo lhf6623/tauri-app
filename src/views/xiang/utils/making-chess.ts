@@ -80,7 +80,7 @@ const getText2 = (index: number, isRed: boolean): string | number => {
 const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
   const { x } = indexToXY(piece.index);
 
-  return indexArr.filter(_index => _index % COL == x);
+  return indexArr.filter((_index) => _index % COL == x);
 };
 
 /**
@@ -89,12 +89,12 @@ const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
  */
 const isTwoColBing = (indexArr: Array<number>): boolean => {
   const obj: { [k: number]: number } = {};
-  indexArr.forEach(index => {
+  indexArr.forEach((index) => {
     const { x } = indexToXY(index);
 
     obj[x] = obj[x] ? obj[x] + 1 : 1;
   });
-  return Object.values(obj).filter(n => n >= 2).length >= 2;
+  return Object.values(obj).filter((n) => n >= 2).length >= 2;
 };
 /**
  * 获取第一个文字
@@ -147,7 +147,7 @@ export const makingChess = (
   // 如果是兵 特殊情可能有三个字
   const text1_2_3 = getText1(
     // 找出相同棋子的下标
-    mapArr.flatMap(_beforePice => {
+    mapArr.flatMap((_beforePice) => {
       const { code, type, text, index } = _beforePice || { index: 0 };
       if (isMatch(beforePice, { code, type, text })) return [index];
       return [];

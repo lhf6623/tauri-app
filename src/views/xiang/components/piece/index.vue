@@ -37,7 +37,7 @@ const props = defineProps({
 });
 
 const activeColor = computed(() => {
-  const isRed = props.active.findIndex(item => item === props.index) === 0;
+  const isRed = props.active.findIndex((item) => item === props.index) === 0;
   return isRed ? "red" : "black";
 });
 

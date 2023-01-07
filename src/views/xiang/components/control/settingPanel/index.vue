@@ -1,7 +1,7 @@
 <template>
   <NButton size="tiny" type="info" circle quaternary @click="showDrawerFn">
     <template #icon>
-      <NIcon :component="Settings" />
+      <i class="i-mdi:cog-outline" />
     </template>
   </NButton>
   <NDrawer
@@ -23,11 +23,10 @@
 </template>
 
 <script setup lang="tsx">
-import { NDrawer, NDrawerContent, NButton, NIcon } from "naive-ui";
+import { NDrawer, NDrawerContent, NButton } from "naive-ui";
 import SettingList from "./setting-list";
 import type { DrawerPlacement } from "naive-ui";
 import { ref } from "vue";
-import { Settings } from "@vicons/ionicons5";
 
 const showDrawer = ref(false);
 const placement = ref<DrawerPlacement>("right");

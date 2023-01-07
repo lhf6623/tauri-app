@@ -1,7 +1,6 @@
-import { defineComponent, computed } from "vue";
-import { NSwitch, NSpace, NSlider, NIconWrapper, NIcon } from "naive-ui";
+import { defineComponent } from "vue";
+import { NSwitch, NSpace, NSlider, NIconWrapper } from "naive-ui";
 import { useAppStore } from "/@/store/modules/xiang";
-import { Moon, MoonOutline, SunnyOutline, Sunny } from "@vicons/ionicons5";
 import { SettingType } from "/#/Xiang";
 
 export default defineComponent({
@@ -9,13 +8,23 @@ export default defineComponent({
   setup() {
     const store = useAppStore();
 
-    const getIcon = computed(() => {
+    const getIcon = () => {
       const { bgOpacity } = store.setting;
-      if (bgOpacity < 25) return Moon;
-      if (bgOpacity >= 25 && bgOpacity < 50) return MoonOutline;
-      if (bgOpacity >= 50 && bgOpacity < 75) return SunnyOutline;
-      return Sunny;
-    });
+
+      let iconClass = `i-mdi:white-balance-sunny`;
+
+      if (bgOpacity < 25) {
+        iconClass = `i-mdi:weather-night`;
+      }
+      if (bgOpacity >= 25 && bgOpacity < 50) {
+        iconClass = `i-mdi:theme-light-dark`;
+      }
+      if (bgOpacity >= 50 && bgOpacity < 75) {
+        iconClass = `i-mdi:weather-sunny`;
+      }
+
+      return <i class={iconClass} />;
+    };
 
     return () => (
       <NSpace vertical={true}>
@@ -31,7 +40,7 @@ export default defineComponent({
             v-slots={{
               thumb: () => (
                 <NIconWrapper size={18} border-radius={12}>
-                  <NIcon size={14} component={getIcon.value} />
+                  {getIcon()}
                 </NIconWrapper>
               ),
             }}

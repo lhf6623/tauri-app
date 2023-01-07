@@ -20,7 +20,7 @@ let randomList: number[] = getRandom(COL * ROW - 1, RANDOM);
 
 const lifeList: Ref<boolean[]> = ref(Array(COL * ROW).fill(false));
 
-randomList.forEach(i => {
+randomList.forEach((i) => {
   lifeList.value[i] = true;
 });
 
