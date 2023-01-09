@@ -66,6 +66,7 @@
         "resizable": false,
         "center": true,
         "title": "象",
+        "decorations": true,
         "transparent": true,
         "label": "main",
         "url": "xiang/index.html"

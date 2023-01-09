@@ -1,5 +1,12 @@
 <template>
-  <NButton size="tiny" type="info" circle quaternary @click="showDrawerFn">
+  <NButton
+    size="tiny"
+    type="info"
+    circle
+    quaternary
+    :focusable="false"
+    @click="showDrawerFn"
+  >
     <template #icon>
       <i class="i-mdi:cog-outline" />
     </template>
