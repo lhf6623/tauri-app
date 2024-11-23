@@ -7,13 +7,12 @@
 
 ## 简介
 
-使用 tauri 打包成 PC 端的一次尝试
+象棋
 
 ## 预览
 
 <p align="center">
     <img alt="tauri-xiang-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page.png">
-    <img alt="tauri-xiang-app Logo" width="358" src="https://github.com/lhf6623/tauri-app/raw/master/public/page_setting.png"></img>
 </p>
 
 ## 准备

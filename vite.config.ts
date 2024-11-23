@@ -1,77 +1,38 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
-import vueJsx from "@vitejs/plugin-vue-jsx";
-import Unocss from "unocss/vite";
-import { presetAttributify, presetUno } from "unocss";
-import presetIcons from "@unocss/preset-icons";
+import { fileURLToPath, URL } from 'node:url';
 
-const getAlias = (dir: string) => resolve(__dirname, dir);
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import UnoCSS from 'unocss/vite';
 
-// https://vitejs.dev/config/
+const host = !!process.env.TAURI_ENV_DEBUG;
+
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    Unocss({
-      presets: [
-        presetAttributify({}),
-        presetUno(),
-        presetIcons({
-          prefix: "i-",
-          extraProperties: {
-            display: "inline-block",
-            "vertical-align": "middle",
-            // ...
-          },
-        }),
-      ],
-    }),
-  ],
+  plugins: [vue(), vueJsx(), UnoCSS()],
   resolve: {
     alias: {
-      "/@": getAlias("./src/"),
-      "/#": getAlias("./types/"),
-      "/@xiang": getAlias("./src/views/xiang/"),
-      "/@mirror": getAlias("./src/views/mirror/"),
-      "/@life": getAlias("./src/views/life/"),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   // prevent vite from obscuring rust errors
   clearScreen: false,
-  // Tauri expects a fixed port, fail if that port is not available
   server: {
-    port: 3000,
+    // Tauri expects a fixed port, fail if that port is not available
     strictPort: true,
-    host: true,
+    // if the host Tauri is expecting is set, use it
+    host: host || false,
+    port: 5173,
   },
-  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
-  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
-  // env variables
-  envPrefix: ["VITE_", "TAURI_"],
-  root: resolve(__dirname, "src/views"),
-  base: "/",
+  // Env variables starting with the item of `envPrefix` will be exposed in tauri's source code through `import.meta.env`.
+  envPrefix: ['VITE_', 'TAURI_ENV_*'],
   build: {
-    rollupOptions: {
-      input: {
-        xiang: resolve(__dirname, "src/views/xiang/index.html"),
-        mirror: resolve(__dirname, "src/views/mirror/index.html"),
-        life: resolve(__dirname, "src/views/life/index.html"),
-      },
-      output: {
-        chunkFileNames: "assets/js/[name]-[hash].js",
-        entryFileNames: "assets/js/[name]-[hash].js",
-        assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
-      },
-    },
-    // Tauri supports es2021
-    target: ["es2021", "chrome97", "safari13"],
+    // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+    target:
+      process.env.TAURI_ENV_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
     // don't minify for debug builds
-    minify: "esbuild",
+    minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
     // produce sourcemaps for debug builds
-    sourcemap: !!process.env.TAURI_DEBUG,
-    outDir: getAlias("dist"),
-    assetsDir: "assets",
-    emptyOutDir: true,
+    sourcemap: !!process.env.TAURI_ENV_DEBUG,
   },
 });

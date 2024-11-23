@@ -1,34 +1,11 @@
 {
-  "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "lib": ["dom", "esnext"],
-    "baseUrl": ".",
-    "paths": {
-      "/@/*": ["src/*"],
-      "/#/*": ["types/*"],
-      "/@xiang/*": ["src/views/xiang/*"],
-      "/@mirror/*": ["src/views/mirror/*"],
-      "/@life/": ["src/views/life/*"]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
     },
-    "types": ["pinia-plugin-persist", "vite/client"]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "types/**/*.d.ts",
-    "vite.config.ts"
-  ],
-  "exclude": ["node_modules", "dist", "src-tauri", "public", "**/*.js"]
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
 }
