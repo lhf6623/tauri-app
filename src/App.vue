@@ -1,21 +1,24 @@
 <template>
-  <NConfigProvider abstract preflight-style-disabled>
-    <div class="xiangqi-box-full">
-      <div class="xiangqi-box shadow" id="xiangqi-box">
-        <section>
-          <Maps />
-          <Records />
-        </section>
+  <div class="h-full w-full relative flex-center">
+    <div
+      class="w-508px flex-shrink-0 h-434px shadow relative flex-center flex-row gap-4px overflow-hidden p-4px text-16px text-black bg-#99ccff"
+    >
+      <section class="w-full flex-col gap-4px h-full flex-between">
+        <Maps />
         <Control />
+      </section>
+      <div class="flex-col gap-4px flex h-full">
+        <RecordList />
+        <MoveInput />
       </div>
     </div>
-    <NGlobalStyle />
-  </NConfigProvider>
+  </div>
 </template>
 <script setup lang="ts">
-  import { NConfigProvider, NGlobalStyle } from 'naive-ui';
   import { onMounted } from 'vue';
-  import { Records, Maps, Control } from '@/components';
+  import Maps from '@/XiangqiMap.vue';
+  import { Control, RecordList } from './common';
+  import MoveInput from './MoveInput.vue';
 
   onMounted(() => {
     // 禁止右键
@@ -25,39 +28,9 @@
       }
     };
   });
+
+  // 1、机器人对局 写一个算法出来，可以人机对局
+  // 2、历史对局推演
+  // TODO: 棋谱生成好像存在问题 两列兵 一列三个 一列两个 这个有差异
+  // 3、棋谱输入可以直观的感受到棋谱和棋子的关系
 </script>
-
-<style lang="scss" scoped>
-  @import '@/config.scss';
-
-  .xiangqi-box-full {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 2s;
-
-    section {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
-  .xiangqi-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    padding: 5px;
-    width: $w * 9 + 8px + 106px + 10px;
-    height: $h * 10 + $h_n * 2 + 4px + 22px + 10px;
-    background-color: rgba(153, 204, 255, 1);
-    font-size: 16px;
-    color: black;
-  }
-</style>

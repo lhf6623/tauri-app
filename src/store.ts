@@ -1,5 +1,6 @@
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { defineStore } from 'pinia';
-import { store } from '@/store';
 
 import { NULL, RED, BLACK, piece_list } from '@/utils/data';
 
@@ -9,15 +10,18 @@ import { cloneDeep, isEmpty } from 'lodash-es';
 
 import { version_key } from '@/utils';
 
+export const store = createPinia();
+store.use(piniaPluginPersistedstate);
+
 export const useAppStore = defineStore('app', {
   state: (): AppStoreType => ({
     list: initMap(),
     active: [],
     is_run: true,
-    record_index: 0,
+    record_index: -1,
     record: [],
     next: RED,
-    identity: RED,
+    deduction_list: [],
   }),
   actions: {
     /* 重新开始 */
@@ -27,24 +31,18 @@ export const useAppStore = defineStore('app', {
       this.is_run = true;
       this.next = RED;
       this.record = [];
-      this.identity = RED;
+      this.record_index = -1;
+      this.deduction_list = [];
     },
     /** 读取记录 */
-    readRecord(index: number) {
+    readRecord(index: number, list?: PieceType[]) {
       this.active = [];
       this.record_index = index;
+      const pieceList = index < 0 ? piece_list : this.record[index].list;
 
-      this.list = initMap(this.record[index].list);
-      this.is_run = index + 1 === this.record.length;
-    },
-    /** 在刷新的时候回到第一步 */
-    goEnd() {
-      const LEN = this.record.length - 1;
+      this.list = initMap(list ?? pieceList);
 
-      this.list = initMap(this.record?.[LEN]?.['list'] ?? piece_list);
-      this.is_run = true;
-      this.active = [];
-      this.record_index = LEN;
+      this.is_run = index === this.record.length - 1;
     },
     /** 棋盘格子的活动状态 */
     setActive(piece: PieceType | null | undefined) {
@@ -99,16 +97,7 @@ export const useAppStore = defineStore('app', {
     },
   },
   persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: version_key,
-        storage: localStorage,
-      },
-    ],
+    key: version_key,
+    storage: localStorage,
   },
 });
-
-export function useAppStoreWithOut() {
-  return useAppStore(store);
-}

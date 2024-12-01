@@ -15,10 +15,11 @@
         "title": "象棋",
         "label": "main",
         "titleBarStyle": "Transparent",
-        "width": 358,
-        "height": 336,
+        "width": 508,
+        "height": 434,
         "resizable": false,
-        "fullscreen": false
+        "fullscreen": false,
+        "acceptFirstMouse": true
       }
     ],
     "security": {

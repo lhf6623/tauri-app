@@ -46,33 +46,24 @@ declare global {
       piece: PieceType
     ) => number[];
   };
-
-  type SettingType = {
-    // 可移动格子提示
-    tips: boolean;
-    // 透明度
-    bgOpacity: number;
-    // 根据所执棋的颜色翻转棋盘 translateZ(0) 防抖动
-    transformStyle:
-      | 'rotate(0deg)  translateZ(0)'
-      | 'rotate(180deg)  translateZ(0)';
+  type RecordItem = {
+    name: string;
+    list: PieceType[];
   };
-
   type AppStoreType = {
-    // 棋谱
-    record: Array<{
-      name: string;
-      list: PieceType[];
-    }>;
+    /** 棋谱记录 */
+    record: Array<RecordItem>;
+    /** 推演列表 */
+    deduction_list: Array<RecordItem>;
+    /** 当前棋盘落子情况 */
     list: Array<PieceType | NullType>;
+    /** 选中的棋子 */
     active: number[];
-    // 是否在看历史记录
+    /** 是否在看历史记录 */
     is_run: boolean;
-    // 点击历史记录
+    /** 点击历史记录 */
     record_index: number;
-    // 下一个移动棋子的一方
+    /** 下一个移动棋子的一方 */
     next: PieceColorType;
-    // 当前人所执棋的颜色
-    identity: PieceColorType;
   };
 }
