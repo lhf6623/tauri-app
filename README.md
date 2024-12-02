@@ -30,7 +30,7 @@
 - 获取项目代码
 
 ```sh
-git clone https://gitee.com/lhf6623/xiang.git
+git clone https://github.com/lhf6623/xiang.git
 ```
 
 - 安装依赖
