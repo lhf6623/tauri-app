@@ -60,7 +60,7 @@ export const useAppStore = defineStore('app', {
       const [pieceIndex] = this.active;
       // 走棋
       if (this.active.length) {
-        const _piece = this.list[pieceIndex] as PieceType;
+        const _piece = this.list[pieceIndex]!; // active 中的第一个一定是个棋子
 
         // 空地, 不在棋子可行走范围内
         if (item === NULL && !this.active.includes(index)) return;

@@ -1,11 +1,8 @@
-import { RED, COL, indexToXY } from './data';
-import { isMatch, cloneDeep } from 'lodash-es';
+import { indexToXY, isNULL, isRED } from './data';
 import { numbers, numbers_cn, text1, text3 } from './data';
 
 const [QIAN, HOU] = text1;
 const [JIN, TUI, PING] = text3;
-
-const _numbers_cn = cloneDeep(numbers_cn).reverse();
 
 /**
  * 直走的直接加减，马，相，士之类的需要按照x轴数字来显示
@@ -18,7 +15,7 @@ const getText4 = (
   afterIndex: number,
   { type }: PieceType
 ): string | number => {
-  const isRed = type === RED;
+  const isRed = isRED(type);
   const { y: beforeY, x: beforeX } = indexToXY(beforeIndex);
   const { y: afterY, x: afterX } = indexToXY(afterIndex);
 
@@ -43,8 +40,8 @@ const getText3 = (
   beforeIndex: number,
   afterIndex: number,
   { type }: PieceType
-): Text3Type => {
-  const isRed = type === RED;
+): PieceKinesis => {
+  const isRed = isRED(type);
   const { y: beforeY } = indexToXY(beforeIndex);
   const { y: afterY } = indexToXY(afterIndex);
 
@@ -65,69 +62,52 @@ const getText3 = (
  * @param index
  * @param isRed
  */
-const getText2 = (index: number, isRed: boolean): string | number => {
+const getText2 = (index: number, type: PieceColorType): string | number => {
   const { x } = indexToXY(index);
 
-  return isRed ? numbers_cn[x] : numbers[x];
+  return isRED(type) ? numbers_cn[x] : numbers[x];
 };
 
 /**
- * 获取Y轴相同的棋子下标
+ * 获取Y线上相同的棋子下标 这里返回的是从 黑色方开始的下标
  * @param indexArr 相同棋子下标数组
  * @param piece 移动之前的棋子
  */
-const getYIndex = (indexArr: Array<number>, piece: PieceType): number[] => {
+const getYIndex = (indexArr: MapType, piece: PieceType): number[] => {
   const { x } = indexToXY(piece.index);
-
-  return indexArr.filter((_index) => _index % COL == x);
-};
-
-/**
- * 判断是否有两列兵,每列两个或以上
- * @param indexArr 相同棋子下标数组
- */
-const isTwoColBing = (indexArr: Array<number>): boolean => {
-  const obj: { [k: number]: number } = {};
-  indexArr.forEach((index) => {
-    const { x } = indexToXY(index);
-
-    obj[x] = obj[x] ? obj[x] + 1 : 1;
+  return indexArr.flatMap((item) => {
+    if (isNULL(item)) return [];
+    const { index, code, type } = item;
+    const _x = indexToXY(index).x;
+    if (_x == x && code === piece.code && type === piece.type) {
+      return [index];
+    }
+    return [];
   });
-  return Object.values(obj).filter((n) => n >= 2).length >= 2;
 };
+
 /**
- * 获取第一个文字
+ * 获取棋谱第一个字，如果 y 轴有相同的棋子，有两个字
  * @param mapArr
  * @param piece
  */
-const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
-  const { index, type, text, code } = piece;
-  const isRed = type === RED;
+const getText1 = (mapArr: MapType, piece: PieceType): string => {
+  const { index, type, text } = piece;
+  const isRed = isRED(type);
 
-  const yArr = getYIndex(mapArr, piece);
+  let yArr = getYIndex(mapArr, piece);
+  if (yArr.length === 1) return text;
+  yArr = isRed ? yArr : yArr.toReversed();
 
-  if ((code === 'bing' && yArr.length >= 3) || isTwoColBing(mapArr)) {
-    // 第一个字是棋子对应在Y轴第几个位置
-    const _y = yArr.indexOf(index);
-    const textBing = isRed ? _numbers_cn[_y] : yArr.length - _y;
+  const pieceIndex = yArr.indexOf(index);
+  if (pieceIndex === 0) return `${QIAN}${text}`;
+  if (pieceIndex === yArr.length - 1) return `${HOU}${text}`;
 
-    // 第二个字是棋子文字
-    // 第三个字是棋盘对应的列数
-    return `${textBing}${text}${getText2(index, isRed)}`;
-  }
-  // 红棋，查询到的棋子 下标y 小于当前棋子 后，反之 前
-  // 黑棋，查询到的棋子 下标y 大于当前棋子 后，反之 后
-  // 没有 就是当前棋子的 text
-  for (let i = 0; i < yArr.length; i++) {
-    const _index = yArr[i];
-    if ((isRed && _index < index) || (!isRed && _index > index)) {
-      return `${HOU}${text}`;
-    }
-    if ((isRed && _index > index) || (!isRed && _index < index)) {
-      return `${QIAN}${text}`;
-    }
-  }
-  return `${text}${getText2(index, isRed)}`;
+  const text_num = isRed
+    ? numbers_cn.toReversed()[pieceIndex]
+    : numbers[pieceIndex];
+
+  return `${text_num}${text}`;
 };
 
 /**
@@ -138,22 +118,15 @@ const getText1 = (mapArr: Array<number>, piece: PieceType): string => {
  * @returns {String} 棋谱
  */
 export const makingChess = (
-  mapArr: Array<PieceType | null>,
+  mapArr: MapType,
   beforeIndex: number,
   afterIndex: number
 ): string => {
-  const beforePice = mapArr[beforeIndex] as PieceType;
-  // 如果是兵 特殊情可能有三个字
-  const text1_2_3 = getText1(
-    // 找出相同棋子的下标
-    mapArr.flatMap((_beforePice) => {
-      const { code, type, text, index } = _beforePice || { index: 0 };
-      if (isMatch(beforePice, { code, type, text })) return [index];
-      return [];
-    }),
-    beforePice
-  );
+  const beforePice = mapArr[beforeIndex]!;
+  // y 轴上相同棋子可能有三个字
+  const text1 = getText1(mapArr, beforePice);
+  const text2 = getText2(beforeIndex, beforePice.type);
   const text3 = getText3(beforeIndex, afterIndex, beforePice);
   const text4 = getText4(beforeIndex, afterIndex, beforePice);
-  return `${text1_2_3}${text3}${text4}`;
+  return `${text1}${text2}${text3}${text4}`;
 };

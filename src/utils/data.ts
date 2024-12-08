@@ -1,3 +1,5 @@
+import { inRange } from 'lodash-es';
+
 /** 黑棋X轴文字 */
 export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 /** 红旗X轴文字 */
@@ -14,14 +16,14 @@ export const numbers_cn: string[] = [
 ];
 export const COL = 9;
 export const ROW = 10;
-export const NULL = null;
+export const NULL: NullType = null;
 export const BLACK: PieceColorType = 'isBlack';
 export const RED: PieceColorType = 'isRed';
 
 /** 除兵外第三个字 "进", "退", "平" */
-export const text3: Text3Type[] = ['进', '退', '平'];
+export const text3: PieceKinesis[] = ['进', '退', '平'];
 /** 除兵外多个棋子在一条Y轴的第一个字 "前", "后" */
-export const text1: Text1Type[] = ['前', '后'];
+export const text1: PiecePlace[] = ['前', '后'];
 
 export function indexToXY(index: number): { x: number; y: number } {
   return {
@@ -29,6 +31,31 @@ export function indexToXY(index: number): { x: number; y: number } {
     y: (index / COL) | 0,
   };
 }
+/**
+ * 在地图上
+ */
+export const isInMap = (col: number, row: number) =>
+  inRange(col, 0, COL) && inRange(row, 0, ROW);
+
+/**
+ * 判断所在位置是否可以走步
+ */
+export const isPass = (map: MapType, i: number, pieceType: PieceColorType) =>
+  isNULL(map[i]) || map[i]?.type !== pieceType;
+
+export const isNULL = (value: PieceType | NullType) => value === NULL;
+
+export const isBLACK = (value: PieceColorType) => value === BLACK;
+
+export const isRED = (value: PieceColorType) => value === RED;
+
+/**
+ * 棋盘是一维数组，所以要用坐标还原索引
+ * @param row y
+ * @param col x
+ * @returns
+ */
+export const getIndex = (row: number, col: number) => row * COL + col;
 export const piece_list: PieceType[] = [
   {
     index: 0,
@@ -226,10 +253,10 @@ export const piece_list: PieceType[] = [
 
 /**
  * 初始化棋盘棋子位置
- * @returns Array<PieceType | null>
+ * @returns MapType
  */
 export const initMap = (list = piece_list) => {
-  const mapList: Array<PieceType | null> = Array(COL * ROW).fill(NULL);
+  const mapList: MapType = Array(COL * ROW).fill(NULL);
   list?.length &&
     list.forEach((item) => {
       const { index } = item;

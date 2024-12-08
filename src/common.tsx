@@ -102,8 +102,6 @@ export const RecordList = defineComponent({
     watch(
       () => height,
       () => {
-        console.log(1);
-
         scrollbarRef.value?.scrollBy({
           top: height.value,
           behavior: 'smooth',
@@ -153,11 +151,13 @@ export const RecordList = defineComponent({
             </li>
             {list.value.map(([item1, item2], index) => {
               return (
-                <li class={`flex-center `} key='index'>
-                  <p>{`${index + 1}.`}</p>
-                  <p class='flex-between min-w-109px flex-between'>
+                <li class='relative flex-center gap-4 b-b' key='index'>
+                  <span
+                    onClick={() => readRecord(index, 0)}
+                    class='w-54% text-left pl-2'
+                  >
+                    {`${index + 1}.`}
                     <span
-                      onClick={() => readRecord(index, 0)}
                       class={`hover:bg-#0062ff33 ${
                         getAcrive(index, 0)
                           ? 'bg-#0062ff99 text-white hover:text-black'
@@ -166,8 +166,12 @@ export const RecordList = defineComponent({
                     >
                       {item1.name}
                     </span>
+                  </span>
+                  <span
+                    onClick={() => readRecord(index, 1)}
+                    class='flex-1 text-left'
+                  >
                     <span
-                      onClick={() => readRecord(index, 1)}
                       class={`hover:bg-#0062ff33 ${
                         getAcrive(index, 1)
                           ? 'bg-#0062ff99 text-white hover:text-black'
@@ -176,7 +180,7 @@ export const RecordList = defineComponent({
                     >
                       {item2?.name}
                     </span>
-                  </p>
+                  </span>
                 </li>
               );
             })}

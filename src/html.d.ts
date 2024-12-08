@@ -30,8 +30,9 @@ declare global {
     | '兵'
     | '卒';
 
-  type Text3Type = '进' | '退' | '平';
-  type Text1Type = '前' | '后';
+  /** 棋子动作 */
+  type PieceKinesis = '进' | '退' | '平';
+  type PiecePlace = '前' | '后';
 
   type PieceType = {
     index: number;
@@ -40,11 +41,10 @@ declare global {
     code: PieceCodeType;
   };
 
+  type MapType = Array<PieceType | NullType>;
+
   type RunRule = {
-    [key in PieceCodeType]?: (
-      map: Array<PieceType | null>,
-      piece: PieceType
-    ) => number[];
+    [key in PieceCodeType]?: (map: MapType, piece: PieceType) => number[];
   };
   type RecordItem = {
     name: string;
