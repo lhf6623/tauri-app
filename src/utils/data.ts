@@ -1,9 +1,9 @@
 import { inRange } from 'lodash-es';
 
 /** 黑棋X轴文字 */
-export const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+export const numbers: NumType[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 /** 红旗X轴文字 */
-export const numbers_cn: string[] = [
+export const numbers_cn: NumCnType[] = [
   '九',
   '八',
   '七',

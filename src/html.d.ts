@@ -9,6 +9,9 @@ export {};
 declare global {
   type PieceColorType = 'isRed' | 'isBlack';
   type NullType = null;
+
+  type NumCnType = '九' | '八' | '七' | '六' | '五' | '四' | '三' | '二' | '一';
+  type NumType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   type PieceCodeType =
     | 'che'
     | 'ma'
@@ -34,13 +37,19 @@ declare global {
   type PieceKinesis = '进' | '退' | '平';
   type PiecePlace = '前' | '后';
 
+  type AllTextType =
+    | PieceTextType
+    | PieceKinesis
+    | PiecePlace
+    | NumCnType
+    | NumType;
+
   type PieceType = {
     index: number;
     text: PieceTextType;
     type: PieceColorType;
     code: PieceCodeType;
   };
-
   type MapType = Array<PieceType | NullType>;
 
   type RunRule = {
@@ -56,7 +65,7 @@ declare global {
     /** 推演列表 */
     deduction_list: Array<RecordItem>;
     /** 当前棋盘落子情况 */
-    list: Array<PieceType | NullType>;
+    list: MapType;
     /** 选中的棋子 */
     active: number[];
     /** 是否在看历史记录 */

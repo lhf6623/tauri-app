@@ -8,13 +8,7 @@ import {
 } from 'unocss';
 
 export default defineConfig({
-  presets: [
-    presetUno(),
-    presetAttributify(),
-    presetIcons({
-      cdn: 'https://esm.sh/',
-    }),
-  ],
+  presets: [presetUno(), presetAttributify(), presetIcons({})],
   shortcuts: {
     'flex-around': 'flex justify-around items-center',
     'flex-end': 'flex justify-end items-center',

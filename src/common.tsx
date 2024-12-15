@@ -134,7 +134,7 @@ export const RecordList = defineComponent({
     }
 
     return () => (
-      <div class='shadow flex flex-col bg-white text-12px overflow-hidden w-172px z-50 flex-1'>
+      <div class='shadow flex flex-col bg-white text-12px overflow-hidden w-180px z-50 flex-1'>
         <header class='bg-#99ddff px-6px h-18px flex-shrink-0'>
           棋谱序列
           {!store.is_run && <span class='scale-75 inline-block'>[历史]</span>}
@@ -142,7 +142,7 @@ export const RecordList = defineComponent({
         <NScrollbar ref='scrollbarRef' class='flex-1 h-full'>
           <ul ref='recordRef' class='text-center'>
             <li
-              class={`${
+              class={` b-b ${
                 store.record_index === -1 ? `text-white bg-#0062ff99` : ''
               }`}
               onClick={() => store.readRecord(-1)}
@@ -151,10 +151,10 @@ export const RecordList = defineComponent({
             </li>
             {list.value.map(([item1, item2], index) => {
               return (
-                <li class='relative flex-center gap-4 b-b' key='index'>
+                <li class='relative flex-center gap-4 b-b' key={index}>
                   <span
                     onClick={() => readRecord(index, 0)}
-                    class='w-54% text-left pl-2'
+                    class='w-54% text-left pl-3'
                   >
                     {`${index + 1}.`}
                     <span

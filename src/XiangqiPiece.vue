@@ -11,6 +11,7 @@
         }`"
       >
         {{ data?.text }}
+        {{ data?.index }}
       </div>
       <Active v-show="showActive" :color="activeColor" />
     </div>

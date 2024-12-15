@@ -18,6 +18,7 @@ import {
 } from './data';
 import { ceil } from 'lodash-es';
 
+// 找出这个棋子下一步的所有可能位置
 export const run_rule: RunRule = {
   che: (map, { index: pieceIndex, type: pieceType }) => {
     const { x, y } = indexToXY(pieceIndex);

@@ -2,7 +2,7 @@
   <div
     :class="`${
       isExpand ? 'shadow' : ''
-    } text-12px rounded-b-3px w-172px min-h-22px max-h-210px`"
+    } text-12px rounded-b-3px w-full overflow-hidden min-h-22px max-h-210px`"
   >
     <div
       :class="`${
@@ -25,59 +25,78 @@
           <i
             :class="`${
               isExpand
-                ? 'i-icon-park-outline:expand-down'
-                : 'i-icon-park-outline:expand-up'
+                ? 'i-lets-icons:expand-down-double'
+                : 'i-lets-icons:expand-up-double'
             }`"
           ></i>
         </template>
       </NButton>
     </div>
     <NCollapseTransition :show="isExpand">
-      <div class="bg-white relative w-full">
-        <!-- {/* 棋子文字 */} -->
-        <div class="flex-around pt-4px w-full">
+      <div class="bg-white relative">
+        <div class="flex-center gap-x-1px py-3px h-22px b-b box-content">
           <NButton
             class="shadow"
             :color="isRed"
             size="tiny"
             v-for="item in pieceTexts"
             :key="item.text"
+            @click="setText(item.text)"
           >
             {{ item.text }}
           </NButton>
         </div>
-        <!-- {/* 第一个字和第三个字 */} -->
-        <div class="flex-center gap-1px pt-4px">
+        <div class="flex-center gap-x-1px py-3px h-22px b-b box-content">
           <NButton
             class="shadow"
             size="tiny"
             type="info"
             v-for="item in firstAndThird"
             :key="item"
+            @click="setText(item)"
           >
             {{ item }}
           </NButton>
         </div>
-        <!-- {/* 中文数字和数字 */} -->
-        <div class="flex-center gap-1px flex-wrap gap-2px pt-4px">
+        <div
+          class="flex-center flex-wrap gap-x-1px py-3px min-h-22px b-b box-content"
+        >
           <NButton
             class="!w-26px shadow"
             size="tiny"
             v-for="item in numberText"
             :key="item"
+            @click="setText(item)"
           >
             {{ item }}
           </NButton>
         </div>
-        <!-- {/* 输入框 */} -->
-        <div class="flex-center pt-4px px-2px">
-          <NInput size="small" placeholder="请输入" clearable />
-        </div>
-        <!-- {/* 确认输入 */} -->
-        <div class="flex-center py-4px">
-          <NButton size="small" class="shadow" type="primary">
-            确认输入
-          </NButton>
+        <div class="flex-center p-4px">
+          <NInputGroup>
+            <NInput
+              size="tiny"
+              v-model:value="text"
+              placeholder="请输入"
+              :clearable="false"
+              disabled
+            >
+              <template #suffix>
+                <NButton
+                  type="primary"
+                  title="回退"
+                  @click="back"
+                  text
+                  size="tiny"
+                  v-show="text.length"
+                >
+                  <i class="i-icon-park-outline:back"></i>
+                </NButton>
+              </template>
+            </NInput>
+            <NButton type="primary" size="tiny" title="确认" ghost>
+              <i class="i-solar:play-bold"></i>
+            </NButton>
+          </NInputGroup>
         </div>
       </div>
     </NCollapseTransition>
@@ -85,29 +104,40 @@
 </template>
 
 <script setup lang="ts">
-  import { NCollapseTransition, NButton, NInput } from 'naive-ui';
+  import { NCollapseTransition, NButton, NInput, NInputGroup } from 'naive-ui';
   import { useAppStore } from '@/store';
   import {
     numbers,
     numbers_cn,
     text1,
     text3,
-    RED,
     piece_list,
+    isRED,
   } from '@/utils/data';
-  import { computed, ref } from 'vue';
+  import { computed, ref, watch } from 'vue';
+  import useRunChess from '@/useRunChess';
 
-  const isExpand = ref(false);
+  const isExpand = ref(true);
   // 排序
   const sort_code = ['jiang', 'shi', 'xiang', 'ma', 'che', 'pao', 'bing'];
   const store = useAppStore();
+  const { text, active, setText, back, nextText } = useRunChess();
+
+  watch(
+    () => active,
+    (newValue) => {
+      store.active = newValue.value;
+    },
+    { deep: true }
+  );
   // 棋子文字
   const pieceTexts = computed(() => {
     const list = store.record[store.record_index]?.list ?? piece_list;
-    const texts = list
+
+    return list
       .reduce((pre, item) => {
         // 过滤同一阵营的棋子
-        if (item.type === store.next) return pre;
+        if (item.type !== store.next) return pre;
         // 过滤相同的棋子
         if (pre.find((pre_item) => pre_item.code === item.code)) return pre;
 
@@ -115,20 +145,23 @@
       }, [] as PieceType[])
       .sort((a, b) => {
         return sort_code.indexOf(a.code) - sort_code.indexOf(b.code);
-      });
-
-    return texts;
+      })
+      .flatMap((item) => (nextText.value.includes(item.text) ? [item] : []));
   });
   // 第一个和第三个字
   const firstAndThird = computed(() => {
-    return [...text1, ...text3];
+    const texts = [...text1, ...text3];
+    return texts.flatMap((item) =>
+      nextText.value.includes(item) ? [item] : []
+    );
   });
   // 中文数字和数字
   const numberText = computed(() => {
-    return store.next === RED ? numbers_cn : numbers;
+    const num = isRED(store.next) ? numbers_cn : numbers;
+    return num.flatMap((item) => (nextText.value.includes(item) ? [item] : []));
   });
 
   const isRed = computed(() => {
-    return store.next === RED ? 'red' : 'black';
+    return isRED(store.next) ? 'red' : 'black';
   });
 </script>

@@ -15,7 +15,7 @@
         "title": "象棋",
         "label": "main",
         "titleBarStyle": "Transparent",
-        "width": 508,
+        "width": 516,
         "height": 434,
         "resizable": false,
         "fullscreen": false,

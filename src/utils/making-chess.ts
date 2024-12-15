@@ -36,7 +36,7 @@ const getText4 = (
  * @param afterIndex 移动后棋子下标
  * @param piece 当前棋子
  */
-const getText3 = (
+export const getText3 = (
   beforeIndex: number,
   afterIndex: number,
   { type }: PieceType
