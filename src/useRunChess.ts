@@ -311,6 +311,20 @@ export default function useRunChess() {
     console.log(textRefValue);
     return [];
   }
+  function getNextText(text: string) {
+    // 棋谱的所有格式 炮二进二 二兵三进二 前兵三进一 前炮进二 一共四种棋谱
+    // 炮二进二 为一类
+    // 二兵三进二 前兵三进一 为二类
+    // 前炮进二 为三类
+    // 二类 可以看作 一类 的演化
+    // 所以就处理两类就行了
+
+    if (text.length === 1) {
+      return oneText(text);
+    }
+
+    return [];
+  }
 
   watch(
     () => textRef.value,
@@ -319,19 +333,10 @@ export default function useRunChess() {
       // 开局
       if (!textRefValue) {
         nextText.value = initNextText();
+      } else {
+        nextText.value = getNextText(textRefValue);
       }
-      // 第一个文字
-      if (textRefValue?.length === 1) {
-        nextText.value = oneText(textRefValue);
-      }
-      // 第二个文字
-      if (textRefValue?.length === 2) {
-        nextText.value = twoText(textRefValue);
-      }
-      // 第三个文字
-      if (textRefValue?.length === 3) {
-        nextText.value = threeText(textRefValue);
-      }
+
       console.timeEnd('watch');
     },
     { deep: true, immediate: true }

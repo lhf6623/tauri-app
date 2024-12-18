@@ -17,8 +17,9 @@
 <script setup lang="ts">
   import { onMounted } from 'vue';
   import Maps from '@/XiangqiMap.vue';
-  import { Control, RecordList } from './common';
+  import { Control } from './common';
   import MoveInput from './MoveInput.vue';
+  import RecordList from './RecordList.vue';
 
   onMounted(() => {
     // 禁止右键
